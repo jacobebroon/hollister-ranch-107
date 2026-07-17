@@ -35,12 +35,11 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           <button
             key={photo.slug}
             onClick={() => setIndex(i)}
-            className="block w-full overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+            className="block w-full break-inside-avoid overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
           >
             <img
               src={photoUrl(photo.slug, "thumb")}
               alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
-              loading="lazy"
               className="w-full object-cover transition-transform duration-500 hover:scale-105"
               style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
             />
