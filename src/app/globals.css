@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8f4ea;
+  --foreground: #241c14;
+  --sand: #f8f4ea;
+  --sand-deep: #efe6d3;
+  --ink: #241c14;
+  --terracotta: #ad4f28;
+  --terracotta-deep: #8a3d1e;
+  --ocean: #164154;
+  --ocean-deep: #0d2a37;
+  --sage: #6e7a5a;
+  --gold: #c1943a;
+  --cream-line: #e4d9bf;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-ink: var(--ink);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-deep: var(--terracotta-deep);
+  --color-ocean: var(--ocean);
+  --color-ocean-deep: var(--ocean-deep);
+  --color-sage: var(--sage);
+  --color-gold: var(--gold);
+  --color-cream-line: var(--cream-line);
+  --font-serif: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+::selection {
+  background: var(--terracotta);
+  color: var(--sand);
+}
