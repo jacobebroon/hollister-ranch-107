@@ -1,8 +1,11 @@
 import Link from "next/link";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-cream-line/70 bg-ocean-deep text-sand/90">
+    <footer className="relative border-t border-cream-line/70 bg-ocean-deep text-sand/90">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-terracotta/70 to-transparent" />
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
@@ -41,10 +44,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-sand/10 pt-6 text-xs text-sand/40">
-          Hollister Ranch is a private, gated community. This site describes Rancho
-          Alegria, Parcel 107, and is not affiliated with the Hollister Ranch Owners&rsquo;
-          Association.
+        <div className="mt-10 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/40 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            Hollister Ranch is a private, gated community. This site describes Rancho
+            Alegria, Parcel 107, and is not affiliated with the Hollister Ranch Owners&rsquo;
+            Association.
+          </p>
+          <p className="whitespace-nowrap text-sand/30">&copy; {year} Rancho Alegria</p>
         </div>
       </div>
     </footer>

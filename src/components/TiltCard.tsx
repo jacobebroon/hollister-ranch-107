@@ -1,13 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import Photo from "@/components/Photo";
 
 export default function TiltCard({
-  src,
+  slug,
   alt,
   aspect = "4 / 3",
 }: {
-  src: string;
+  slug: string;
   alt: string;
   aspect?: string;
 }) {
@@ -33,10 +34,10 @@ export default function TiltCard({
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 ease-out will-change-transform"
+      className="relative overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 ease-out will-change-transform"
       style={{ aspectRatio: aspect }}
     >
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      <Photo slug={slug} alt={alt} sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
     </div>
   );
 }

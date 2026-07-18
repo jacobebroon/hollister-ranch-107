@@ -3,7 +3,9 @@ import Gallery from "@/components/Gallery";
 import VideoPlayer from "@/components/VideoPlayer";
 
 export const metadata = {
-  title: "Gallery & Film — Rancho Alegria",
+  title: "Gallery & Film",
+  description:
+    "Photos and a film tour of Rancho Alegria, Parcel 107 — residence, gardens, and coastline on Hollister Ranch.",
 };
 
 export default function GalleryPage() {

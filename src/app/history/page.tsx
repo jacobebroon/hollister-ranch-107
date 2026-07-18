@@ -1,5 +1,12 @@
-import { photoUrl } from "@/lib/media";
+import Photo from "@/components/Photo";
 import ContactCTA from "@/components/ContactCTA";
+import Reveal from "@/components/Reveal";
+
+export const metadata = {
+  title: "The History of Hollister Ranch",
+  description:
+    "From Spanish land grants to a century of ranching to today's private conservation-minded ownership — the story of Hollister Ranch on California's Gaviota Coast.",
+};
 
 const TIMELINE = [
   {
@@ -48,10 +55,12 @@ export default function HistoryPage() {
   return (
     <div>
       <section className="relative flex h-[60vh] min-h-[420px] items-end overflow-hidden">
-        <img
-          src={photoUrl("dsc-0050")}
-          alt="The ranch road through open grazing land at Hollister Ranch"
-          className="absolute inset-0 h-full w-full object-cover"
+        <Photo
+          slug="dsc-0050"
+          alt="The great room at Rancho Alegria, vaulted beam ceiling"
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-14 text-sand sm:px-8">
@@ -65,29 +74,33 @@ export default function HistoryPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
-        <p className="text-lg leading-relaxed text-ink/80">
-          Few places on the California coast remain as they were two hundred
-          years ago. Hollister Ranch — 14,400 acres of grassland, oak canyons,
-          and 8.5 miles of undeveloped shoreline on the Gaviota Coast, just
-          northwest of Santa Barbara — is one of them. Its history runs from
-          Spanish land grants through a century of ranching to a private
-          conservation-minded ownership model that has kept it wild ever since.
-        </p>
+        <Reveal>
+          <p className="text-lg leading-relaxed text-ink/80">
+            Few places on the California coast remain as they were two hundred
+            years ago. Hollister Ranch — 14,400 acres of grassland, oak canyons,
+            and 8.5 miles of undeveloped shoreline on the Gaviota Coast, just
+            northwest of Santa Barbara — is one of them. Its history runs from
+            Spanish land grants through a century of ranching to a private
+            conservation-minded ownership model that has kept it wild ever since.
+          </p>
+        </Reveal>
       </section>
 
       {/* Timeline */}
       <section className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
         <ol className="relative border-l-2 border-cream-line pl-8">
-          {TIMELINE.map((item) => (
+          {TIMELINE.map((item, i) => (
             <li key={item.title} className="mb-12 last:mb-0">
-              <div className="absolute -ml-[2.35rem] mt-1.5 h-3 w-3 rounded-full bg-terracotta" />
-              <p className="text-sm font-bold uppercase tracking-widest text-terracotta">
-                {item.year}
-              </p>
-              <h3 className="mt-1 font-serif text-xl font-bold text-ink sm:text-2xl">
-                {item.title}
-              </h3>
-              <p className="mt-2 leading-relaxed text-ink/75">{item.body}</p>
+              <Reveal delay={i * 60}>
+                <div className="absolute -ml-[2.35rem] mt-1.5 h-3 w-3 rounded-full bg-terracotta ring-4 ring-sand" />
+                <p className="text-sm font-bold uppercase tracking-widest text-terracotta">
+                  {item.year}
+                </p>
+                <h3 className="mt-1 font-serif text-xl font-bold text-ink sm:text-2xl">
+                  {item.title}
+                </h3>
+                <p className="mt-2 leading-relaxed text-ink/75">{item.body}</p>
+              </Reveal>
             </li>
           ))}
         </ol>
@@ -96,12 +109,15 @@ export default function HistoryPage() {
       {/* Surf culture */}
       <section className="border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 md:grid-cols-2 md:items-center">
-          <img
-            src={photoUrl("ranch-001")}
-            alt="View of the Pacific from Hollister Ranch's coastal bluffs"
-            className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
-          />
-          <div>
+          <Reveal className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg">
+            <Photo
+              slug="ranch-001"
+              alt="View of the Pacific from Hollister Ranch's coastal bluffs"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </Reveal>
+          <Reveal delay={120}>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
               &ldquo;The Ranch&rdquo;
             </p>
@@ -118,47 +134,51 @@ export default function HistoryPage() {
               1971, that reputation drew surfers and collectors alike, seeking
               private access to breaks few outsiders will ever ride.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Conservation & access */}
       <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
-          Conservation &amp; Access
-        </p>
-        <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
-          Kept wild, by design
-        </h2>
-        <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
-          <p>
-            Hollister Ranch has stayed undeveloped for a combination of
-            reasons: a 100-acre minimum parcel size that cannot be further
-            subdivided, continuous cattle grazing across nearly the entire
-            property, a single guarded entrance limiting traffic, and decades
-            of sustained resistance to large-scale development. The result is
-            a rare, intact landscape of coastal sage scrub, native grassland,
-            oak woodland, and tidepools along an otherwise heavily developed
-            coast.
+        <Reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            Conservation &amp; Access
           </p>
-          <p>
-            Public beach access has long been the subject of discussion between
-            the State of California and the ranch&rsquo;s ownership. When the
-            property was subdivided in the 1970s, the county required public
-            access easements as a condition of approval; the details of how and
-            when that access should be provided have been debated in planning
-            and legal proceedings ever since, and remain unresolved as of this
-            writing. Today, access to the ranch&rsquo;s roads and beaches is
-            limited to parcel owners, their guests, and their renters.
-          </p>
-        </div>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
+            Kept wild, by design
+          </h2>
+          <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
+            <p>
+              Hollister Ranch has stayed undeveloped for a combination of
+              reasons: a 100-acre minimum parcel size that cannot be further
+              subdivided, continuous cattle grazing across nearly the entire
+              property, a single guarded entrance limiting traffic, and decades
+              of sustained resistance to large-scale development. The result is
+              a rare, intact landscape of coastal sage scrub, native grassland,
+              oak woodland, and tidepools along an otherwise heavily developed
+              coast.
+            </p>
+            <p>
+              Public beach access has long been the subject of discussion between
+              the State of California and the ranch&rsquo;s ownership. When the
+              property was subdivided in the 1970s, the county required public
+              access easements as a condition of approval; the details of how and
+              when that access should be provided have been debated in planning
+              and legal proceedings ever since, and remain unresolved as of this
+              writing. Today, access to the ranch&rsquo;s roads and beaches is
+              limited to parcel owners, their guests, and their renters.
+            </p>
+          </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <ContactCTA
-          heading="Experience it for yourself"
-          sub="Rancho Alegria, Parcel 107, is available to rent for those who want to see the ranch firsthand."
-        />
+        <Reveal>
+          <ContactCTA
+            heading="Experience it for yourself"
+            sub="Rancho Alegria, Parcel 107, is available to rent for those who want to see the ranch firsthand."
+          />
+        </Reveal>
       </section>
     </div>
   );

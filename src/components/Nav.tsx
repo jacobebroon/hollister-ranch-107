@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const LINKS = [
@@ -15,13 +15,25 @@ const LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-cream-line/70 bg-sand/90 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b bg-sand/90 backdrop-blur transition-shadow ${
+        scrolled ? "border-cream-line shadow-[0_1px_16px_-4px_rgba(36,28,20,0.15)]" : "border-cream-line/70"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link href="/" className="group flex flex-col leading-none" onClick={() => setOpen(false)}>
-          <span className="font-serif text-lg font-bold tracking-wide text-ink group-hover:text-terracotta transition-colors">
+          <span className="font-serif text-lg font-bold tracking-wide text-ink transition-colors group-hover:text-terracotta">
             Rancho Alegria
           </span>
           <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
@@ -30,22 +42,31 @@ export default function Nav() {
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-medium tracking-wide text-ink/80 md:flex">
-          {LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`transition-colors hover:text-terracotta ${
-                pathname === link.href ? "text-terracotta" : ""
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {LINKS.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative py-1 transition-colors hover:text-terracotta ${
+                  isActive ? "text-terracotta" : ""
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-1 left-0 h-px w-full bg-terracotta transition-transform duration-300 ${
+                    isActive ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
         <button
-          className="md:hidden text-ink"
+          className="text-ink md:hidden"
           aria-label="Toggle menu"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

@@ -51,11 +51,19 @@ const run = async () => {
       .webp({ quality: 75 })
       .toFile(thumbOut);
 
+    const blurBuffer = await sharp(srcPath)
+      .rotate()
+      .resize({ width: 16, withoutEnlargement: true })
+      .webp({ quality: 40 })
+      .toBuffer();
+    const blurDataURL = `data:image/webp;base64,${blurBuffer.toString("base64")}`;
+
     manifest.push({
       slug,
       original: file,
       width: meta.width,
       height: meta.height,
+      blurDataURL,
     });
     console.log(`done: ${file} -> ${slug}.webp`);
   }
