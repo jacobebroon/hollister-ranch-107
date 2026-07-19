@@ -1,4 +1,5 @@
 import TiltCard from "@/components/TiltCard";
+import Terrain3D from "@/components/Terrain3D";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import { IconCompass } from "@/components/icons";
@@ -33,14 +34,35 @@ export default function MapPage() {
         </Reveal>
       </section>
 
+      {/* Real 3D terrain flythrough */}
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            Fly the Coastline
+          </p>
+          <h2 className="mt-3 max-w-xl font-serif text-3xl font-bold text-ink sm:text-4xl">
+            8.5 miles of coast, in real 3D terrain
+          </h2>
+          <p className="mt-4 max-w-2xl text-ink/70">
+            An actual terrain map built from real elevation and satellite
+            data &mdash; not a photo. Watch the opening flight from Point
+            Conception east along the ranch toward Gaviota, then drag to
+            rotate, tilt, and explore the coastline yourself.
+          </p>
+        </Reveal>
+        <Reveal delay={120} className="mt-8">
+          <Terrain3D />
+        </Reveal>
+      </section>
+
       {/* Map embed - general area only, not a pinpointed private address */}
       <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-        <Reveal delay={120}>
+        <Reveal>
           <div className="overflow-hidden rounded-2xl border border-cream-line shadow-lg">
             <iframe
               title="Hollister Ranch, Gaviota Coast, California"
               src="https://www.google.com/maps?ll=34.4717,-120.2288&z=11&output=embed"
-              className="h-[420px] w-full sm:h-[520px]"
+              className="h-[360px] w-full sm:h-[420px]"
               loading="lazy"
             />
           </div>
@@ -58,27 +80,25 @@ export default function MapPage() {
         </Reveal>
       </section>
 
-      {/* Flyover / 3D tilt gallery */}
+      {/* Aerial photos of the residence itself */}
       <section className="border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
-              Fly the Coastline
+              From Above
             </p>
             <h2 className="mt-3 max-w-xl font-serif text-3xl font-bold text-ink sm:text-4xl">
-              113 acres of bluff, hill, and horizon
+              The residence itself
             </h2>
             <p className="mt-4 max-w-2xl text-ink/70">
-              Tilt and explore aerial views of the property &mdash; a sense of
-              the terrain from above, in three dimensions.
+              Where the terrain map shows the land, these are the real
+              aerial photographs of Rancho Alegria on it.
             </p>
           </Reveal>
 
           <Reveal delay={120} className="mt-12 grid gap-8 sm:grid-cols-2">
             <TiltCard slug="ranch-004" alt="Aerial view of Rancho Alegria and the Pacific" />
-            <TiltCard slug="ranch-005" alt="Aerial view of the residence and motor court" />
             <TiltCard slug="dsc-0067" alt="The residence and coastline from above" />
-            <TiltCard slug="img-20150119-123532632" alt="Fog rolling over the ranch's coastal hills" />
           </Reveal>
         </div>
       </section>

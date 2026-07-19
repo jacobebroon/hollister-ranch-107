@@ -51,6 +51,41 @@ const TIMELINE = [
   },
 ];
 
+const SURF_BREAKS = [
+  {
+    name: "Cojo",
+    note: "Widely called the best wave on the ranch's western stretch — a reef and point that picks up both winter and summer swells.",
+  },
+  {
+    name: "Perko's",
+    note: "A cobblestone right point named for founding Surf Club members Bob and John Perko; needs a south swell to turn on.",
+  },
+  {
+    name: "Government Point",
+    note: "A long, rocky right point near Point Conception, once reachable by ranch road — now accessible only by boat.",
+  },
+  {
+    name: "Drake's (\"Big Drake's\")",
+    note: "The ranch's longest right point, holding well-overhead west swells with a long, workable wall.",
+  },
+  {
+    name: "Little Drake's",
+    note: "A smaller, more forgiving break named alongside Big Drake's by the Santa Barbara Surf Club.",
+  },
+  {
+    name: "Razor Blades",
+    note: "Named for the sharp rocks lining the beach; the break closest to the Gaviota launch, needing a big west or northwest swell.",
+  },
+  {
+    name: "St. Augustine's",
+    note: "A right and left summer break — reliable, if rarely described as the ranch's standout.",
+  },
+  {
+    name: "Utah",
+    note: "One of the breaks named by the Santa Barbara Surf Club during its decade exploring the coastline.",
+  },
+];
+
 export default function HistoryPage() {
   return (
     <div>
@@ -108,32 +143,86 @@ export default function HistoryPage() {
 
       {/* Surf culture */}
       <section className="border-y border-cream-line bg-sand-deep/40">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 md:grid-cols-2 md:items-center">
-          <Reveal className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg">
-            <Photo
-              slug="ranch-001"
-              alt="View of the Pacific from Hollister Ranch's coastal bluffs"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+          <div className="grid gap-10 md:grid-cols-2 md:items-center">
+            <Reveal className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg">
+              <Photo
+                slug="ranch-001"
+                alt="View of the Pacific from Hollister Ranch's coastal bluffs"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+                &ldquo;The Ranch&rdquo;
+              </p>
+              <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
+                A legend among surfers
+              </h2>
+              <p className="mt-4 leading-relaxed text-ink/75">
+                In the summer of 1957, a Santa Barbara surfer named Bob Perko
+                paddled out below the ranch on a friend&rsquo;s invitation and
+                found waves few outsiders had ever seen. Within a few years, a
+                loose group of local surfers had formalized into the Santa
+                Barbara Surf Club &mdash; capped at a few dozen members,
+                Santa Barbara County residents only. By 1962, landowner
+                Clinton Hollister, worried about vandalism on the property,
+                struck an informal deal with the club: police the ranch
+                against outside trespassers, and keep surfing it. Over the
+                next decade, club members explored and named most of the
+                breaks still surfed today, and built driftwood shacks along
+                the shore for gear and overnight stays &mdash; dismantled
+                around 1970 as the ranch was subdivided into private parcels.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={80} className="mt-16">
+            <h3 className="font-serif text-2xl font-bold text-ink">
+              The breaks
+            </h3>
+            <p className="mt-3 max-w-2xl text-ink/70">
+              Roughly a dozen named breaks run along the ranch&rsquo;s coast,
+              nearly all rock-bottom right-hand points that produce long,
+              high-lining walls &mdash; a wave shape credited with shaping
+              Santa Barbara&rsquo;s own tradition of longboard shaping.
+            </p>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {SURF_BREAKS.map((b) => (
+                <div key={b.name}>
+                  <p className="font-serif text-lg font-bold text-ink">{b.name}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink/65">{b.note}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
-          <Reveal delay={120}>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
-              &ldquo;The Ranch&rdquo;
-            </p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
-              A legend among surfers
-            </h2>
-            <p className="mt-4 leading-relaxed text-ink/75">
-              Long before it was known for exclusivity, Hollister Ranch was
-              known for its waves. Members of the Santa Barbara Surf Club began
-              discovering and naming its point breaks in the late 1950s, and the
-              six-mile core of the ranch&rsquo;s coastline is still regarded as
-              one of the best and most consistent stretches of point-break surf
-              in the continental United States. When the ranch was subdivided in
-              1971, that reputation drew surfers and collectors alike, seeking
-              private access to breaks few outsiders will ever ride.
-            </p>
+
+          <Reveal delay={120} className="mt-16 max-w-3xl">
+            <h3 className="font-serif text-2xl font-bold text-ink">
+              Access today
+            </h3>
+            <div className="mt-3 space-y-4 leading-relaxed text-ink/75">
+              <p>
+                California law guarantees the public the tidelands below the
+                mean high tide line on every beach in the state, Hollister
+                Ranch included &mdash; but reaching that strip of wet sand
+                means a boat or a long paddle from Gaviota State Beach, since
+                there is no overland public access to the coast. In practice,
+                that leaves the named breaks the province of parcel owners
+                and their guests, much as it has been since the Surf
+                Club&rsquo;s era.
+              </p>
+              <p>
+                That scarcity has its own economy: co-owned parcels, sold in
+                fractional shares specifically for wave access, are common,
+                and Ranch real estate has carried a &ldquo;surf premium&rdquo;
+                for decades. A 2022 settlement meant to open a short public
+                access route was later struck down by a state appellate
+                court on procedural grounds, and as of this writing the
+                question of expanded public access remains unresolved.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
