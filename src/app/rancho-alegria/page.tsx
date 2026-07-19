@@ -89,7 +89,8 @@ export default function RanchoAlegriaPage() {
           <p className="text-lg leading-relaxed text-ink/80">
             Rancho Alegria occupies 113 acres of bluff, grassland, and garden on
             the western reach of Hollister Ranch, where the Santa Rosa Hills meet
-            the Santa Barbara Channel. The single-level residence was built to
+            the Santa Barbara Channel. Established in 1987 and held by the
+            Clavin family ever since, the single-level residence was built to
             disappear into the land around it &mdash; terracotta roof tiles,
             reclaimed wood, and hand-forged iron inside, with every principal
             room opening onto the same view: open Pacific, unbroken to the

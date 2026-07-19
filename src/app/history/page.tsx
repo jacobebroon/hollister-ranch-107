@@ -47,7 +47,26 @@ const TIMELINE = [
   {
     year: "Today",
     title: "One of the last wild coasts",
-    body: "Nearly 1,000 owners now hold interests across the ranch's roughly 130+ parcels. A single guarded gate controls access along the ranch's private two-lane road, and the overwhelming majority of the property remains open grazing and native habitat.",
+    body: "Nearly 1,000 owners now hold interests across the ranch's 133 parcels. A single guarded gate controls access along the ranch's private two-lane road, and the overwhelming majority of the property remains open grazing and native habitat.",
+  },
+];
+
+const WILDLIFE = [
+  {
+    title: "Over 200 bird species",
+    body: "The ranch's grassland and coastline support one of the region's richest bird lists, including regionally rare hawks and owls. The endangered western snowy plover fledges here every year, and the Santa Barbara Audubon Society runs organized birding trips to the property.",
+  },
+  {
+    title: "Mountain lion to tidepool octopus",
+    body: "Mountain lion, black bear, bobcat, coyote, and deer all range across the ranch and the wildlife corridor it forms with neighboring preserves. Below the bluffs, tidepools hold mussels, sea hares, octopus, crabs, and the occasional lobster.",
+  },
+  {
+    title: "A federally endangered wildflower",
+    body: "The Gaviota tarplant, found nowhere outside a handful of sites on this stretch of coast, has one of its core populations on Hollister Ranch itself — a rare plant found essentially nowhere else on Earth.",
+  },
+  {
+    title: "A marine reserve at its edge",
+    body: "The no-take Point Conception State Marine Reserve, over 22 square miles of protected water, sits directly off the ranch's western end, part of a chain of marine protected areas along the Gaviota Coast.",
   },
 ];
 
@@ -183,8 +202,8 @@ export default function HistoryPage() {
               The breaks
             </h3>
             <p className="mt-3 max-w-2xl text-ink/70">
-              Roughly a dozen named breaks run along the ranch&rsquo;s coast,
-              nearly all rock-bottom right-hand points that produce long,
+              Eight named breaks run along the ranch&rsquo;s coast, nearly
+              all rock-bottom right-hand points that produce long,
               high-lining walls &mdash; a wave shape credited with shaping
               Santa Barbara&rsquo;s own tradition of longboard shaping.
             </p>
@@ -227,26 +246,63 @@ export default function HistoryPage() {
         </div>
       </section>
 
-      {/* Conservation & access */}
+      {/* Conservation & wildlife */}
+      <section className="border-y border-cream-line bg-sand-deep/40">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+              Conservation
+            </p>
+            <h2 className="mt-3 max-w-2xl font-serif text-3xl font-bold text-ink sm:text-4xl">
+              Kept wild, by design
+            </h2>
+            <p className="mt-4 max-w-2xl leading-relaxed text-ink/75">
+              Hollister Ranch has stayed undeveloped by a combination of
+              Santa Barbara County agricultural-preserve zoning, a 100-acre
+              minimum parcel size that cannot be further subdivided, and
+              continuous cattle grazing across nearly the entire property. An
+              Angus cattle cooperative &mdash; roughly 400 resident mother
+              cows plus over a thousand young stockers brought in each fall
+              &mdash; still works virtually all 14,400 acres, producing
+              grass-fed beef under the same cooperative structure the
+              Hollister Ranch Owners&rsquo; Association set up in 1976. The
+              result is one of the largest privately held, intact
+              landscapes on the California coast.
+            </p>
+          </Reveal>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+            {WILDLIFE.map((w, i) => (
+              <Reveal key={w.title} delay={i * 70}>
+                <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
+                <p className="mt-2 leading-relaxed text-ink/70">{w.body}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={280} className="mt-12 max-w-2xl leading-relaxed text-ink/75">
+            <p>
+              The nonprofit Hollister Ranch Conservancy runs a free
+              &ldquo;Tidepool Classroom&rdquo; for schoolchildren, a program
+              started in the early 1990s that is still guiding students
+              through the ranch&rsquo;s intertidal life today, alongside
+              ongoing research partnerships with UC Santa Barbara and other
+              universities.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Access */}
       <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
-            Conservation &amp; Access
+            Access
           </p>
           <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
-            Kept wild, by design
+            A single gate, a long-running question
           </h2>
           <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
-            <p>
-              Hollister Ranch has stayed undeveloped for a combination of
-              reasons: a 100-acre minimum parcel size that cannot be further
-              subdivided, continuous cattle grazing across nearly the entire
-              property, a single guarded entrance limiting traffic, and decades
-              of sustained resistance to large-scale development. The result is
-              a rare, intact landscape of coastal sage scrub, native grassland,
-              oak woodland, and tidepools along an otherwise heavily developed
-              coast.
-            </p>
             <p>
               Public beach access has long been the subject of discussion between
               the State of California and the ranch&rsquo;s ownership. When the

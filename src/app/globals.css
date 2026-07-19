@@ -60,3 +60,42 @@ body {
   background: var(--terracotta);
   color: var(--sand);
 }
+
+.surf-marker {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.surf-marker-dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 9999px;
+  background: var(--terracotta);
+  border: 2px solid var(--sand);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.surf-marker-label {
+  white-space: nowrap;
+  border-radius: 9999px;
+  background: rgba(36, 28, 20, 0.75);
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sand);
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.surf-marker:hover .surf-marker-label,
+.surf-marker:focus-visible .surf-marker-label {
+  opacity: 1;
+  transform: translateY(0);
+}

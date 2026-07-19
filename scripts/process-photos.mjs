@@ -41,14 +41,16 @@ const run = async () => {
 
     await sharp(srcPath)
       .rotate()
-      .resize({ width: 2400, withoutEnlargement: true })
-      .webp({ quality: 82 })
+      .resize({ width: 3200, withoutEnlargement: true })
+      .sharpen({ sigma: 0.6 })
+      .webp({ quality: 92, effort: 6 })
       .toFile(fullOut);
 
     await sharp(srcPath)
       .rotate()
-      .resize({ width: 640, withoutEnlargement: true })
-      .webp({ quality: 75 })
+      .resize({ width: 800, withoutEnlargement: true })
+      .sharpen({ sigma: 0.5 })
+      .webp({ quality: 85, effort: 6 })
       .toFile(thumbOut);
 
     const blurBuffer = await sharp(srcPath)
