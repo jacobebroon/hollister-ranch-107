@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -20,10 +18,10 @@ export default function Footer() {
           <div className="text-sm">
             <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Explore</p>
             <ul className="space-y-2 text-sand/80">
-              <li><Link className="hover:text-terracotta" href="/rancho-alegria">The Property</Link></li>
-              <li><Link className="hover:text-terracotta" href="/gallery">Photo Gallery</Link></li>
-              <li><Link className="hover:text-terracotta" href="/history">History of the Ranch</Link></li>
-              <li><Link className="hover:text-terracotta" href="/map">Map &amp; Access</Link></li>
+              <li><a className="hover:text-terracotta" href="#property">The Property</a></li>
+              <li><a className="hover:text-terracotta" href="#gallery">Photo Gallery</a></li>
+              <li><a className="hover:text-terracotta" href="#history">History of the Ranch</a></li>
+              <li><a className="hover:text-terracotta" href="#map">Map &amp; Access</a></li>
             </ul>
           </div>
 

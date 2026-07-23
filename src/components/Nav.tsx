@@ -1,28 +1,45 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/rancho-alegria", label: "Rancho Alegria" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/history", label: "The Ranch" },
-  { href: "/map", label: "Map & Access" },
-  { href: "/contact", label: "Contact" },
+  { href: "#top", label: "Home" },
+  { href: "#property", label: "Rancho Alegria" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#history", label: "The Ranch" },
+  { href: "#map", label: "Map & Access" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [active, setActive] = useState("#top");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = LINKS.map((l) => document.getElementById(l.href.slice(1))).filter(
+      (el): el is HTMLElement => !!el
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(`#${visible[0].target.id}`);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -32,20 +49,20 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link href="/" className="group flex flex-col leading-none" onClick={() => setOpen(false)}>
+        <a href="#top" className="group flex flex-col leading-none" onClick={() => setOpen(false)}>
           <span className="font-serif text-lg font-bold tracking-wide text-ink transition-colors group-hover:text-terracotta">
             Rancho Alegria
           </span>
           <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
             Parcel 107 · Hollister Ranch
           </span>
-        </Link>
+        </a>
 
         <nav className="hidden items-center gap-7 text-sm font-medium tracking-wide text-ink/80 md:flex">
           {LINKS.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = active === link.href;
             return (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 className={`relative py-1 transition-colors hover:text-terracotta ${
@@ -58,7 +75,7 @@ export default function Nav() {
                     isActive ? "scale-x-100" : "scale-x-0"
                   }`}
                 />
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -82,16 +99,16 @@ export default function Nav() {
       {open && (
         <nav className="flex flex-col gap-1 border-t border-cream-line/70 bg-sand px-5 pb-4 pt-2 md:hidden">
           {LINKS.map((link) => (
-            <Link
+            <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
               className={`rounded-md px-2 py-2.5 text-sm font-medium ${
-                pathname === link.href ? "bg-sand-deep text-terracotta" : "text-ink/80"
+                active === link.href ? "bg-sand-deep text-terracotta" : "text-ink/80"
               }`}
             >
               {link.label}
-            </Link>
+            </a>
           ))}
         </nav>
       )}
