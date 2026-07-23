@@ -100,6 +100,16 @@ const CAPTIONS: Record<string, { caption?: string; category: Category }> = {
   "img-20150504-123559819-hdr": { category: "grounds" },
   "img-20150504-123801302": { category: "grounds" },
   "img-20150504-123911697": { category: "grounds" },
+
+  "1000000893": { caption: "Dusk settles over the Gaviota Coast, looking east from the bluff.", category: "coastline" },
+  "1000000918": { caption: "Golden hour on the lawn, palms backlit against the coastal hillside.", category: "grounds" },
+  "1000002157": { caption: "The sitting room window, framing palms and the open Pacific.", category: "residence" },
+  "1000002160": { caption: "Coastal fog burning off at sunrise, a lone oak against the glow.", category: "sky" },
+  "1000002725": { caption: "Sunrise breaking through the marine layer over the Santa Barbara Channel.", category: "sky" },
+  "1000002820": { caption: "Ranch cattle grazing the bluff at sunset, the Pacific below.", category: "grounds" },
+  "1000002822": { caption: "Cattle on the spring-green hillside, morning sun over the water.", category: "grounds" },
+  "1000003478": { caption: "Ice plant in bloom above the orchard, sunset over the Pacific.", category: "coastline" },
+  "img-0991": { caption: "Waves rolling in below the bluffs at first light.", category: "coastline" },
 };
 
 type ManifestEntry = {

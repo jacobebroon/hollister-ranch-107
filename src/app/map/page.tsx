@@ -106,8 +106,8 @@ export default function MapPage() {
       <section className="mx-auto max-w-4xl px-5 py-24 sm:px-8">
         <Reveal>
           <ContactCTA
-            heading="Plan your visit"
-            sub="Confirmed renters receive full directions, gate access details, and a property map."
+            heading="Questions about the property?"
+            sub="For more information or questions about Rancho Alegria, contact us directly."
           />
         </Reveal>
       </section>

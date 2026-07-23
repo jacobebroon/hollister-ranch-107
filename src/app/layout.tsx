@@ -18,7 +18,7 @@ const body = Inter({
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const TITLE = "Rancho Alegria — Parcel 107, Hollister Ranch";
 const DESCRIPTION =
-  "Rancho Alegria, Parcel 107 of the private 14,400-acre Hollister Ranch on California's Gaviota Coast — history, gallery, and rental inquiries.";
+  "Rancho Alegria, Parcel 107 of the private 14,400-acre Hollister Ranch on California's Gaviota Coast — history, gallery, and photos.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

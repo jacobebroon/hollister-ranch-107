@@ -28,7 +28,7 @@ export default function Footer() {
           </div>
 
           <div className="text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Rental Inquiries</p>
+            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Contact</p>
             <ul className="space-y-2 text-sand/80">
               <li>
                 <a className="hover:text-terracotta" href="mailto:jeanetteclavin@yahoo.com">

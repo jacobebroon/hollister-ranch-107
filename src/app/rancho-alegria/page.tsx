@@ -44,14 +44,24 @@ const ADVANTAGES = [
   },
 ];
 
-const HIGHLIGHTS = ["162", "167", "157", "img-0602", "ranch-020", "img-20150118-173149189"];
+const HIGHLIGHTS = [
+  "162",
+  "167",
+  "157",
+  "img-0602",
+  "1000002157",
+  "img-20150118-173149189",
+  "ranch-020",
+  "1000002822",
+  "1000003478",
+];
 
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "LandmarksOrHistoricalBuildings",
   name: "Rancho Alegria — Parcel 107, Hollister Ranch",
   description:
-    "A 113-acre private parcel on Hollister Ranch's protected coastline on California's Gaviota Coast, available to rent by direct inquiry.",
+    "A 113-acre private parcel on Hollister Ranch's protected coastline on California's Gaviota Coast.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Gaviota",

@@ -1,6 +1,6 @@
 export default function ContactCTA({
-  heading = "Interested in renting Rancho Alegria?",
-  sub = "Reach out directly to Jeanette Clavin to check availability.",
+  heading = "Questions about Rancho Alegria?",
+  sub = "For more information or questions, contact us directly.",
 }: {
   heading?: string;
   sub?: string;

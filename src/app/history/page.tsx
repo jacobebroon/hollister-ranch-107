@@ -271,6 +271,15 @@ export default function HistoryPage() {
             </p>
           </Reveal>
 
+          <Reveal delay={60} className="relative mt-12 aspect-[21/9] w-full overflow-hidden rounded-2xl shadow-lg">
+            <Photo
+              slug="1000002820"
+              alt="Ranch cattle grazing the bluff at sunset above the Pacific"
+              sizes="(max-width: 768px) 100vw, 1152px"
+              className="object-cover"
+            />
+          </Reveal>
+
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
             {WILDLIFE.map((w, i) => (
               <Reveal key={w.title} delay={i * 70}>
@@ -320,8 +329,8 @@ export default function HistoryPage() {
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
         <Reveal>
           <ContactCTA
-            heading="Experience it for yourself"
-            sub="Rancho Alegria, Parcel 107, is available to rent for those who want to see the ranch firsthand."
+            heading="Want to know more?"
+            sub="For more information or questions about Rancho Alegria, contact us directly."
           />
         </Reveal>
       </section>

@@ -10,7 +10,7 @@ const LINKS = [
   { href: "/gallery", label: "Gallery" },
   { href: "/history", label: "The Ranch" },
   { href: "/map", label: "Map & Access" },
-  { href: "/contact", label: "Inquire" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
