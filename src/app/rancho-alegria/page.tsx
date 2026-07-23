@@ -3,7 +3,7 @@ import Photo from "@/components/Photo";
 import ContactCTA from "@/components/ContactCTA";
 import VideoPlayer from "@/components/VideoPlayer";
 import Reveal from "@/components/Reveal";
-import { IconLand, IconEye, IconGate, IconWave, IconHome, IconMoon } from "@/components/icons";
+import { IconLand, IconEye, IconGate, IconWave, IconHome, IconMoon, IconTennis } from "@/components/icons";
 
 export const metadata = {
   title: "The Property",
@@ -41,6 +41,11 @@ const ADVANTAGES = [
     icon: IconMoon,
     title: "Dark skies, working ranch",
     body: "Surrounded by an active cattle cooperative and native grassland — no light pollution, no traffic, just open land.",
+  },
+  {
+    icon: IconTennis,
+    title: "Private ocean-view tennis court",
+    body: "A full-size tennis court set into the bluff, backdropped by open Pacific and the ranch's coastal hills.",
   },
 ];
 

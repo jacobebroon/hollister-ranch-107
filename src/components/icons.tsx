@@ -84,6 +84,16 @@ export function IconPhone({ className }: IconProps) {
   );
 }
 
+export function IconTennis({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M4.5 6.5c2.2 1.8 3.3 4 3.3 5.5s-1.1 3.7-3.3 5.5" strokeLinecap="round" />
+      <path d="M19.5 6.5c-2.2 1.8-3.3 4-3.3 5.5s1.1 3.7 3.3 5.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconCompass({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>

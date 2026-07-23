@@ -13,6 +13,21 @@ const EXPECT = [
   "This site is for information only — reach out directly with any questions.",
 ];
 
+const FAQ = [
+  {
+    q: "Is Rancho Alegria open to the public?",
+    a: "No. Hollister Ranch is a private, gated community with a single guarded entrance — access is limited to parcel owners, their guests, and confirmed visitors.",
+  },
+  {
+    q: "Where exactly is the property?",
+    a: "On the Gaviota Coast in Santa Barbara County, about 2 hours 15 minutes from Los Angeles and 30 minutes from downtown Santa Barbara. See the Map & Access page for more.",
+  },
+  {
+    q: "Does this website handle bookings?",
+    a: "No — this site exists to share the property's history and character. For any questions, including about visiting, reach out directly using the contact details above.",
+  },
+];
+
 export default function ContactPage() {
   return (
     <div>
@@ -83,6 +98,27 @@ export default function ContactPage() {
             ))}
           </ul>
         </Reveal>
+      </section>
+
+      <section className="border-t border-cream-line bg-sand-deep/40">
+        <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+              Frequently Asked
+            </p>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
+              A few common questions
+            </h2>
+          </Reveal>
+          <div className="mt-10 space-y-8">
+            {FAQ.map((item, i) => (
+              <Reveal key={item.q} delay={i * 70}>
+                <h3 className="font-serif text-lg font-bold text-ink">{item.q}</h3>
+                <p className="mt-2 leading-relaxed text-ink/70">{item.a}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );
