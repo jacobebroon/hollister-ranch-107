@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import TiltCard from "@/components/TiltCard";
 import Terrain3D from "@/components/Terrain3D";
+import Conditions from "@/components/Conditions";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import { IconCompass } from "@/components/icons";
@@ -31,6 +33,14 @@ export default function MapPage() {
             Alegria&rsquo;s exact address and gate directions directly with
             confirmed guests rather than publishing them here.
           </p>
+        </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-4 pt-10 sm:px-8">
+        <Reveal>
+          <Suspense fallback={<ConditionsFallback />}>
+            <Conditions />
+          </Suspense>
         </Reveal>
       </section>
 
@@ -112,5 +122,11 @@ export default function MapPage() {
         </Reveal>
       </section>
     </div>
+  );
+}
+
+function ConditionsFallback() {
+  return (
+    <div className="h-[220px] animate-pulse rounded-2xl border border-cream-line bg-sand-deep/40" />
   );
 }
