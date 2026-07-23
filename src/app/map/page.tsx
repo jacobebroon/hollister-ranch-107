@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import TiltCard from "@/components/TiltCard";
 import Terrain3D from "@/components/Terrain3D";
 import Conditions from "@/components/Conditions";
+import DistanceFinder from "@/components/DistanceFinder";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import { IconCompass } from "@/components/icons";
@@ -33,6 +34,9 @@ export default function MapPage() {
             Alegria&rsquo;s exact address and gate directions directly with
             confirmed guests rather than publishing them here.
           </p>
+        </Reveal>
+        <Reveal delay={80} className="mt-6">
+          <DistanceFinder />
         </Reveal>
       </section>
 
