@@ -185,16 +185,17 @@ export default function Home() {
           alt="Rancho Alegria, Parcel 107, overlooking the Pacific at Hollister Ranch"
           priority
           sizes="100vw"
-          className="object-cover"
+          className="animate-ken-burns object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-transparent to-transparent" />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-40 text-sand sm:px-8 sm:pb-24">
           <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.35em] text-sand/80">
             Hollister Ranch &middot; Gaviota Coast, California
           </p>
           <h1
-            className="animate-fade-up mt-4 max-w-3xl text-balance font-serif text-5xl font-bold leading-[1.05] sm:text-7xl"
+            className="animate-fade-up mt-4 max-w-3xl text-balance font-serif text-5xl font-bold leading-[1.05] drop-shadow-sm sm:text-7xl"
             style={{ animationDelay: "0.1s" }}
           >
             Rancho Alegria
@@ -206,15 +207,33 @@ export default function Home() {
             113 private, bluff-top acres — Parcel 107 of the last untouched
             14,400-acre stretch of California&rsquo;s coast.
           </p>
+
+          <div
+            className="animate-fade-up mt-6 flex flex-wrap gap-2"
+            style={{ animationDelay: "0.25s" }}
+          >
+            {["113 Private Acres", "8.5 Mi Coastline", "Est. 1866"].map((fact) => (
+              <span
+                key={fact}
+                className="rounded-full border border-sand/30 bg-ink/20 px-3 py-1 text-xs font-medium text-sand/90 backdrop-blur-sm"
+              >
+                {fact}
+              </span>
+            ))}
+          </div>
+
           <div
             className="animate-fade-up mt-8 flex flex-wrap gap-3"
-            style={{ animationDelay: "0.3s" }}
+            style={{ animationDelay: "0.35s" }}
           >
             <a
               href="#property"
-              className="rounded-full bg-terracotta px-6 py-3 text-sm font-semibold text-sand shadow-lg transition-colors hover:bg-terracotta-deep"
+              className="group rounded-full bg-terracotta px-6 py-3 text-sm font-semibold text-sand shadow-lg transition-colors hover:bg-terracotta-deep"
             >
               Discover the Property
+              <span className="ml-1.5 inline-block transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
             </a>
             <a
               href="#gallery"
@@ -224,6 +243,16 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        <a
+          href="#video"
+          aria-label="Scroll to see the property tour"
+          className="animate-bob absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 text-sand/70 transition-colors hover:text-sand sm:block"
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
       </section>
 
       {/* Video */}
