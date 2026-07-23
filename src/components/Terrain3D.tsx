@@ -157,18 +157,18 @@ export default function Terrain3D() {
       <button
         onClick={() => mapRef.current && runFlythrough(mapRef.current)}
         disabled={flying}
-        className="absolute bottom-4 left-4 rounded-full bg-ink/80 px-5 py-2.5 text-sm font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50"
+        className="absolute bottom-4 left-4 max-w-[65%] truncate rounded-full bg-ink/80 px-4 py-2.5 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:max-w-none sm:px-5 sm:text-sm"
       >
-        {flying ? "Flying the coastline…" : "↻ Replay the flyover"}
+        {flying ? "Flying the coastline…" : "↻ Replay flyover"}
       </button>
 
       {activeSpot && (
-        <div className="absolute bottom-4 right-4 rounded-full bg-terracotta px-4 py-2 text-xs font-semibold text-sand shadow-lg">
-          {activeSpot} &mdash; approximate location
+        <div className="absolute left-4 top-4 max-w-[70%] truncate rounded-full bg-terracotta px-4 py-2 text-xs font-semibold text-sand shadow-lg">
+          {activeSpot}
         </div>
       )}
 
-      <div className="absolute right-4 top-4 rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur">
+      <div className="absolute bottom-4 right-4 hidden max-w-[45%] rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur sm:block">
         Drag to rotate &middot; Click a break to fly there
       </div>
     </div>
