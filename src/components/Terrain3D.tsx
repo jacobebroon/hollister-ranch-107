@@ -3,25 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import maplibregl, { type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { SURF_BREAKS, LANDMARKS } from "@/data/surf";
 
 // Point Conception, the western edge of Hollister Ranch
 const START = { center: [-120.4713, 34.4486] as [number, number], zoom: 12.2 };
 // Gaviota, the eastern edge of the ranch
 const END = { center: [-120.2288, 34.4717] as [number, number], zoom: 12.2 };
-
-// Approximate positions along the coast, west (Point Conception) to east (Gaviota).
-// Hollister Ranch does not publish surveyed coordinates for these breaks, so these
-// are estimated from their described order and are not exact.
-const SURF_SPOTS: Array<{ name: string; center: [number, number] }> = [
-  { name: "Government Point", center: [-120.4713, 34.4486] },
-  { name: "Cojo", center: [-120.4366, 34.4519] },
-  { name: "Perko's", center: [-120.402, 34.4552] },
-  { name: "Drake's", center: [-120.3673, 34.4585] },
-  { name: "Little Drake's", center: [-120.3328, 34.4618] },
-  { name: "Utah", center: [-120.2981, 34.4651] },
-  { name: "St. Augustine's", center: [-120.2635, 34.4684] },
-  { name: "Razor Blades", center: [-120.2288, 34.4717] },
-];
 
 const STYLE: StyleSpecification = {
   version: 8,
@@ -54,10 +41,10 @@ const STYLE: StyleSpecification = {
   },
 };
 
-function buildMarkerEl(name: string) {
+function buildMarkerEl(name: string, kind: "surf" | "landmark") {
   const el = document.createElement("button");
   el.type = "button";
-  el.className = "surf-marker";
+  el.className = kind === "surf" ? "surf-marker" : "surf-marker landmark-marker";
   el.setAttribute("aria-label", `Fly to ${name}`);
   el.innerHTML = `
     <span class="surf-marker-dot"></span>
@@ -66,12 +53,14 @@ function buildMarkerEl(name: string) {
   return el;
 }
 
+type ActiveInfo = { name: string; note: string; swell?: string } | null;
+
 export default function Terrain3D() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const [ready, setReady] = useState(false);
   const [flying, setFlying] = useState(true);
-  const [activeSpot, setActiveSpot] = useState<string | null>(null);
+  const [active, setActive] = useState<ActiveInfo>(null);
   const reducedMotionRef = useRef(false);
 
   useEffect(() => {
@@ -99,23 +88,38 @@ export default function Terrain3D() {
       console.error("Terrain3D map error:", e.error?.message ?? e);
     });
 
+    const flyToSpot = (center: [number, number]) => {
+      setFlying(false);
+      const target = { center, zoom: 14.8, pitch: 72, bearing: -20 };
+      if (reducedMotionRef.current) {
+        map.jumpTo(target);
+      } else {
+        map.flyTo({ ...target, duration: 2600 });
+      }
+    };
+
     map.on("load", () => {
       setReady(true);
 
-      for (const spot of SURF_SPOTS) {
-        const el = buildMarkerEl(spot.name);
+      for (const spot of SURF_BREAKS) {
+        const el = buildMarkerEl(spot.name, "surf");
         el.addEventListener("click", () => {
-          setActiveSpot(spot.name);
-          setFlying(false);
-          const target = { center: spot.center, zoom: 14.8, pitch: 72, bearing: -20 };
-          if (reducedMotionRef.current) {
-            map.jumpTo(target);
-          } else {
-            map.flyTo({ ...target, duration: 2600 });
-          }
+          setActive({ name: spot.name, note: spot.note, swell: spot.swell });
+          flyToSpot(spot.center);
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(spot.center)
+          .addTo(map);
+      }
+
+      for (const landmark of LANDMARKS) {
+        const el = buildMarkerEl(landmark.name, "landmark");
+        el.addEventListener("click", () => {
+          setActive({ name: landmark.name, note: landmark.note });
+          flyToSpot(landmark.center);
+        });
+        new maplibregl.Marker({ element: el, anchor: "bottom" })
+          .setLngLat(landmark.center)
           .addTo(map);
       }
 
@@ -129,7 +133,7 @@ export default function Terrain3D() {
   }, []);
 
   function runFlythrough(map: MapLibreMap) {
-    setActiveSpot(null);
+    setActive(null);
     map.jumpTo({ center: START.center, zoom: START.zoom, pitch: 68, bearing: 15 });
 
     if (reducedMotionRef.current) {
@@ -173,14 +177,22 @@ export default function Terrain3D() {
         {flying ? "Flying the coastline…" : "↻ Replay flyover"}
       </button>
 
-      {activeSpot && (
-        <div className="absolute left-4 top-4 max-w-[70%] truncate rounded-full bg-terracotta px-4 py-2 text-xs font-semibold text-sand shadow-lg">
-          {activeSpot}
+      {active && (
+        <div className="absolute left-4 right-4 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-semibold">{active.name}</p>
+            {active.swell && (
+              <p className="whitespace-nowrap rounded-full bg-terracotta/90 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide">
+                {active.swell}
+              </p>
+            )}
+          </div>
+          <p className="mt-1 text-xs leading-relaxed text-sand/80">{active.note}</p>
         </div>
       )}
 
       <div className="absolute bottom-4 right-4 hidden max-w-[45%] rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur sm:block">
-        Drag to rotate &middot; Click a break to fly there
+        Drag to rotate &middot; Click a marker for details
       </div>
     </div>
   );

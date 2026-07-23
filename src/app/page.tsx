@@ -9,6 +9,7 @@ import Conditions from "@/components/Conditions";
 import DistanceFinder from "@/components/DistanceFinder";
 import TiltCard from "@/components/TiltCard";
 import Reveal from "@/components/Reveal";
+import { SURF_BREAKS } from "@/data/surf";
 import {
   IconLand,
   IconEye,
@@ -131,41 +132,6 @@ const WILDLIFE = [
   {
     title: "A marine reserve at its edge",
     body: "The no-take Point Conception State Marine Reserve, over 22 square miles of protected water, sits directly off the ranch's western end, part of a chain of marine protected areas along the Gaviota Coast.",
-  },
-];
-
-const SURF_BREAKS = [
-  {
-    name: "Cojo",
-    note: "Widely called the best wave on the ranch's western stretch — a reef and point that picks up both winter and summer swells.",
-  },
-  {
-    name: "Perko's",
-    note: "A cobblestone right point named for founding Surf Club members Bob and John Perko; needs a south swell to turn on.",
-  },
-  {
-    name: "Government Point",
-    note: "A long, rocky right point near Point Conception, once reachable by ranch road — now accessible only by boat.",
-  },
-  {
-    name: "Drake's (\"Big Drake's\")",
-    note: "The ranch's longest right point, holding well-overhead west swells with a long, workable wall.",
-  },
-  {
-    name: "Little Drake's",
-    note: "A smaller, more forgiving break named alongside Big Drake's by the Santa Barbara Surf Club.",
-  },
-  {
-    name: "Razor Blades",
-    note: "Named for the sharp rocks lining the beach; the break closest to the Gaviota launch, needing a big west or northwest swell.",
-  },
-  {
-    name: "St. Augustine's",
-    note: "A right and left summer break — reliable, if rarely described as the ranch's standout.",
-  },
-  {
-    name: "Utah",
-    note: "One of the breaks named by the Santa Barbara Surf Club during its decade exploring the coastline.",
   },
 ];
 
@@ -491,35 +457,68 @@ export default function Home() {
               <p className="mt-4 leading-relaxed text-ink/75">
                 In the summer of 1957, a Santa Barbara surfer named Bob Perko
                 paddled out below the ranch on a friend&rsquo;s invitation and
-                found waves few outsiders had ever seen. Within a few years, a
-                loose group of local surfers had formalized into the Santa
-                Barbara Surf Club &mdash; capped at a few dozen members,
-                Santa Barbara County residents only. By 1962, landowner
-                Clinton Hollister, worried about vandalism on the property,
-                struck an informal deal with the club: police the ranch
-                against outside trespassers, and keep surfing it. Over the
-                next decade, club members explored and named most of the
-                breaks still surfed today, and built driftwood shacks along
-                the shore for gear and overnight stays &mdash; dismantled
-                around 1970 as the ranch was subdivided into private parcels.
+                found waves few outsiders had ever seen. By 1960 that loose
+                group of locals had formalized into the Santa Barbara Surf
+                Club, with board shaper Renny Yater as its founding president,
+                a board of directors, $25 annual dues, and membership capped
+                at 60. Landowner Clinton Hollister, worried about vandalism on
+                the property, struck a deal: club members could keep surfing
+                the ranch as long as they policed it against outside
+                trespassers. Over the next decade, members explored and named
+                most of the breaks still surfed today, and built driftwood
+                shacks along the shore for gear and overnight stays &mdash;
+                dismantled around 1970 as the ranch was subdivided into
+                private parcels.
               </p>
             </Reveal>
           </div>
+
+          <Reveal delay={100} className="mt-16 max-w-3xl">
+            <h3 className="font-serif text-2xl font-bold text-ink">
+              A quiet birthplace of the shortboard revolution
+            </h3>
+            <p className="mt-3 leading-relaxed text-ink/75">
+              The club&rsquo;s founding roster read like a who&rsquo;s-who of
+              Santa Barbara surf history &mdash; Yater, John Bradbury, the
+              Perko brothers, Arlen and Tim Knight, and a young board-and-fin
+              experimenter named George Greenough. Greenough tested his
+              radical flex-tail kneeboards in the ranch&rsquo;s waves through
+              the early 1960s, including a dolphin-fin-inspired swept fin he
+              carved for a blunt-nosed balsa &ldquo;spoon&rdquo; kneeboard in
+              1961. Those designs directly influenced Bob McTavish and Nat
+              Young, who rode a Greenough-designed flex fin to the 1966 World
+              Title &mdash; meaning waves ridden quietly at Hollister Ranch
+              helped spark a revolution in surfboard design that reshaped the
+              sport worldwide. Yater, who had opened Santa Barbara&rsquo;s
+              first surfboard shop in 1959, would later become known for his
+              own influential &ldquo;Yater Spoon&rdquo; longboard model.
+            </p>
+          </Reveal>
 
           <Reveal delay={80} className="mt-16">
             <h3 className="font-serif text-2xl font-bold text-ink">
               The breaks
             </h3>
             <p className="mt-3 max-w-2xl text-ink/70">
-              Eight named breaks run along the ranch&rsquo;s coast, nearly
-              all rock-bottom right-hand points that produce long,
-              high-lining walls &mdash; a wave shape credited with shaping
-              Santa Barbara&rsquo;s own tradition of longboard shaping.
+              Eight named breaks run west to east along the ranch&rsquo;s
+              coast, nearly all rock-bottom right-hand points that produce
+              long, high-lining walls &mdash; a wave shape credited with
+              shaping Santa Barbara&rsquo;s own tradition of longboard
+              shaping. Cojo and Perko&rsquo;s, at the western end, are the
+              only breaks that reliably catch summer south swells wrapping
+              around Point Conception; everything east of them falls into
+              the swell shadow of the Channel Islands and leans on winter
+              west swells instead.
             </p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {SURF_BREAKS.map((b) => (
                 <div key={b.name}>
-                  <p className="font-serif text-lg font-bold text-ink">{b.name}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-serif text-lg font-bold text-ink">{b.name}</p>
+                    <p className="whitespace-nowrap rounded-full bg-terracotta/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-terracotta">
+                      {b.swell}
+                    </p>
+                  </div>
                   <p className="mt-1 text-sm leading-relaxed text-ink/65">{b.note}</p>
                 </div>
               ))}
@@ -652,10 +651,31 @@ export default function Home() {
         </Reveal>
         <Reveal delay={120} className="mt-8">
           <Terrain3D />
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
+            <span className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-terracotta" /> Surf break
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-ocean" /> Landmark
+            </span>
+          </div>
         </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+        <Reveal className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {[
+            { label: "Los Angeles", value: "2h 15m" },
+            { label: "Santa Barbara", value: "30 min" },
+            { label: "Ranch coastline", value: "8.5 mi" },
+            { label: "Access gates", value: "1" },
+          ].map((d) => (
+            <div key={d.label} className="rounded-xl border border-cream-line bg-sand-deep/40 px-4 py-3 text-center">
+              <p className="font-serif text-xl font-bold text-terracotta">{d.value}</p>
+              <p className="mt-1 text-xs uppercase tracking-widest text-ink/50">{d.label}</p>
+            </div>
+          ))}
+        </Reveal>
         <Reveal>
           <div className="overflow-hidden rounded-2xl border border-cream-line shadow-lg">
             <iframe
