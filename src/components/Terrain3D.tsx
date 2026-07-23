@@ -72,9 +72,14 @@ export default function Terrain3D() {
   const [ready, setReady] = useState(false);
   const [flying, setFlying] = useState(true);
   const [activeSpot, setActiveSpot] = useState<string | null>(null);
+  const reducedMotionRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
+
+    reducedMotionRef.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     const map = new maplibregl.Map({
       container: containerRef.current,
@@ -102,13 +107,12 @@ export default function Terrain3D() {
         el.addEventListener("click", () => {
           setActiveSpot(spot.name);
           setFlying(false);
-          map.flyTo({
-            center: spot.center,
-            zoom: 14.8,
-            pitch: 72,
-            bearing: -20,
-            duration: 2600,
-          });
+          const target = { center: spot.center, zoom: 14.8, pitch: 72, bearing: -20 };
+          if (reducedMotionRef.current) {
+            map.jumpTo(target);
+          } else {
+            map.flyTo({ ...target, duration: 2600 });
+          }
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(spot.center)
@@ -125,9 +129,16 @@ export default function Terrain3D() {
   }, []);
 
   function runFlythrough(map: MapLibreMap) {
-    setFlying(true);
     setActiveSpot(null);
     map.jumpTo({ center: START.center, zoom: START.zoom, pitch: 68, bearing: 15 });
+
+    if (reducedMotionRef.current) {
+      map.jumpTo({ center: END.center, zoom: END.zoom, pitch: 60, bearing: -15 });
+      setFlying(false);
+      return;
+    }
+
+    setFlying(true);
     map.flyTo({
       center: END.center,
       zoom: END.zoom,

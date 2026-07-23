@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import { photoUrl } from "@/lib/media";
 import { CATEGORY_LABELS, type Category, type Photo } from "@/data/photos";
@@ -16,12 +16,18 @@ const FILTERS: Array<{ key: Category | "all"; label: string }> = [
 export default function Gallery({ photos }: { photos: Photo[] }) {
   const [filter, setFilter] = useState<Category | "all">("all");
   const [index, setIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const filtered = useMemo(
     () => (filter === "all" ? photos : photos.filter((p) => p.category === filter)),
     [photos, filter]
   );
 
+  const open = useCallback((i: number) => {
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
+    setIndex(i);
+  }, []);
   const close = useCallback(() => setIndex(null), []);
   const prev = useCallback(
     () => setIndex((i) => (i === null ? null : (i - 1 + filtered.length) % filtered.length)),
@@ -34,13 +40,37 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
 
   useEffect(() => {
     if (index === null) return;
+
+    const previouslyFocused = previousFocusRef.current;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
+      if (e.key === "Tab") {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          "button, [href], [tabindex]:not([tabindex='-1'])"
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+      previouslyFocused?.focus();
+    };
   }, [index, close, prev, next]);
 
   const active = index !== null ? filtered[index] : null;
@@ -52,6 +82,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
+            aria-pressed={filter === f.key}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
               filter === f.key
                 ? "border-terracotta bg-terracotta text-sand"
@@ -67,7 +98,8 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         {filtered.map((photo, i) => (
           <button
             key={photo.slug}
-            onClick={() => setIndex(i)}
+            onClick={() => open(i)}
+            aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ""}`}
             className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
           >
             <Image
@@ -89,7 +121,12 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
 
       {active && (
         <div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink/95 px-4 py-8"
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={active.caption ?? "Photo viewer"}
+          tabIndex={-1}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink/95 px-4 py-8 outline-none"
           onClick={close}
         >
           <button
