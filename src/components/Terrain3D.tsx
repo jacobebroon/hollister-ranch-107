@@ -10,6 +10,8 @@ const START = { center: [-120.4713, 34.4486] as [number, number], zoom: 12.2 };
 // Gaviota, the eastern edge of the ranch
 const END = { center: [-120.2288, 34.4717] as [number, number], zoom: 12.2 };
 
+const MAX_EXAGGERATION = 1.6;
+
 const STYLE: StyleSpecification = {
   version: 8,
   sources: {
@@ -32,7 +34,7 @@ const STYLE: StyleSpecification = {
     },
   },
   layers: [{ id: "satellite", type: "raster", source: "satellite" }],
-  terrain: { source: "terrain", exaggeration: 1.6 },
+  terrain: { source: "terrain", exaggeration: 0 },
   sky: {
     "sky-color": "#bcd9ea",
     "horizon-color": "#f8f4ea",
@@ -41,13 +43,36 @@ const STYLE: StyleSpecification = {
   },
 };
 
+// The dash-cycle used to animate a "flowing" line along the coast route,
+// adapted from the standard MapLibre/Mapbox animated-line pattern.
+const DASH_SEQUENCE: number[][] = [
+  [0, 4, 3],
+  [0.5, 4, 2.5],
+  [1, 4, 2],
+  [1.5, 4, 1.5],
+  [2, 4, 1],
+  [2.5, 4, 0.5],
+  [3, 4, 0],
+  [0, 0.5, 3, 3.5],
+  [0, 1, 3, 3],
+  [0, 1.5, 3, 2.5],
+  [0, 2, 3, 2],
+  [0, 2.5, 3, 1.5],
+  [0, 3, 3, 1],
+  [0, 3.5, 3, 0.5],
+];
+
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 function buildMarkerEl(name: string, kind: "surf" | "landmark") {
   const el = document.createElement("button");
   el.type = "button";
   el.className = kind === "surf" ? "surf-marker" : "surf-marker landmark-marker";
   el.setAttribute("aria-label", `Fly to ${name}`);
   el.innerHTML = `
-    <span class="surf-marker-dot"></span>
+    <span class="surf-marker-dot"><span class="surf-marker-ping"></span></span>
     <span class="surf-marker-label">${name}</span>
   `;
   return el;
@@ -62,6 +87,7 @@ export default function Terrain3D() {
   const [flying, setFlying] = useState(true);
   const [active, setActive] = useState<ActiveInfo>(null);
   const reducedMotionRef = useRef(false);
+  const dashFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -98,8 +124,67 @@ export default function Terrain3D() {
       }
     };
 
+    const riseTerrain = (onDone: () => void) => {
+      if (reducedMotionRef.current) {
+        map.setTerrain({ source: "terrain", exaggeration: MAX_EXAGGERATION });
+        onDone();
+        return;
+      }
+      const duration = 2200;
+      let start: number | null = null;
+      const step = (ts: number) => {
+        if (start === null) start = ts;
+        const t = Math.min(1, (ts - start) / duration);
+        map.setTerrain({ source: "terrain", exaggeration: easeOutCubic(t) * MAX_EXAGGERATION });
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          onDone();
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
+    const animateRouteLine = () => {
+      if (reducedMotionRef.current) return;
+      let step = 0;
+      const tick = (ts: number) => {
+        const next = Math.floor((ts / 90) % DASH_SEQUENCE.length);
+        if (next !== step && map.getLayer("coastal-route-line")) {
+          map.setPaintProperty("coastal-route-line", "line-dasharray", DASH_SEQUENCE[next]);
+          step = next;
+        }
+        dashFrameRef.current = requestAnimationFrame(tick);
+      };
+      dashFrameRef.current = requestAnimationFrame(tick);
+    };
+
     map.on("load", () => {
       setReady(true);
+
+      map.addSource("coastal-route", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: SURF_BREAKS.map((b) => b.center),
+          },
+        },
+      });
+      map.addLayer({
+        id: "coastal-route-line",
+        type: "line",
+        source: "coastal-route",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": "#f8f4ea",
+          "line-width": 2.5,
+          "line-opacity": 0.75,
+          "line-dasharray": [0, 4, 3],
+        },
+      });
 
       for (const spot of SURF_BREAKS) {
         const el = buildMarkerEl(spot.name, "surf");
@@ -123,10 +208,12 @@ export default function Terrain3D() {
           .addTo(map);
       }
 
-      runFlythrough(map);
+      animateRouteLine();
+      riseTerrain(() => runFlythrough(map));
     });
 
     return () => {
+      if (dashFrameRef.current !== null) cancelAnimationFrame(dashFrameRef.current);
       map.remove();
       mapRef.current = null;
     };
