@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -7,8 +9,13 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <p className="font-serif text-xl font-bold text-sand">Rancho Alegria</p>
-            <p className="mt-1 text-sm text-sand/60">Parcel 107, Hollister Ranch</p>
+            <div className="flex items-center gap-3">
+              <Image src="/brand/crest.png" alt="" width={44} height={44} className="rounded-full" />
+              <div>
+                <p className="font-serif text-xl font-bold text-sand">Rancho Alegria</p>
+                <p className="text-sm text-sand/60">Parcel 107, Hollister Ranch</p>
+              </div>
+            </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand/70">
               113 private acres on one of the last undeveloped stretches of the
               California coast, on the Gaviota Coast north of Santa Barbara.

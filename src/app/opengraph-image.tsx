@@ -8,6 +8,8 @@ export const contentType = "image/png";
 export default function OpengraphImage() {
   const imageBuffer = fs.readFileSync(path.join(process.cwd(), "public/og/rancho-alegria.jpg"));
   const imageSrc = `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+  const crestBuffer = fs.readFileSync(path.join(process.cwd(), "public/brand/crest.png"));
+  const crestSrc = `data:image/png;base64,${crestBuffer.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -36,6 +38,14 @@ export default function OpengraphImage() {
               "linear-gradient(0deg, rgba(36,28,20,0.85) 0%, rgba(36,28,20,0.25) 55%, rgba(36,28,20,0.1) 100%)",
             display: "flex",
           }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={crestSrc}
+          alt=""
+          width={92}
+          height={92}
+          style={{ position: "absolute", right: 56, top: 56, borderRadius: "50%" }}
         />
         <div
           style={{

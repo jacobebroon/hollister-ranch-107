@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const LINKS = [
@@ -49,12 +50,21 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="group flex flex-col leading-none" onClick={() => setOpen(false)}>
-          <span className="font-serif text-lg font-bold tracking-wide text-ink transition-colors group-hover:text-terracotta">
-            Rancho Alegria
-          </span>
-          <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
-            Parcel 107 · Hollister Ranch
+        <a href="#top" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
+          <Image
+            src="/brand/crest.png"
+            alt=""
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="font-serif text-lg font-bold tracking-wide text-ink transition-colors group-hover:text-terracotta">
+              Rancho Alegria
+            </span>
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
+              Parcel 107 · Hollister Ranch
+            </span>
           </span>
         </a>
 
