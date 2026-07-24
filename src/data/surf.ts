@@ -68,7 +68,7 @@ export type Landmark = {
 export const LANDMARKS: Landmark[] = [
   {
     name: "Point Conception Lighthouse",
-    note: "Marks the sharp bend where California's coast turns from north–south to east–west — the boundary between the cold-water Central Coast and the warmer Santa Barbara Channel.",
+    note: "Marks the sharp bend where California's coast turns from north–south to east–west. To the Chumash this headland is Humqaq, the sacred \"Western Gate\" where souls were believed to depart for the afterlife.",
     center: [-120.4713, 34.4498],
   },
   {

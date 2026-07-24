@@ -94,6 +94,33 @@ export function IconTennis({ className }: IconProps) {
   );
 }
 
+export function IconWhale({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path
+        d="M3 13c2-4 6-6 10-6 4.5 0 8 2.5 8 5.5S17 18 12 18c-3 0-5.5-1-7-2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M3 13c1.2-.3 2.2-.1 3 .8" strokeLinecap="round" />
+      <path d="M19 10.5l2.5-2" strokeLinecap="round" />
+      <circle cx="16.5" cy="10.5" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function IconFlower({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <circle cx="12" cy="12" r="2.2" />
+      <path d="M12 9.8a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4z" />
+      <path d="M12 18.6a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4z" />
+      <path d="M9.8 12a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0z" />
+      <path d="M18.6 12a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0z" />
+    </svg>
+  );
+}
+
 export function IconCompass({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>

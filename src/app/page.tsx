@@ -22,6 +22,8 @@ import {
   IconCompass,
   IconMail,
   IconPhone,
+  IconWhale,
+  IconFlower,
 } from "@/components/icons";
 
 const ADVANTAGES = [
@@ -78,7 +80,7 @@ const TIMELINE = [
   {
     year: "9,000+ years ago",
     title: "The Chumash",
-    body: "The Chumash people inhabited this stretch of coast for millennia before European contact, drawing on its rich tidepools, kelp forests, and sheltered coves.",
+    body: "The Chumash people inhabited this stretch of coast for millennia before European contact, drawing on its rich tidepools, kelp forests, and sheltered coves. At the ranch's western tip, Point Conception — Humqaq in the Chumash language — was considered the sacred \"Western Gate,\" where the souls of the dead were believed to depart the mortal world for the afterlife.",
   },
   {
     year: "1542",
@@ -136,6 +138,33 @@ const WILDLIFE = [
   },
 ];
 
+const SEASONS = [
+  {
+    icon: IconWave,
+    months: "Dec – Feb",
+    title: "Winter swell",
+    body: "Big west and northwest swells wrap onto Drake's, Little Drake's, Utah, and Razor Blades — the ranch's most consistent, powerful stretch of the year.",
+  },
+  {
+    icon: IconWave,
+    months: "May – Sep",
+    title: "Summer south swell",
+    body: "Cojo, Perko's, and St. Augustine's come alive on south swells wrapping around Point Conception, an exposure most of the ranch doesn't share.",
+  },
+  {
+    icon: IconWhale,
+    months: "Dec – May",
+    title: "Gray whale migration",
+    body: "Southbound whales pass the Channel Islands in December and January; the northbound migration runs closer to shore from February through May, with mother-and-calf pairs hugging the coast into May.",
+  },
+  {
+    icon: IconFlower,
+    months: "Mar – May",
+    title: "Spring wildflowers",
+    body: "Ice plant, agave, and native wildflowers carpet the bluffs and garden paths each spring, the season captured in much of the property's photography.",
+  },
+];
+
 const EXPECT = [
   "A private, gated 113-acre parcel on Hollister Ranch's protected coastline.",
   "Answers to questions about the property, its history, and the ranch.",
@@ -171,12 +200,29 @@ const JSON_LD = {
   },
 };
 
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
 export default function Home() {
   return (
     <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
 
       {/* Hero */}
@@ -635,6 +681,39 @@ export default function Home() {
               universities.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Best time to visit */}
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            Plan Your Season
+          </p>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
+            Best time to visit
+          </h2>
+          <p className="mt-4 leading-relaxed text-ink/70">
+            The ranch changes with the seasons — here&rsquo;s what to expect
+            through the year.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {SEASONS.map((s, i) => (
+            <Reveal key={s.title} delay={i * 80}>
+              <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                  <s.icon />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
+                  {s.months}
+                </p>
+                <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
