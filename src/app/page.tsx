@@ -5,6 +5,7 @@ import StatBar from "@/components/StatBar";
 import VideoPlayer from "@/components/VideoPlayer";
 import Gallery from "@/components/Gallery";
 import Terrain3D from "@/components/Terrain3D";
+import LazyMount from "@/components/LazyMount";
 import Conditions from "@/components/Conditions";
 import DistanceFinder from "@/components/DistanceFinder";
 import TiltCard from "@/components/TiltCard";
@@ -679,7 +680,9 @@ export default function Home() {
           </p>
         </Reveal>
         <Reveal delay={120} className="mt-8">
-          <Terrain3D />
+          <LazyMount fallback={<TerrainFallback />}>
+            <Terrain3D />
+          </LazyMount>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
             <span className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-terracotta" /> Surf break
@@ -848,5 +851,13 @@ export default function Home() {
 function ConditionsFallback() {
   return (
     <div className="h-[220px] animate-pulse rounded-2xl border border-cream-line bg-sand-deep/40" />
+  );
+}
+
+function TerrainFallback() {
+  return (
+    <div className="flex h-[480px] w-full animate-pulse items-center justify-center rounded-2xl border border-cream-line bg-sand-deep sm:h-[620px]">
+      <p className="text-sm text-ink/40">Loading terrain&hellip;</p>
+    </div>
   );
 }
