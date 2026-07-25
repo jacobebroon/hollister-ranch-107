@@ -66,6 +66,43 @@ function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
 }
 
+type SkyPreset = {
+  label: string;
+  sky: { skyColor: string; horizonColor: string; fogColor: string };
+  raster: { brightnessMin: number; brightnessMax: number; saturation: number; contrast: number };
+};
+
+// A light, time-of-day-aware sky so the map feels alive rather than
+// showing the same midday lighting no matter when you visit the site.
+function getSkyPreset(hour: number): SkyPreset {
+  if (hour < 5 || hour >= 20) {
+    return {
+      label: "Night",
+      sky: { skyColor: "#0d1a2b", horizonColor: "#1c2c3f", fogColor: "#16232f" },
+      raster: { brightnessMin: 0, brightnessMax: 0.55, saturation: -0.3, contrast: 0.05 },
+    };
+  }
+  if (hour < 8) {
+    return {
+      label: "Dawn",
+      sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" },
+      raster: { brightnessMin: 0, brightnessMax: 0.85, saturation: -0.05, contrast: 0.05 },
+    };
+  }
+  if (hour < 17) {
+    return {
+      label: "Day",
+      sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" },
+      raster: { brightnessMin: 0, brightnessMax: 1, saturation: 0, contrast: 0 },
+    };
+  }
+  return {
+    label: "Dusk",
+    sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" },
+    raster: { brightnessMin: 0, brightnessMax: 0.8, saturation: 0.05, contrast: 0.05 },
+  };
+}
+
 function buildMarkerEl(name: string, kind: "surf" | "landmark") {
   const el = document.createElement("button");
   el.type = "button";
@@ -86,6 +123,7 @@ export default function Terrain3D() {
   const [ready, setReady] = useState(false);
   const [flying, setFlying] = useState(true);
   const [active, setActive] = useState<ActiveInfo>(null);
+  const [skyLabel, setSkyLabel] = useState<string | null>(null);
   const reducedMotionRef = useRef(false);
   const dashFrameRef = useRef<number | null>(null);
 
@@ -161,6 +199,19 @@ export default function Terrain3D() {
 
     map.on("load", () => {
       setReady(true);
+
+      const preset = getSkyPreset(new Date().getHours());
+      setSkyLabel(preset.label);
+      map.setSky({
+        "sky-color": preset.sky.skyColor,
+        "horizon-color": preset.sky.horizonColor,
+        "fog-color": preset.sky.fogColor,
+        "fog-ground-blend": 0.5,
+      });
+      map.setPaintProperty("satellite", "raster-brightness-min", preset.raster.brightnessMin);
+      map.setPaintProperty("satellite", "raster-brightness-max", preset.raster.brightnessMax);
+      map.setPaintProperty("satellite", "raster-saturation", preset.raster.saturation);
+      map.setPaintProperty("satellite", "raster-contrast", preset.raster.contrast);
 
       map.addSource("coastal-route", {
         type: "geojson",
@@ -280,6 +331,7 @@ export default function Terrain3D() {
 
       <div className="absolute bottom-4 right-4 hidden max-w-[45%] rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur sm:block">
         Drag to rotate &middot; Click a marker for details
+        {skyLabel && <> &middot; Live sky: {skyLabel}</>}
       </div>
     </div>
   );

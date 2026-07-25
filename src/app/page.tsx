@@ -24,6 +24,8 @@ import {
   IconPhone,
   IconWhale,
   IconFlower,
+  IconTrail,
+  IconGuestHome,
 } from "@/components/icons";
 
 const ADVANTAGES = [
@@ -61,6 +63,16 @@ const ADVANTAGES = [
     icon: IconTennis,
     title: "Private ocean-view tennis court",
     body: "A full-size tennis court set into the bluff, backdropped by open Pacific and the ranch's coastal hills.",
+  },
+  {
+    icon: IconGuestHome,
+    title: "Main house plus guest house",
+    body: "A separate guest house alongside the main residence gives visiting family or friends their own private space.",
+  },
+  {
+    icon: IconTrail,
+    title: "120+ miles of ranch trails",
+    body: "Hollister Ranch maintains an extensive network of equestrian trails across its 14,400 acres, open to owners and their guests.",
   },
 ];
 
@@ -115,7 +127,7 @@ const TIMELINE = [
   {
     year: "Today",
     title: "One of the last wild coasts",
-    body: "Nearly 1,000 owners now hold interests across the ranch's 133 parcels. A single guarded gate controls access along the ranch's private two-lane road, and the overwhelming majority of the property remains open grazing and native habitat.",
+    body: "Nearly 1,000 owners now hold interests across the ranch's 136 parcels — 133 privately held, plus three reserved for shared ranch operations. A single guarded gate controls access along the ranch's private two-lane road, and the overwhelming majority of the property remains open grazing and native habitat.",
   },
 ];
 
@@ -385,12 +397,17 @@ export default function Home() {
           <p className="mt-4 leading-relaxed text-ink/75">
             Rancho Alegria occupies 113 acres of bluff, grassland, and garden on
             the western reach of Hollister Ranch, where the Santa Rosa Hills meet
-            the Santa Barbara Channel. Established in 1987 and held by the
-            Clavin family ever since, the single-level residence was built to
+            the Santa Barbara Channel, named for nearby Alegria Canyon. Established in 1987 and held by the
+            Clavin family ever since, the single-level main residence was built to
             disappear into the land around it &mdash; terracotta roof tiles,
             reclaimed wood, and hand-forged iron inside, with every principal
             room opening onto the same view: open Pacific, unbroken to the
             horizon.
+          </p>
+          <p className="mt-4 leading-relaxed text-ink/75">
+            A separate guest house, a fruit orchard, and landscaped stone
+            pathways round out the grounds, threading between agave and
+            native wildflowers on their way to the bluff&rsquo;s edge.
           </p>
         </Reveal>
 
@@ -621,9 +638,12 @@ export default function Home() {
                 fractional shares specifically for wave access, are common,
                 and Ranch real estate has carried a &ldquo;surf premium&rdquo;
                 for decades. A 2022 settlement meant to open a short public
-                access route was later struck down by a state appellate
-                court on procedural grounds, and as of this writing the
-                question of expanded public access remains unresolved.
+                access route was later voided by a state appellate court,
+                which found the responsible state agencies had violated
+                public-process law in reaching it. Litigation has continued
+                since, with both sides contesting subsequent rulings as of
+                2025 &mdash; the question of expanded public access remains
+                unresolved.
               </p>
             </div>
           </Reveal>

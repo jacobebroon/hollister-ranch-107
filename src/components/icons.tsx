@@ -121,6 +121,31 @@ export function IconFlower({ className }: IconProps) {
   );
 }
 
+export function IconTrail({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path
+        d="M3 19c3-1 3.5-4 2-6s-3-4.5 0-6 4 2 6.5 1 2-4 5-4 4 2.5 4.5 5-2 3.5-1 6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="3.5" cy="19.5" r="1" fill="currentColor" stroke="none" />
+      <circle cx="19.5" cy="16" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function IconGuestHome({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path d="M2 12.5L8 7l6 5.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3.5 11.5V19a1 1 0 0 0 1 1H11v-5h4v5h1.5a1 1 0 0 0 1-1v-6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13 8l4-3.5L21 8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 7.3v3.2h6V7.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function IconCompass({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
