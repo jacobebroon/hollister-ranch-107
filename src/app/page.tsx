@@ -306,12 +306,24 @@ export default function Home() {
         <a
           href="#video"
           aria-label="Scroll to see the property tour"
-          className="animate-bob absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 text-sand/70 transition-colors hover:text-sand sm:block"
+          className="animate-bob absolute bottom-14 left-1/2 z-10 hidden -translate-x-1/2 text-sand/70 transition-colors hover:text-sand sm:bottom-20 sm:block"
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </a>
+
+        <svg
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 bottom-0 h-10 w-full text-sand sm:h-14"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M0,32 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"
+          />
+        </svg>
       </section>
 
       {/* Video */}
@@ -324,7 +336,7 @@ export default function Home() {
             See Rancho Alegria
           </h2>
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal delay={100} className="print:hidden">
           <VideoPlayer posterSlug="ranch-004" />
           <p className="mt-3 text-center text-sm text-ink/50">
             A tour of Rancho Alegria, Parcel 107.
@@ -333,7 +345,7 @@ export default function Home() {
       </section>
 
       {/* Live conditions */}
-      <section id="conditions" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-20 sm:px-8">
+      <section id="conditions" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-20 sm:px-8 print:hidden">
         <Reveal>
           <Suspense fallback={<ConditionsFallback />}>
             <Conditions />
@@ -771,12 +783,12 @@ export default function Home() {
             confirmed guests rather than publishing them here.
           </p>
         </Reveal>
-        <Reveal delay={80} className="mt-6">
+        <Reveal delay={80} className="mt-6 print:hidden">
           <DistanceFinder />
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 print:hidden">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
             Fly the Coastline
@@ -820,7 +832,7 @@ export default function Home() {
             </div>
           ))}
         </Reveal>
-        <Reveal>
+        <Reveal className="print:hidden">
           <div className="overflow-hidden rounded-2xl border border-cream-line shadow-lg">
             <iframe
               title="Hollister Ranch, Gaviota Coast, California"

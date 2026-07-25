@@ -16,7 +16,7 @@ export default function BackToTop() {
     <a
       href="#top"
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-ink/80 text-sand shadow-lg backdrop-blur transition-all hover:bg-ink ${
+      className={`fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-ink/80 text-sand shadow-lg backdrop-blur transition-all hover:bg-ink print:hidden ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >

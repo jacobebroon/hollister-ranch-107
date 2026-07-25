@@ -158,6 +158,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           </button>
 
           <Image
+            key={active.slug}
             src={photoUrl(active.slug, "full")}
             alt={active.caption ?? "Rancho Alegria, Parcel 107"}
             width={active.width}
@@ -166,7 +167,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             placeholder={active.blurDataURL ? "blur" : undefined}
             blurDataURL={active.blurDataURL}
             onClick={(e) => e.stopPropagation()}
-            className="h-auto max-h-[80vh] w-auto max-w-[90vw] rounded-lg object-contain"
+            className="animate-fade-in h-auto max-h-[80vh] w-auto max-w-[90vw] rounded-lg object-contain"
           />
           {active.caption && (
             <p className="mt-4 max-w-2xl text-center text-sm text-sand/70">{active.caption}</p>

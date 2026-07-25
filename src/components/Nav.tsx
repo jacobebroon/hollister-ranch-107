@@ -54,7 +54,7 @@ export default function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b bg-sand/90 backdrop-blur transition-shadow ${
+      className={`sticky top-0 z-50 border-b bg-sand/90 backdrop-blur transition-shadow print:hidden ${
         scrolled ? "border-cream-line shadow-[0_1px_16px_-4px_rgba(36,28,20,0.15)]" : "border-cream-line/70"
       }`}
     >
