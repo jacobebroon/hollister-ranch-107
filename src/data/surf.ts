@@ -54,7 +54,7 @@ export const SURF_BREAKS: SurfBreak[] = [
   {
     name: "Razor Blades",
     swell: "Big W/NW swells",
-    note: "Named for the sharp rocks lining the beach; the break closest to the Gaviota launch, needing a big west or northwest swell.",
+    note: "Named for the sharp rocks lining the beach; the break closest to the Gaviota launch, needing a big west or northwest swell. Rancho Alegria (Parcel 107) sits on the bluff directly above it.",
     center: [-120.2288, 34.4717],
   },
 ];

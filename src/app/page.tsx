@@ -26,6 +26,7 @@ import {
   IconFlower,
   IconTrail,
   IconGuestHome,
+  IconHotTub,
 } from "@/components/icons";
 
 const ADVANTAGES = [
@@ -50,6 +51,11 @@ const ADVANTAGES = [
     body: "Parcel 107 sits within Hollister Ranch's storied 8.5-mile stretch of point breaks, among the finest in the continental US.",
   },
   {
+    icon: IconWave,
+    title: "Fronts Razor Blades",
+    body: "Rancho Alegria sits directly across from Razor Blades, the named point break closest to the Gaviota gate — a rare, walk-out surf address, not just a nearby one.",
+  },
+  {
     icon: IconHome,
     title: "Hacienda-style residence",
     body: "A single-level home with terracotta tile roofline, hand-forged ironwork, and a wraparound window-seat great room built to frame the horizon.",
@@ -68,6 +74,11 @@ const ADVANTAGES = [
     icon: IconGuestHome,
     title: "Main house plus guest house",
     body: "A separate guest house alongside the main residence gives visiting family or friends their own private space.",
+  },
+  {
+    icon: IconHotTub,
+    title: "Private hot tub",
+    body: "A hot tub set into the grounds for soaking after a day on the water or the trails — steps from the main house.",
   },
   {
     icon: IconTrail,
@@ -417,9 +428,17 @@ export default function Home() {
             horizon.
           </p>
           <p className="mt-4 leading-relaxed text-ink/75">
-            A separate guest house, a fruit orchard, and landscaped stone
-            pathways round out the grounds, threading between agave and
-            native wildflowers on their way to the bluff&rsquo;s edge.
+            A separate guest house, a private hot tub, a full-size tennis
+            court, a fruit orchard, and landscaped stone pathways round out
+            the grounds, threading between agave and native wildflowers on
+            their way to the bluff&rsquo;s edge &mdash; all inside the ranch&rsquo;s
+            single guarded gate.
+          </p>
+          <p className="mt-4 leading-relaxed text-ink/75">
+            The bluff below fronts Razor Blades, the named point break
+            closest to the Gaviota entrance &mdash; putting some of the
+            ranch&rsquo;s most-surfed water directly out front, not just
+            nearby.
           </p>
         </Reveal>
 
