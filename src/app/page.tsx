@@ -92,7 +92,7 @@ const TIMELINE = [
   {
     year: "9,000+ years ago",
     title: "The Chumash",
-    body: "The Chumash people inhabited this stretch of coast for millennia before European contact, drawing on its rich tidepools, kelp forests, and sheltered coves. At the ranch's western tip, Point Conception — Humqaq in the Chumash language — was considered the sacred \"Western Gate,\" where the souls of the dead were believed to depart the mortal world for the afterlife.",
+    body: "The Chumash people inhabited this stretch of coast for millennia before European contact, drawing on its rich tidepools, kelp forests, and sheltered coves — some archaeological accounts date occupation at Point Conception itself back as far as 18,000 years. At the ranch's western tip, Point Conception — Humqaq in the Chumash language — was considered the sacred \"Western Gate,\" where the souls of the dead were believed to depart the mortal world for the afterlife, and remains a cultural keystone site studied by archaeologists today.",
   },
   {
     year: "1542",
@@ -670,6 +670,15 @@ export default function Home() {
               Hollister Ranch Owners&rsquo; Association set up in 1976. The
               result is one of the largest privately held, intact
               landscapes on the California coast.
+            </p>
+            <p className="mt-4 max-w-2xl leading-relaxed text-ink/75">
+              The land itself is still rising: the Gaviota Coast sits on an
+              active fault system, and geologists have measured rock uplift
+              here of roughly one to two millimeters a year, carving the
+              stepped marine terraces visible along the bluffs today.
+              Researchers have used Hollister Ranch&rsquo;s own land access
+              to date those terraces, tracing the coastline&rsquo;s slow rise
+              back tens of thousands of years.
             </p>
           </Reveal>
 
