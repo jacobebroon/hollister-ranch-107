@@ -1,6 +1,7 @@
 import { getConditions } from "@/lib/conditions";
 import { IconWave, IconMoon, IconCompass, IconEye } from "@/components/icons";
 import TideCurve from "@/components/TideCurve";
+import WeatherIcon from "@/components/WeatherIcon";
 
 export default async function Conditions() {
   const { weather, surf, sun, tides, tideCurve, moon } = await getConditions();
@@ -16,7 +17,7 @@ export default async function Conditions() {
       <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-            <IconEye className="h-4 w-4" />
+            {weather ? <WeatherIcon code={weather.code} className="h-5 w-5" /> : <IconEye className="h-4 w-4" />}
           </div>
           <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">Weather</p>
           {weather ? (

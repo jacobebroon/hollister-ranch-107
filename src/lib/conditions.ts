@@ -8,6 +8,7 @@ export type Conditions = {
   weather: {
     tempF: number;
     label: string;
+    code: number;
     windMph: number;
     windCompass: string;
     isDay: boolean;
@@ -117,6 +118,7 @@ export async function getConditions(): Promise<Conditions> {
     weather = {
       tempF: Math.round(data.current.temperature_2m),
       label: WEATHER_LABELS[data.current.weather_code] ?? "—",
+      code: data.current.weather_code,
       windMph: Math.round(data.current.wind_speed_10m),
       windCompass: degToCompass(data.current.wind_direction_10m),
       isDay: data.current.is_day === 1,

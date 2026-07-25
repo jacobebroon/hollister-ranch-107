@@ -694,11 +694,15 @@ export default function Home() {
           <Reveal delay={280} className="mt-12 max-w-2xl leading-relaxed text-ink/75">
             <p>
               The nonprofit Hollister Ranch Conservancy runs a free
-              &ldquo;Tidepool Classroom&rdquo; for schoolchildren, a program
-              started in the early 1990s that is still guiding students
-              through the ranch&rsquo;s intertidal life today, alongside
-              ongoing research partnerships with UC Santa Barbara and other
-              universities.
+              &ldquo;Tide Pool School&rdquo; for children ages 5 to 12, a
+              program started in the early 1990s that still brings hundreds
+              of Santa Barbara-area schoolchildren &mdash; many from
+              underserved communities &mdash; onto the ranch each year at no
+              cost to their schools. The Conservancy also monitors a
+              two-plus-mile stretch of coast it calls the Shoreline Preserve,
+              and partners with researchers from UC Santa Barbara, UCLA, and
+              UC Santa Cruz on ongoing intertidal studies of seaweed,
+              limpets, and water temperature.
             </p>
           </Reveal>
         </div>
