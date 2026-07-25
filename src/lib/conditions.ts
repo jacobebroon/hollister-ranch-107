@@ -23,6 +23,7 @@ export type Conditions = {
     sunset: string;
   } | null;
   tides: Array<{ time: string; type: "H" | "L"; heightFt: number }> | null;
+  tideCurve: Array<{ hour: number; heightFt: number }> | null;
   moon: {
     phaseName: string;
     illuminationPct: number;
@@ -90,7 +91,7 @@ function getMoonPhase(date: Date): { phaseName: string; illuminationPct: number 
 }
 
 export async function getConditions(): Promise<Conditions> {
-  const [weatherRes, marineRes, tideRes] = await Promise.allSettled([
+  const [weatherRes, marineRes, tideRes, tideCurveRes] = await Promise.allSettled([
     fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_COORDS.lat}&longitude=${WEATHER_COORDS.lng}&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,is_day&daily=sunrise,sunset&timezone=America%2FLos_Angeles&temperature_unit=fahrenheit&wind_speed_unit=mph`,
       { next: { revalidate: REVALIDATE_SECONDS } }
@@ -101,6 +102,10 @@ export async function getConditions(): Promise<Conditions> {
     ),
     fetch(
       `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${TIDE_STATION}&product=predictions&datum=MLLW&time_zone=lst_ldt&units=english&interval=hilo&format=json&date=today`,
+      { next: { revalidate: REVALIDATE_SECONDS } }
+    ),
+    fetch(
+      `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${TIDE_STATION}&product=predictions&datum=MLLW&time_zone=lst_ldt&units=english&interval=h&format=json&date=today`,
       { next: { revalidate: REVALIDATE_SECONDS } }
     ),
   ]);
@@ -147,5 +152,16 @@ export async function getConditions(): Promise<Conditions> {
     }
   }
 
-  return { weather, surf, sun, tides, moon: getMoonPhase(new Date()) };
+  let tideCurve: Conditions["tideCurve"] = null;
+  if (tideCurveRes.status === "fulfilled" && tideCurveRes.value.ok) {
+    const data = await tideCurveRes.value.json();
+    if (Array.isArray(data.predictions)) {
+      tideCurve = data.predictions.map((p: { t: string; v: string }) => ({
+        hour: Number(p.t.slice(11, 13)),
+        heightFt: Math.round(parseFloat(p.v) * 10) / 10,
+      }));
+    }
+  }
+
+  return { weather, surf, sun, tides, tideCurve, moon: getMoonPhase(new Date()) };
 }

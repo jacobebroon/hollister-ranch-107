@@ -111,6 +111,11 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               blurDataURL={photo.blurDataURL}
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            {photo.caption && (
+              <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/85 to-transparent px-3 pb-2 pt-6 text-left text-xs leading-snug text-sand opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                {photo.caption}
+              </span>
+            )}
           </button>
         ))}
       </div>

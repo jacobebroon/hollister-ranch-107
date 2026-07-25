@@ -1,8 +1,10 @@
 import { getConditions } from "@/lib/conditions";
 import { IconWave, IconMoon, IconCompass, IconEye } from "@/components/icons";
+import TideCurve from "@/components/TideCurve";
 
 export default async function Conditions() {
-  const { weather, surf, sun, tides, moon } = await getConditions();
+  const { weather, surf, sun, tides, tideCurve, moon } = await getConditions();
+  const nowHour = new Date().getHours();
 
   return (
     <div className="overflow-hidden rounded-2xl border border-cream-line bg-sand-deep/40 shadow-sm">
@@ -63,6 +65,9 @@ export default async function Conditions() {
             </ul>
           ) : (
             <p className="mt-1 text-sm text-ink/40">Unavailable right now</p>
+          )}
+          {tideCurve && tideCurve.length > 1 && (
+            <TideCurve points={tideCurve} nowHour={nowHour} />
           )}
         </div>
 
