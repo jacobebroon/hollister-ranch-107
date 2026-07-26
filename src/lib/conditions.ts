@@ -10,6 +10,7 @@ export type Conditions = {
     label: string;
     code: number;
     windMph: number;
+    windDeg: number;
     windCompass: string;
     isDay: boolean;
   } | null;
@@ -17,6 +18,7 @@ export type Conditions = {
     waveHeightFt: number;
     swellHeightFt: number;
     swellPeriodS: number;
+    swellDeg: number;
     swellCompass: string;
   } | null;
   sun: {
@@ -120,6 +122,7 @@ export async function getConditions(): Promise<Conditions> {
       label: WEATHER_LABELS[data.current.weather_code] ?? "—",
       code: data.current.weather_code,
       windMph: Math.round(data.current.wind_speed_10m),
+      windDeg: data.current.wind_direction_10m,
       windCompass: degToCompass(data.current.wind_direction_10m),
       isDay: data.current.is_day === 1,
     };
@@ -137,6 +140,7 @@ export async function getConditions(): Promise<Conditions> {
         waveHeightFt: Math.round(data.current.wave_height * 10) / 10,
         swellHeightFt: Math.round(data.current.swell_wave_height * 10) / 10,
         swellPeriodS: Math.round(data.current.swell_wave_period),
+        swellDeg: data.current.swell_wave_direction,
         swellCompass: degToCompass(data.current.swell_wave_direction),
       };
     }

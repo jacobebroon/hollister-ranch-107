@@ -9,6 +9,7 @@ import LazyMount from "@/components/LazyMount";
 import Conditions from "@/components/Conditions";
 import DistanceFinder from "@/components/DistanceFinder";
 import TiltCard from "@/components/TiltCard";
+import TimelineRail from "@/components/TimelineRail";
 import Reveal from "@/components/Reveal";
 import { SURF_BREAKS } from "@/data/surf";
 import {
@@ -542,7 +543,7 @@ export default function Home() {
 
         {/* Timeline */}
         <div className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
-          <ol className="relative border-l-2 border-cream-line pl-8">
+          <TimelineRail>
             {TIMELINE.map((item, i) => (
               <li key={item.title} className="mb-12 last:mb-0">
                 <Reveal delay={i * 60}>
@@ -557,7 +558,7 @@ export default function Home() {
                 </Reveal>
               </li>
             ))}
-          </ol>
+          </TimelineRail>
         </div>
 
         {/* Surf culture */}
@@ -912,6 +913,18 @@ export default function Home() {
             </p>
             <h2 className="mt-3 font-serif text-4xl font-bold sm:text-6xl">Get in Touch</h2>
           </div>
+
+          <svg
+            viewBox="0 0 1440 80"
+            preserveAspectRatio="none"
+            className="absolute inset-x-0 bottom-0 h-10 w-full text-sand sm:h-14"
+            aria-hidden="true"
+          >
+            <path
+              fill="currentColor"
+              d="M0,48 C240,16 480,64 720,32 C960,0 1200,80 1440,32 L1440,80 L0,80 Z"
+            />
+          </svg>
         </div>
 
         <div className="mx-auto grid max-w-5xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-2">

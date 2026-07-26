@@ -2,6 +2,7 @@ import { getConditions } from "@/lib/conditions";
 import { IconWave, IconMoon, IconCompass, IconEye } from "@/components/icons";
 import TideCurve from "@/components/TideCurve";
 import WeatherIcon from "@/components/WeatherIcon";
+import WindCompass from "@/components/WindCompass";
 
 export default async function Conditions() {
   const { weather, surf, sun, tides, tideCurve, moon } = await getConditions();
@@ -45,6 +46,7 @@ export default async function Conditions() {
                 {surf.swellHeightFt} ft swell &middot; {surf.swellPeriodS}s
               </p>
               <p className="text-sm text-ink/65">From the {surf.swellCompass}</p>
+              <WindCompass windDeg={weather?.windDeg} swellDeg={surf.swellDeg} className="mt-3" />
             </>
           ) : (
             <p className="mt-1 text-sm text-ink/40">Unavailable right now</p>
