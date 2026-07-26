@@ -260,6 +260,11 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-transparent to-transparent" />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.35) 100%)" }}
+          aria-hidden="true"
+        />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-40 text-sand sm:px-8 sm:pb-24">
           <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.35em] text-sand/80">

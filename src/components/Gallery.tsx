@@ -94,30 +94,35 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         ))}
       </div>
 
-      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {filtered.map((photo, i) => (
-          <button
-            key={photo.slug}
-            onClick={() => open(i)}
-            aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ""}`}
-            className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
-          >
-            <Image
-              src={photoUrl(photo.slug, "thumb")}
-              alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              placeholder={photo.blurDataURL ? "blur" : undefined}
-              blurDataURL={photo.blurDataURL}
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            {photo.caption && (
-              <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/85 to-transparent px-3 pb-2 pt-6 text-left text-xs leading-snug text-sand opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                {photo.caption}
-              </span>
-            )}
-          </button>
-        ))}
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 [grid-auto-flow:dense]">
+        {filtered.map((photo, i) => {
+          const featured = filtered.length > 6 && i % 9 === 4;
+          return (
+            <button
+              key={photo.slug}
+              onClick={() => open(i)}
+              aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ""}`}
+              className={`group relative overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta ${
+                featured ? "sm:col-span-2 sm:row-span-2 aspect-square" : "aspect-[4/3]"
+              }`}
+            >
+              <Image
+                src={photoUrl(photo.slug, "thumb")}
+                alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
+                fill
+                sizes={featured ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"}
+                placeholder={photo.blurDataURL ? "blur" : undefined}
+                blurDataURL={photo.blurDataURL}
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {photo.caption && (
+                <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/85 to-transparent px-3 pb-2 pt-6 text-left text-xs leading-snug text-sand opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                  {photo.caption}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
