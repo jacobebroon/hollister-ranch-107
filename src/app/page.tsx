@@ -28,6 +28,9 @@ import {
   IconTrail,
   IconGuestHome,
   IconHotTub,
+  IconBird,
+  IconPaw,
+  IconShell,
 } from "@/components/icons";
 
 const ADVANTAGES = [
@@ -145,18 +148,22 @@ const TIMELINE = [
 
 const WILDLIFE = [
   {
+    icon: IconBird,
     title: "Over 200 bird species",
     body: "The ranch's grassland and coastline support one of the region's richest bird lists, including regionally rare hawks and owls. The endangered western snowy plover fledges here every year, and the Santa Barbara Audubon Society runs organized birding trips to the property.",
   },
   {
+    icon: IconPaw,
     title: "Mountain lion to tidepool octopus",
     body: "Mountain lion, black bear, bobcat, coyote, and deer all range across the ranch and the wildlife corridor it forms with neighboring preserves. Below the bluffs, tidepools hold mussels, sea hares, octopus, crabs, and the occasional lobster.",
   },
   {
+    icon: IconFlower,
     title: "A federally endangered wildflower",
     body: "The Gaviota tarplant, found nowhere outside a handful of sites on this stretch of coast, has one of its core populations on Hollister Ranch itself — a rare plant found essentially nowhere else on Earth.",
   },
   {
+    icon: IconShell,
     title: "A marine reserve at its edge",
     body: "The no-take Point Conception State Marine Reserve, over 22 square miles of protected water, sits directly off the ranch's western end, part of a chain of marine protected areas along the Gaviota Coast.",
   },
@@ -739,11 +746,16 @@ export default function Home() {
             />
           </Reveal>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {WILDLIFE.map((w, i) => (
               <Reveal key={w.title} delay={i * 70}>
-                <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
-                <p className="mt-2 leading-relaxed text-ink/70">{w.body}</p>
+                <div className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <w.icon />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
+                  <p className="mt-2 leading-relaxed text-ink/70">{w.body}</p>
+                </div>
               </Reveal>
             ))}
           </div>

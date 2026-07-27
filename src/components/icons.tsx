@@ -107,6 +107,41 @@ export function IconHotTub({ className }: IconProps) {
   );
 }
 
+export function IconBird({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path
+        d="M2 14.5c2-3 4-3 6-0.5 1.3-2 2.3-3.5 4-3.5s2.7 1.5 4 3.5c2-2.5 4-2.5 6 0.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function IconPaw({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <ellipse cx="12" cy="15.5" rx="4.5" ry="3.5" />
+      <ellipse cx="6.3" cy="9.2" rx="1.6" ry="2.1" />
+      <ellipse cx="10.4" cy="6.3" rx="1.6" ry="2.1" />
+      <ellipse cx="14.6" cy="6.5" rx="1.6" ry="2.1" />
+      <ellipse cx="17.9" cy="9.5" rx="1.6" ry="2.1" />
+    </svg>
+  );
+}
+
+export function IconShell({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path d="M4 15a8 8 0 1 1 16 0" strokeLinecap="round" />
+      <path d="M7 15a5 5 0 1 1 10 0" strokeLinecap="round" />
+      <path d="M10 15a2 2 0 1 1 4 0" strokeLinecap="round" />
+      <path d="M4 15h16" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconWhale({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
