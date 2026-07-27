@@ -316,14 +316,26 @@ export default function Terrain3D() {
       </button>
 
       {active && (
-        <div className="absolute left-4 right-4 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
-          <div className="flex items-center justify-between gap-3">
+        <div className="animate-fade-in absolute left-4 right-4 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
+          <div className="flex items-start justify-between gap-3">
             <p className="text-sm font-semibold">{active.name}</p>
-            {active.swell && (
-              <p className="whitespace-nowrap rounded-full bg-terracotta/90 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide">
-                {active.swell}
-              </p>
-            )}
+            <div className="flex flex-shrink-0 items-center gap-2">
+              {active.swell && (
+                <p className="whitespace-nowrap rounded-full bg-terracotta/90 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide">
+                  {active.swell}
+                </p>
+              )}
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setActive(null)}
+                className="text-sand/60 hover:text-sand"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
           </div>
           <p className="mt-1 text-xs leading-relaxed text-sand/80">{active.note}</p>
         </div>

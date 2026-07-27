@@ -115,12 +115,18 @@ export default function Nav() {
         </button>
       </div>
 
-      {open && (
-        <nav className="flex flex-col gap-1 border-t border-cream-line/70 bg-sand px-5 pb-4 pt-2 md:hidden">
+      <div
+        aria-hidden={!open}
+        className={`grid overflow-hidden bg-sand transition-[grid-template-rows] duration-300 ease-out md:hidden ${
+          open ? "grid-rows-[1fr] border-t border-cream-line/70" : "grid-rows-[0fr] border-t border-transparent"
+        }`}
+      >
+        <nav className="flex min-h-0 flex-col gap-1 px-5 pb-4 pt-2">
           {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
+              tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
               className={`rounded-md px-2 py-2.5 text-sm font-medium ${
                 active === link.href ? "bg-sand-deep text-terracotta" : "text-ink/80"
@@ -130,7 +136,7 @@ export default function Nav() {
             </a>
           ))}
         </nav>
-      )}
+      </div>
 
       <div className="absolute inset-x-0 bottom-0 h-0.5 bg-transparent">
         <div
