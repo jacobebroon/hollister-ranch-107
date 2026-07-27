@@ -316,7 +316,7 @@ export default function Terrain3D() {
       </button>
 
       {active && (
-        <div className="animate-fade-in absolute left-4 right-4 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
+        <div className="animate-fade-in absolute left-4 right-16 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
           <div className="flex items-start justify-between gap-3">
             <p className="text-sm font-semibold">{active.name}</p>
             <div className="flex flex-shrink-0 items-center gap-2">

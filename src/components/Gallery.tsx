@@ -102,8 +102,8 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               key={photo.slug}
               onClick={() => open(i)}
               aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ""}`}
-              className={`group relative overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta ${
-                featured ? "sm:col-span-2 sm:row-span-2 aspect-square" : "aspect-[4/3]"
+              className={`group relative overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta aspect-[4/3] ${
+                featured ? "sm:col-span-2 sm:row-span-2 sm:aspect-square" : ""
               }`}
             >
               <Image
