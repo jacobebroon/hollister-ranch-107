@@ -205,6 +205,10 @@ const FAQ = [
     a: "On the Gaviota Coast in Santa Barbara County, about 2 hours 15 minutes from Los Angeles and 30 minutes from downtown Santa Barbara.",
   },
   {
+    q: "What amenities does the property have?",
+    a: "A main house and a separate guest house, a private hot tub, and a full-size ocean-view tennis court — all inside the ranch's single guarded gate, on the bluff directly above the Razor Blades surf break.",
+  },
+  {
     q: "Does this website handle bookings?",
     a: "No — this site exists to share the property's history and character. For any questions, including about visiting, reach out directly using the contact details above.",
   },
@@ -222,6 +226,13 @@ const JSON_LD = {
     addressRegion: "CA",
     addressCountry: "US",
   },
+  additionalProperty: [
+    { "@type": "PropertyValue", name: "Access", value: "Single guarded gate" },
+    { "@type": "PropertyValue", name: "Tennis Court", value: "Private, ocean-view, on-site" },
+    { "@type": "PropertyValue", name: "Hot Tub", value: "Private, on-site" },
+    { "@type": "PropertyValue", name: "Guest House", value: "Separate guest house on-site" },
+    { "@type": "PropertyValue", name: "Nearest Surf Break", value: "Razor Blades, directly below the property" },
+  ],
 };
 
 const FAQ_JSON_LD = {

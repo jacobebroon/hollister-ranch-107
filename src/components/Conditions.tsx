@@ -46,7 +46,13 @@ export default async function Conditions() {
                 {surf.swellHeightFt} ft swell &middot; {surf.swellPeriodS}s
               </p>
               <p className="text-sm text-ink/65">From the {surf.swellCompass}</p>
-              <WindCompass windDeg={weather?.windDeg} swellDeg={surf.swellDeg} className="mt-3" />
+              <WindCompass
+                windDeg={weather?.windDeg}
+                swellDeg={surf.swellDeg}
+                windCompass={weather?.windCompass}
+                swellCompass={surf.swellCompass}
+                className="mt-3"
+              />
             </>
           ) : (
             <p className="mt-1 text-sm text-ink/40">Unavailable right now</p>

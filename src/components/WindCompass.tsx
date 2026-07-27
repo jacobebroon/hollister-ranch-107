@@ -3,15 +3,26 @@ const TICKS = Array.from({ length: 12 }, (_, i) => i * 30);
 export default function WindCompass({
   windDeg,
   swellDeg,
+  windCompass,
+  swellCompass,
   className,
 }: {
   windDeg?: number;
   swellDeg?: number;
+  windCompass?: string;
+  swellCompass?: string;
   className?: string;
 }) {
+  const label = [
+    swellCompass ? `Swell from the ${swellCompass}` : null,
+    windCompass ? `wind from the ${windCompass}` : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
+
   return (
     <div className={className}>
-      <svg viewBox="0 0 100 100" className="h-16 w-16">
+      <svg viewBox="0 0 100 100" className="h-16 w-16" role={label ? "img" : undefined} aria-label={label || undefined}>
         <circle cx="50" cy="50" r="46" fill="none" stroke="var(--cream-line)" strokeWidth="2" />
         {TICKS.map((angle) => {
           const rad = ((angle - 90) * Math.PI) / 180;
