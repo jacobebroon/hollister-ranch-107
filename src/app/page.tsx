@@ -10,6 +10,7 @@ import Conditions from "@/components/Conditions";
 import DistanceFinder from "@/components/DistanceFinder";
 import TiltCard from "@/components/TiltCard";
 import TimelineRail from "@/components/TimelineRail";
+import FaqItem from "@/components/FaqItem";
 import Reveal from "@/components/Reveal";
 import { SURF_BREAKS } from "@/data/surf";
 import {
@@ -1017,11 +1018,10 @@ export default function Home() {
                 A few common questions
               </h3>
             </Reveal>
-            <div className="mt-10 space-y-8">
+            <div className="mt-10 space-y-6">
               {FAQ.map((item, i) => (
                 <Reveal key={item.q} delay={i * 70}>
-                  <h4 className="font-serif text-lg font-bold text-ink">{item.q}</h4>
-                  <p className="mt-2 leading-relaxed text-ink/70">{item.a}</p>
+                  <FaqItem q={item.q} a={item.a} />
                 </Reveal>
               ))}
             </div>
