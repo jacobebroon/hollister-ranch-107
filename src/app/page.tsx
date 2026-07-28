@@ -515,9 +515,11 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal delay={120} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {featuredPhotos.slice(0, 8).map((photo, i) => (
-              <div
+              <a
                 key={photo.slug}
-                className={`relative overflow-hidden rounded-xl bg-sand-deep ${
+                href="#gallery"
+                aria-label={photo.caption ? `View in gallery: ${photo.caption}` : "View in gallery"}
+                className={`group relative block overflow-hidden rounded-xl bg-sand-deep ${
                   i === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-[4/3]"
                 }`}
               >
@@ -526,9 +528,9 @@ export default function Home() {
                   variant="thumb"
                   alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
                   sizes="(max-width: 640px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-              </div>
+              </a>
             ))}
           </Reveal>
         </div>
