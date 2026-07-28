@@ -796,7 +796,7 @@ export default function Home() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SEASONS.map((s, i) => (
             <Reveal key={s.title} delay={i * 80}>
-              <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6">
+              <div className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
                   <s.icon />
                 </div>
