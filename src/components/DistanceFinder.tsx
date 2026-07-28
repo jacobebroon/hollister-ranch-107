@@ -24,13 +24,13 @@ function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function bearingCompass(lat1: number, lng1: number, lat2: number, lng2: number) {
+function bearing(lat1: number, lng1: number, lat2: number, lng2: number) {
   const y = Math.sin(toRad(lng2 - lng1)) * Math.cos(toRad(lat2));
   const x =
     Math.cos(toRad(lat1)) * Math.sin(toRad(lat2)) -
     Math.sin(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.cos(toRad(lng2 - lng1));
-  const deg = (Math.atan2(y, x) * 180) / Math.PI;
-  return COMPASS[Math.round(((deg + 360) % 360) / 22.5) % 16];
+  const deg = (Math.atan2(y, x) * 180 + 360) % 360;
+  return { deg, compass: COMPASS[Math.round(deg / 22.5) % 16] };
 }
 
 type State =
@@ -38,7 +38,7 @@ type State =
   | { status: "loading" }
   | { status: "denied" }
   | { status: "error" }
-  | { status: "done"; miles: number; compass: string };
+  | { status: "done"; miles: number; compass: string; deg: number };
 
 export default function DistanceFinder() {
   const [state, setState] = useState<State>({ status: "idle" });
@@ -53,8 +53,8 @@ export default function DistanceFinder() {
       (pos) => {
         const { latitude, longitude } = pos.coords;
         const miles = haversineMiles(latitude, longitude, RANCH.lat, RANCH.lng);
-        const compass = bearingCompass(latitude, longitude, RANCH.lat, RANCH.lng);
-        setState({ status: "done", miles: Math.round(miles), compass });
+        const { deg, compass } = bearing(latitude, longitude, RANCH.lat, RANCH.lng);
+        setState({ status: "done", miles: Math.round(miles), compass, deg });
       },
       (err) => {
         setState(err.code === err.PERMISSION_DENIED ? { status: "denied" } : { status: "error" });
@@ -66,7 +66,26 @@ export default function DistanceFinder() {
   return (
     <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-cream-line bg-sand-deep/40 px-6 py-5">
       <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-        <IconCompass className="h-5 w-5" />
+        {state.status === "done" ? (
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="transition-transform duration-700 ease-out"
+            style={{ transform: `rotate(${state.deg}deg)` }}
+            role="img"
+            aria-label={`Bearing to Rancho Alegria: ${state.compass}`}
+          >
+            <path d="M12 20V4M12 4l-5 5M12 4l5 5" />
+          </svg>
+        ) : (
+          <IconCompass className="h-5 w-5" />
+        )}
       </span>
 
       {state.status === "idle" && (

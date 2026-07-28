@@ -21,14 +21,14 @@ export default function FaqItem({ q, a }: { q: string; a: string }) {
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={`flex-shrink-0 text-terracotta transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          className={`flex-shrink-0 text-terracotta transition-transform duration-300 print:hidden ${open ? "rotate-180" : ""}`}
         >
           <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       <div
         aria-hidden={!open}
-        className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out ${
+        className={`faq-answer grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out ${
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
