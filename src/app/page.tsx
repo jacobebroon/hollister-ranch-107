@@ -488,17 +488,25 @@ export default function Home() {
           </a>
         </Reveal>
         <Reveal delay={120} className="grid gap-3 sm:grid-cols-3">
-          {HIGHLIGHTS.map((slug) => (
-            <div key={slug} className="relative aspect-[4/3] overflow-hidden rounded-xl">
-              <Photo
-                slug={slug}
-                variant="thumb"
-                alt="Rancho Alegria, Parcel 107"
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-          ))}
+          {HIGHLIGHTS.map((slug) => {
+            const caption = photos.find((p) => p.slug === slug)?.caption;
+            return (
+              <a
+                key={slug}
+                href="#gallery"
+                aria-label={caption ? `View in gallery: ${caption}` : "View in gallery"}
+                className="group relative aspect-[4/3] overflow-hidden rounded-xl"
+              >
+                <Photo
+                  slug={slug}
+                  variant="thumb"
+                  alt={caption ?? "Rancho Alegria, Parcel 107"}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </a>
+            );
+          })}
         </Reveal>
       </section>
 
