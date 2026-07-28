@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { IconCompass } from "@/components/icons";
+import { PROPERTY } from "@/data/surf";
 
-const RANCH = { lat: 34.4717, lng: -120.2288 };
+const RANCH = { lat: PROPERTY.center[1], lng: PROPERTY.center[0] };
 
 const COMPASS = [
   "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",

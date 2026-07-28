@@ -12,7 +12,7 @@ import TiltCard from "@/components/TiltCard";
 import TimelineRail from "@/components/TimelineRail";
 import FaqItem from "@/components/FaqItem";
 import Reveal from "@/components/Reveal";
-import { SURF_BREAKS } from "@/data/surf";
+import { SURF_BREAKS, PROPERTY } from "@/data/surf";
 import {
   IconLand,
   IconEye,
@@ -868,6 +868,9 @@ export default function Home() {
           </LazyMount>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
             <span className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-gold ring-2 ring-gold/30" /> Rancho Alegria
+            </span>
+            <span className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-terracotta" /> Surf break
             </span>
             <span className="flex items-center gap-2">
@@ -894,14 +897,14 @@ export default function Home() {
         <Reveal className="print:hidden">
           <div className="overflow-hidden rounded-2xl border border-cream-line shadow-lg">
             <iframe
-              title="Hollister Ranch, Gaviota Coast, California"
-              src="https://www.google.com/maps?ll=34.4717,-120.2288&z=11&output=embed"
+              title="Rancho Alegria, Parcel 107 — approximate location"
+              src={`https://www.google.com/maps?q=${PROPERTY.center[1]},${PROPERTY.center[0]}&z=14&output=embed`}
               className="h-[360px] w-full sm:h-[420px]"
               loading="lazy"
             />
           </div>
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-ink/60">
-            <p>Gaviota Coast, Santa Barbara County — general ranch area shown</p>
+            <p>Approximate property location &mdash; Hollister Ranch does not publish exact coordinates or gate directions</p>
             <a
               href="https://earth.google.com/web/search/Point+Conception,+California"
               target="_blank"

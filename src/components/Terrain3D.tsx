@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import maplibregl, { type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { SURF_BREAKS, LANDMARKS } from "@/data/surf";
+import { SURF_BREAKS, LANDMARKS, PROPERTY } from "@/data/surf";
 
 // Point Conception, the western edge of Hollister Ranch
 const START = { center: [-120.4713, 34.4486] as [number, number], zoom: 12.2 };
@@ -111,6 +111,21 @@ function buildMarkerEl(name: string, kind: "surf" | "landmark") {
   el.innerHTML = `
     <span class="surf-marker-dot"><span class="surf-marker-ping"></span></span>
     <span class="surf-marker-label">${name}</span>
+  `;
+  return el;
+}
+
+function buildPropertyMarkerEl(name: string) {
+  const el = document.createElement("button");
+  el.type = "button";
+  el.className = "surf-marker property-marker";
+  el.setAttribute("aria-label", `Fly to ${name}`);
+  el.innerHTML = `
+    <span class="property-marker-dot">
+      <img src="/brand/crest.png" alt="" width="30" height="30" />
+      <span class="surf-marker-ping"></span>
+    </span>
+    <span class="surf-marker-label property-marker-label">${name}</span>
   `;
   return el;
 }
@@ -259,6 +274,15 @@ export default function Terrain3D() {
           .addTo(map);
       }
 
+      const propertyEl = buildPropertyMarkerEl(PROPERTY.name);
+      propertyEl.addEventListener("click", () => {
+        setActive({ name: PROPERTY.name, note: PROPERTY.note });
+        flyToSpot(PROPERTY.center);
+      });
+      new maplibregl.Marker({ element: propertyEl, anchor: "bottom" })
+        .setLngLat(PROPERTY.center)
+        .addTo(map);
+
       animateRouteLine();
       riseTerrain(() => runFlythrough(map));
     });
@@ -275,7 +299,8 @@ export default function Terrain3D() {
     map.jumpTo({ center: START.center, zoom: START.zoom, pitch: 68, bearing: 15 });
 
     if (reducedMotionRef.current) {
-      map.jumpTo({ center: END.center, zoom: END.zoom, pitch: 60, bearing: -15 });
+      map.jumpTo({ center: PROPERTY.center, zoom: 14.6, pitch: 70, bearing: -20 });
+      setActive({ name: PROPERTY.name, note: PROPERTY.note });
       setFlying(false);
       return;
     }
@@ -291,8 +316,23 @@ export default function Terrain3D() {
       essential: true,
     });
     const onEnd = () => {
-      setFlying(false);
       map.off("moveend", onEnd);
+      // After the wide establishing flight along the coast, zoom in on the
+      // property itself so the tour ends by introducing Rancho Alegria.
+      map.flyTo({
+        center: PROPERTY.center,
+        zoom: 14.6,
+        pitch: 70,
+        bearing: -25,
+        duration: 2600,
+        essential: true,
+      });
+      const onArrive = () => {
+        map.off("moveend", onArrive);
+        setActive({ name: PROPERTY.name, note: PROPERTY.note });
+        setFlying(false);
+      };
+      map.on("moveend", onArrive);
     };
     map.on("moveend", onEnd);
   }

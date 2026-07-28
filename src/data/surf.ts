@@ -59,6 +59,15 @@ export const SURF_BREAKS: SurfBreak[] = [
   },
 ];
 
+// Hollister Ranch does not publish surveyed parcel coordinates or gate
+// directions, so this marks the residence's general position on the bluff
+// directly above Razor Blades — not an exact survey point or the gate address.
+export const PROPERTY = {
+  name: "Rancho Alegria",
+  note: "Parcel 107 — the bluff-top residence and grounds, directly above Razor Blades.",
+  center: [-120.2295, 34.4736] as [number, number],
+};
+
 export type Landmark = {
   name: string;
   note: string;
