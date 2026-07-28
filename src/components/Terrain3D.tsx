@@ -66,6 +66,24 @@ function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
 }
 
+// A rough circle for illustrating the property's approximate scale on the
+// map — not a surveyed parcel boundary, just sized to roughly match 113 acres.
+function circlePolygon(center: [number, number], radiusMeters: number, steps = 64) {
+  const [lng, lat] = center;
+  const distanceX = radiusMeters / (111320 * Math.cos((lat * Math.PI) / 180));
+  const distanceY = radiusMeters / 110540;
+  const coords: [number, number][] = [];
+  for (let i = 0; i <= steps; i++) {
+    const theta = (i / steps) * 2 * Math.PI;
+    coords.push([lng + distanceX * Math.cos(theta), lat + distanceY * Math.sin(theta)]);
+  }
+  return {
+    type: "Feature" as const,
+    properties: {},
+    geometry: { type: "Polygon" as const, coordinates: [coords] },
+  };
+}
+
 type SkyPreset = {
   label: string;
   sky: { skyColor: string; horizonColor: string; fogColor: string };
@@ -167,16 +185,6 @@ export default function Terrain3D() {
       console.error("Terrain3D map error:", e.error?.message ?? e);
     });
 
-    const flyToSpot = (center: [number, number]) => {
-      setFlying(false);
-      const target = { center, zoom: 14.8, pitch: 72, bearing: -20 };
-      if (reducedMotionRef.current) {
-        map.jumpTo(target);
-      } else {
-        map.flyTo({ ...target, duration: 2600 });
-      }
-    };
-
     const riseTerrain = (onDone: () => void) => {
       if (reducedMotionRef.current) {
         map.setTerrain({ source: "terrain", exaggeration: MAX_EXAGGERATION });
@@ -252,11 +260,29 @@ export default function Terrain3D() {
         },
       });
 
+      // ~113 acres, circular approximation — illustrates scale, not a surveyed boundary.
+      map.addSource("property-area", {
+        type: "geojson",
+        data: circlePolygon(PROPERTY.center, 381),
+      });
+      map.addLayer({
+        id: "property-area-fill",
+        type: "fill",
+        source: "property-area",
+        paint: { "fill-color": "#c1943a", "fill-opacity": 0.12 },
+      });
+      map.addLayer({
+        id: "property-area-line",
+        type: "line",
+        source: "property-area",
+        paint: { "line-color": "#c1943a", "line-width": 1.5, "line-opacity": 0.6, "line-dasharray": [2, 2] },
+      });
+
       for (const spot of SURF_BREAKS) {
         const el = buildMarkerEl(spot.name, "surf");
         el.addEventListener("click", () => {
           setActive({ name: spot.name, note: spot.note, swell: spot.swell });
-          flyToSpot(spot.center);
+          flyToSpot(map, spot.center);
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(spot.center)
@@ -267,7 +293,7 @@ export default function Terrain3D() {
         const el = buildMarkerEl(landmark.name, "landmark");
         el.addEventListener("click", () => {
           setActive({ name: landmark.name, note: landmark.note });
-          flyToSpot(landmark.center);
+          flyToSpot(map, landmark.center);
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(landmark.center)
@@ -277,7 +303,7 @@ export default function Terrain3D() {
       const propertyEl = buildPropertyMarkerEl(PROPERTY.name);
       propertyEl.addEventListener("click", () => {
         setActive({ name: PROPERTY.name, note: PROPERTY.note });
-        flyToSpot(PROPERTY.center);
+        flyToSpot(map, PROPERTY.center);
       });
       new maplibregl.Marker({ element: propertyEl, anchor: "bottom" })
         .setLngLat(PROPERTY.center)
@@ -293,6 +319,16 @@ export default function Terrain3D() {
       mapRef.current = null;
     };
   }, []);
+
+  function flyToSpot(map: MapLibreMap, center: [number, number]) {
+    setFlying(false);
+    const target = { center, zoom: 14.8, pitch: 72, bearing: -20 };
+    if (reducedMotionRef.current) {
+      map.jumpTo(target);
+    } else {
+      map.flyTo({ ...target, duration: 2600 });
+    }
+  }
 
   function runFlythrough(map: MapLibreMap) {
     setActive(null);
@@ -347,13 +383,26 @@ export default function Terrain3D() {
         </div>
       )}
 
-      <button
-        onClick={() => mapRef.current && runFlythrough(mapRef.current)}
-        disabled={flying}
-        className="absolute bottom-4 left-4 max-w-[65%] truncate rounded-full bg-ink/80 px-4 py-2.5 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:max-w-none sm:px-5 sm:text-sm"
-      >
-        {flying ? "Flying the coastline…" : "↻ Replay flyover"}
-      </button>
+      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 sm:right-auto">
+        <button
+          onClick={() => mapRef.current && runFlythrough(mapRef.current)}
+          disabled={flying}
+          className="truncate rounded-full bg-ink/80 px-4 py-2.5 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
+        >
+          {flying ? "Flying the coastline…" : "↻ Replay flyover"}
+        </button>
+        <button
+          onClick={() => {
+            if (!mapRef.current) return;
+            setActive({ name: PROPERTY.name, note: PROPERTY.note });
+            flyToSpot(mapRef.current, PROPERTY.center);
+          }}
+          disabled={flying}
+          className="truncate rounded-full border border-gold/60 bg-ink/80 px-4 py-2.5 text-xs font-semibold text-gold shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
+        >
+          View Rancho Alegria
+        </button>
+      </div>
 
       {active && (
         <div className="animate-fade-in absolute left-4 right-16 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">

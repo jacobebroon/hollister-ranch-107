@@ -174,28 +174,41 @@ const SEASONS = [
   {
     icon: IconWave,
     months: "Dec – Feb",
+    startMonth: 12,
+    endMonth: 2,
     title: "Winter swell",
     body: "Big west and northwest swells wrap onto Drake's, Little Drake's, Utah, and Razor Blades — the ranch's most consistent, powerful stretch of the year.",
   },
   {
     icon: IconWave,
     months: "May – Sep",
+    startMonth: 5,
+    endMonth: 9,
     title: "Summer south swell",
     body: "Cojo, Perko's, and St. Augustine's come alive on south swells wrapping around Point Conception, an exposure most of the ranch doesn't share.",
   },
   {
     icon: IconWhale,
     months: "Dec – May",
+    startMonth: 12,
+    endMonth: 5,
     title: "Gray whale migration",
     body: "Southbound whales pass the Channel Islands in December and January; the northbound migration runs closer to shore from February through May, with mother-and-calf pairs hugging the coast into May.",
   },
   {
     icon: IconFlower,
     months: "Mar – May",
+    startMonth: 3,
+    endMonth: 5,
     title: "Spring wildflowers",
     body: "Ice plant, agave, and native wildflowers carpet the bluffs and garden paths each spring, the season captured in much of the property's photography.",
   },
 ];
+
+function isCurrentSeason(startMonth: number, endMonth: number) {
+  const now = new Date().getMonth() + 1;
+  return startMonth <= endMonth ? now >= startMonth && now <= endMonth : now >= startMonth || now <= endMonth;
+}
 
 const EXPECT = [
   "A private, gated 113-acre parcel on Hollister Ranch's protected coastline.",
@@ -804,20 +817,32 @@ export default function Home() {
         </Reveal>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SEASONS.map((s, i) => (
-            <Reveal key={s.title} delay={i * 80}>
-              <div className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                  <s.icon />
+          {SEASONS.map((s, i) => {
+            const isNow = isCurrentSeason(s.startMonth, s.endMonth);
+            return (
+              <Reveal key={s.title} delay={i * 80}>
+                <div
+                  className={`relative h-full rounded-2xl border p-6 transition-shadow hover:shadow-md ${
+                    isNow ? "border-terracotta bg-terracotta/5" : "border-cream-line bg-sand-deep/40"
+                  }`}
+                >
+                  {isNow && (
+                    <span className="absolute -top-2.5 right-5 rounded-full bg-terracotta px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-sand shadow-sm">
+                      Happening now
+                    </span>
+                  )}
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <s.icon />
+                  </div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
+                    {s.months}
+                  </p>
+                  <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
-                  {s.months}
-                </p>
-                <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
