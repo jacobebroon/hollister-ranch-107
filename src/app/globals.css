@@ -60,15 +60,15 @@ body {
 
 @keyframes ken-burns {
   from {
-    transform: scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.12);
+    transform: scale(1.12) translate3d(-1.2%, -1%, 0);
   }
 }
 
 .animate-ken-burns {
-  animation: ken-burns 20s ease-out forwards;
+  animation: ken-burns 26s ease-in-out infinite alternate;
 }
 
 @keyframes bob {
@@ -101,6 +101,32 @@ body {
 ::selection {
   background: var(--terracotta);
   color: var(--sand);
+}
+
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(
+    280px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(193, 148, 58, 0.16),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:focus-within::before {
+  opacity: 1;
 }
 
 .surf-marker {

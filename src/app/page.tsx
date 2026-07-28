@@ -11,6 +11,8 @@ import DistanceFinder from "@/components/DistanceFinder";
 import TiltCard from "@/components/TiltCard";
 import TimelineRail from "@/components/TimelineRail";
 import FaqItem from "@/components/FaqItem";
+import SpotlightCard from "@/components/SpotlightCard";
+import ParallaxLayer from "@/components/ParallaxLayer";
 import Reveal from "@/components/Reveal";
 import { SURF_BREAKS, PROPERTY } from "@/data/surf";
 import {
@@ -483,13 +485,15 @@ export default function Home() {
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {ADVANTAGES.map((a, i) => (
             <Reveal key={a.title} delay={i * 80}>
-              <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                  <a.icon />
+              <SpotlightCard className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
+                <div className="relative z-10">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <a.icon />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-ink">{a.title}</h3>
+                  <p className="mt-2 leading-relaxed text-ink/70">{a.body}</p>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-ink">{a.title}</h3>
-                <p className="mt-2 leading-relaxed text-ink/70">{a.body}</p>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -612,12 +616,14 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <Reveal className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg">
-              <Photo
-                slug="ranch-001"
-                alt="View of the Pacific from Hollister Ranch's coastal bluffs"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
+              <ParallaxLayer>
+                <Photo
+                  slug="ranch-001"
+                  alt="View of the Pacific from Hollister Ranch's coastal bluffs"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </ParallaxLayer>
             </Reveal>
             <Reveal delay={120}>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
@@ -762,24 +768,28 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={60} className="relative mt-12 aspect-[21/9] w-full overflow-hidden rounded-2xl shadow-lg">
-            <Photo
-              slug="1000002820"
-              alt="Ranch cattle grazing the bluff at sunset above the Pacific"
-              sizes="(max-width: 768px) 100vw, 1152px"
-              className="object-cover"
-            />
+            <ParallaxLayer strength={20}>
+              <Photo
+                slug="1000002820"
+                alt="Ranch cattle grazing the bluff at sunset above the Pacific"
+                sizes="(max-width: 768px) 100vw, 1152px"
+                className="object-cover"
+              />
+            </ParallaxLayer>
           </Reveal>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {WILDLIFE.map((w, i) => (
               <Reveal key={w.title} delay={i * 70}>
-                <div className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                    <w.icon />
+                <SpotlightCard className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
+                  <div className="relative z-10">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                      <w.icon />
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
+                    <p className="mt-2 leading-relaxed text-ink/70">{w.body}</p>
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
-                  <p className="mt-2 leading-relaxed text-ink/70">{w.body}</p>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
@@ -821,25 +831,27 @@ export default function Home() {
             const isNow = isCurrentSeason(s.startMonth, s.endMonth);
             return (
               <Reveal key={s.title} delay={i * 80}>
-                <div
+                <SpotlightCard
                   className={`relative h-full rounded-2xl border p-6 transition-shadow hover:shadow-md ${
                     isNow ? "border-terracotta bg-terracotta/5" : "border-cream-line bg-sand-deep/40"
                   }`}
                 >
                   {isNow && (
-                    <span className="absolute -top-2.5 right-5 rounded-full bg-terracotta px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-sand shadow-sm">
+                    <span className="absolute -top-2.5 right-5 z-10 rounded-full bg-terracotta px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-sand shadow-sm">
                       Happening now
                     </span>
                   )}
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                    <s.icon />
+                  <div className="relative z-10">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                      <s.icon />
+                    </div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
+                      {s.months}
+                    </p>
+                    <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
-                    {s.months}
-                  </p>
-                  <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
-                </div>
+                </SpotlightCard>
               </Reveal>
             );
           })}
