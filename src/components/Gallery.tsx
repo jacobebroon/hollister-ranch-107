@@ -83,9 +83,9 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             key={f.key}
             onClick={() => setFilter(f.key)}
             aria-pressed={filter === f.key}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-95 ${
               filter === f.key
-                ? "border-terracotta bg-terracotta text-sand"
+                ? "border-terracotta bg-terracotta text-sand shadow-md shadow-terracotta/20"
                 : "border-cream-line text-ink/70 hover:border-terracotta hover:text-terracotta"
             }`}
           >

@@ -338,7 +338,7 @@ export default function Home() {
           >
             <a
               href="#property"
-              className="group rounded-full bg-terracotta px-6 py-3 text-sm font-semibold text-sand shadow-lg transition-colors hover:bg-terracotta-deep"
+              className="btn-shine group rounded-full bg-terracotta px-6 py-3 text-sm font-semibold text-sand shadow-lg transition-colors hover:bg-terracotta-deep"
             >
               Discover the Property
               <span className="ml-1.5 inline-block transition-transform group-hover:translate-x-1">
@@ -380,7 +380,7 @@ export default function Home() {
       {/* Video */}
       <section id="video" className="mx-auto max-w-5xl scroll-mt-24 px-5 py-20 sm:px-8">
         <Reveal className="mb-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             Watch the Tour
           </p>
           <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -415,7 +415,7 @@ export default function Home() {
       <section className="border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 md:grid-cols-2 md:gap-16">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
               Welcome to the Ranch
             </p>
             <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl">
@@ -451,7 +451,7 @@ export default function Home() {
       {/* Property */}
       <section id="property" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             Why Rancho Alegria
           </p>
           <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -487,7 +487,7 @@ export default function Home() {
             <Reveal key={a.title} delay={i * 80}>
               <SpotlightCard className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
                 <div className="relative z-10">
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta icon-badge">
                     <a.icon />
                   </div>
                   <h3 className="font-serif text-xl font-bold text-ink">{a.title}</h3>
@@ -555,7 +555,7 @@ export default function Home() {
 
       {/* Gallery */}
       <section id="gallery" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
           Gallery
         </p>
         <h2 className="mt-3 font-serif text-4xl font-bold text-ink sm:text-5xl">
@@ -575,13 +575,13 @@ export default function Home() {
       <section id="history" className="scroll-mt-24 border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
               History &amp; Land
             </p>
             <h2 className="mt-3 font-serif text-4xl font-bold text-ink sm:text-5xl">
               The Story of Hollister Ranch
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-ink/80">
+            <p className="drop-cap mt-6 text-lg leading-relaxed text-ink/80">
               Few places on the California coast remain as they were two hundred
               years ago. Hollister Ranch — 14,400 acres of grassland, oak canyons,
               and 8.5 miles of undeveloped shoreline on the Gaviota Coast, just
@@ -626,7 +626,7 @@ export default function Home() {
               </ParallaxLayer>
             </Reveal>
             <Reveal delay={120}>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
                 &ldquo;The Ranch&rdquo;
               </p>
               <h3 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -737,7 +737,7 @@ export default function Home() {
         {/* Conservation & wildlife */}
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
               Conservation
             </p>
             <h3 className="mt-3 max-w-2xl font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -783,7 +783,7 @@ export default function Home() {
               <Reveal key={w.title} delay={i * 70}>
                 <SpotlightCard className="h-full rounded-2xl border border-cream-line bg-sand-deep/40 p-6 transition-shadow hover:shadow-md">
                   <div className="relative z-10">
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta icon-badge">
                       <w.icon />
                     </div>
                     <h3 className="font-serif text-xl font-bold text-ink">{w.title}</h3>
@@ -814,7 +814,7 @@ export default function Home() {
       {/* Best time to visit */}
       <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             Plan Your Season
           </p>
           <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -842,7 +842,7 @@ export default function Home() {
                     </span>
                   )}
                   <div className="relative z-10">
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta icon-badge">
                       <s.icon />
                     </div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
@@ -864,7 +864,7 @@ export default function Home() {
           <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
             <IconCompass />
           </div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             Location &amp; Access
           </p>
           <h2 className="mt-3 font-serif text-4xl font-bold text-ink sm:text-5xl">
@@ -886,7 +886,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 print:hidden">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             Fly the Coastline
           </p>
           <h3 className="mt-3 max-w-xl font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -957,7 +957,7 @@ export default function Home() {
       <section className="border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
               From Above
             </p>
             <h3 className="mt-3 max-w-xl font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -1061,7 +1061,7 @@ export default function Home() {
         <div className="border-t border-cream-line bg-sand-deep/40">
           <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
             <Reveal>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
                 Frequently Asked
               </p>
               <h3 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
@@ -1084,13 +1084,13 @@ export default function Home() {
 
 function ConditionsFallback() {
   return (
-    <div className="h-[220px] animate-pulse rounded-2xl border border-cream-line bg-sand-deep/40" />
+    <div className="skeleton-shimmer h-[220px] rounded-2xl border border-cream-line bg-sand-deep/40" />
   );
 }
 
 function TerrainFallback() {
   return (
-    <div className="flex h-[480px] w-full animate-pulse items-center justify-center rounded-2xl border border-cream-line bg-sand-deep sm:h-[620px]">
+    <div className="skeleton-shimmer flex h-[480px] w-full items-center justify-center rounded-2xl border border-cream-line bg-sand-deep sm:h-[620px]">
       <p className="text-sm text-ink/40">Loading terrain&hellip;</p>
     </div>
   );

@@ -378,7 +378,7 @@ export default function Terrain3D() {
       <div ref={containerRef} className="h-[480px] w-full sm:h-[620px]" />
 
       {!ready && (
-        <div className="absolute inset-0 flex items-center justify-center bg-sand-deep text-sm text-ink/50">
+        <div className="skeleton-shimmer absolute inset-0 flex items-center justify-center bg-sand-deep text-sm text-ink/50">
           Loading terrain&hellip;
         </div>
       )}

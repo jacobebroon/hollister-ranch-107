@@ -233,6 +233,120 @@ body {
   transform: translateY(0) !important;
 }
 
+/* Warm gradient shimmer used on small kicker/eyebrow labels site-wide */
+@keyframes text-shimmer {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.text-gradient-gold {
+  background: linear-gradient(100deg, var(--terracotta) 0%, var(--gold) 50%, var(--terracotta) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 7s ease-in-out infinite;
+}
+
+/* Diagonal light sweep for primary CTA buttons */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -75%;
+  width: 50%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.btn-shine:hover::after {
+  left: 125%;
+}
+
+/* Icon micro-interaction inside spotlight cards */
+.spotlight-card .icon-badge {
+  transition: transform 0.35s ease, background-color 0.35s ease;
+}
+
+.spotlight-card:hover .icon-badge {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+/* Editorial drop cap for the History intro paragraph */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 3.6em;
+  font-weight: 700;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  padding-top: 0.05em;
+  color: var(--terracotta);
+}
+
+/* Shimmering skeleton for async/loading placeholders */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(193, 148, 58, 0.16) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2.2s ease-in-out infinite;
+}
+
+/* Branded focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+}
+
+/* Warm, on-brand scrollbar */
+html {
+  scrollbar-color: var(--terracotta) var(--sand-deep);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sand-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--terracotta);
+  border-radius: 9999px;
+  border: 3px solid var(--sand-deep);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terracotta-deep);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -247,6 +361,15 @@ body {
   .animate-bob {
     animation: none;
     transform: none;
+  }
+
+  .text-gradient-gold {
+    animation: none;
+    background-position: 0% center;
+  }
+
+  .skeleton-shimmer {
+    animation: none;
   }
 }
 
@@ -263,5 +386,11 @@ body {
 
   .faq-answer {
     grid-template-rows: 1fr !important;
+  }
+
+  .text-gradient-gold {
+    background: none !important;
+    -webkit-text-fill-color: var(--terracotta) !important;
+    color: var(--terracotta) !important;
   }
 }
