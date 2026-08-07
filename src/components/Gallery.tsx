@@ -142,7 +142,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           <button
             aria-label="Close"
             onClick={close}
-            className="absolute right-5 top-5 text-sand/80 hover:text-sand"
+            className="absolute right-5 top-5 rounded-full p-2 text-sand/80 transition-all hover:scale-110 hover:bg-sand/10 hover:text-sand"
           >
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
@@ -155,7 +155,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               e.stopPropagation();
               prev();
             }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 p-3 text-sand/70 hover:text-sand sm:left-6"
+            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full p-3 text-sand/70 transition-all hover:scale-110 hover:bg-sand/10 hover:text-sand sm:left-6"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -184,7 +184,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               e.stopPropagation();
               next();
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-3 text-sand/70 hover:text-sand sm:right-6"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-3 text-sand/70 transition-all hover:scale-110 hover:bg-sand/10 hover:text-sand sm:right-6"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

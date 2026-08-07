@@ -225,6 +225,54 @@ body {
   opacity: 1;
 }
 
+/* Restyle MapLibre's default white zoom/compass control to match the site */
+.maplibregl-ctrl-group {
+  background: rgba(36, 28, 20, 0.82) !important;
+  backdrop-filter: blur(6px);
+  border-radius: 12px !important;
+  overflow: hidden;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+}
+
+.maplibregl-ctrl-group button {
+  width: 32px !important;
+  height: 32px !important;
+  transition: background-color 0.2s ease;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid rgba(248, 244, 234, 0.15) !important;
+}
+
+.maplibregl-ctrl-group button:hover {
+  background-color: rgba(248, 244, 234, 0.1) !important;
+}
+
+.maplibregl-ctrl-icon {
+  filter: invert(1) brightness(1.7);
+}
+
+.maplibregl-ctrl-attrib {
+  background: rgba(248, 244, 234, 0.85) !important;
+  border-radius: 6px 0 0 0 !important;
+}
+
+/* Legend dots echo the actual marker-ping animation used on the 3D map */
+.legend-dot {
+  position: relative;
+}
+
+.legend-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: marker-ping 2.6s ease-out infinite;
+}
+
 .spotlight-card::before {
   content: "";
   position: absolute;

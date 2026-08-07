@@ -11,9 +11,9 @@ export default function FaqItem({ q, a }: { q: string; a: string }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 text-left"
+        className="group -mx-2 flex w-full items-center justify-between gap-4 rounded-lg px-2 py-1 text-left transition-colors hover:bg-terracotta/5"
       >
-        <h4 className="font-serif text-lg font-bold text-ink">{q}</h4>
+        <h4 className="font-serif text-lg font-bold text-ink transition-colors group-hover:text-terracotta">{q}</h4>
         <svg
           width="20"
           height="20"

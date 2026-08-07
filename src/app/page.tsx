@@ -909,13 +909,13 @@ export default function Home() {
           </LazyMount>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
             <span className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-gold ring-2 ring-gold/30" /> Rancho Alegria
+              <span className="legend-dot h-2.5 w-2.5 rounded-full bg-gold text-gold ring-2 ring-gold/30" /> Rancho Alegria
             </span>
             <span className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-terracotta" /> Surf break
+              <span className="legend-dot h-2.5 w-2.5 rounded-full bg-terracotta text-terracotta" /> Surf break
             </span>
             <span className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-ocean" /> Landmark
+              <span className="legend-dot h-2.5 w-2.5 rounded-full bg-ocean text-ocean" /> Landmark
             </span>
           </div>
         </Reveal>
@@ -1022,30 +1022,31 @@ export default function Home() {
             </p>
 
             <div className="mt-8 space-y-4">
-              <a
-                href="mailto:jeanetteclavin@yahoo.com"
-                className="flex items-center gap-4 rounded-xl border border-cream-line bg-sand-deep/50 px-6 py-5 transition-colors hover:border-terracotta"
-              >
-                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                  <IconMail />
-                </span>
-                <span>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">Email</p>
-                  <p className="mt-1 font-serif text-xl font-bold text-ink">jeanetteclavin@yahoo.com</p>
-                </span>
-              </a>
-              <a
-                href="tel:+13107101516"
-                className="flex items-center gap-4 rounded-xl border border-cream-line bg-sand-deep/50 px-6 py-5 transition-colors hover:border-terracotta"
-              >
-                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
-                  <IconPhone />
-                </span>
-                <span>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">Call or Text</p>
-                  <p className="mt-1 font-serif text-xl font-bold text-ink">310-710-1516</p>
-                </span>
-              </a>
+              <SpotlightCard className="rounded-xl border border-cream-line bg-sand-deep/50 transition-colors hover:border-terracotta">
+                <a
+                  href="mailto:jeanetteclavin@yahoo.com"
+                  className="relative z-10 flex items-center gap-4 px-6 py-5"
+                >
+                  <span className="icon-badge flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <IconMail />
+                  </span>
+                  <span>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">Email</p>
+                    <p className="mt-1 font-serif text-xl font-bold text-ink">jeanetteclavin@yahoo.com</p>
+                  </span>
+                </a>
+              </SpotlightCard>
+              <SpotlightCard className="rounded-xl border border-cream-line bg-sand-deep/50 transition-colors hover:border-terracotta">
+                <a href="tel:+13107101516" className="relative z-10 flex items-center gap-4 px-6 py-5">
+                  <span className="icon-badge flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
+                    <IconPhone />
+                  </span>
+                  <span>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">Call or Text</p>
+                    <p className="mt-1 font-serif text-xl font-bold text-ink">310-710-1516</p>
+                  </span>
+                </a>
+              </SpotlightCard>
             </div>
           </Reveal>
 
