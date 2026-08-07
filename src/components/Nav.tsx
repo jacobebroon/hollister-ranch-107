@@ -84,13 +84,13 @@ export default function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`relative py-1 transition-colors hover:text-terracotta ${
+                className={`group relative py-1 transition-colors hover:text-terracotta ${
                   isActive ? "text-terracotta" : ""
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-px w-full bg-terracotta transition-transform duration-300 ${
+                  className={`absolute -bottom-1 left-0 h-px w-full origin-left bg-terracotta transition-transform duration-300 group-hover:scale-x-100 ${
                     isActive ? "scale-x-100" : "scale-x-0"
                   }`}
                 />

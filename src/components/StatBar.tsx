@@ -15,6 +15,7 @@ function easeOutCubic(t: number) {
 
 function useCountUp(target: number, decimals: number, active: boolean, duration = 1400) {
   const [value, setValue] = useState(0);
+  const [done, setDone] = useState(false);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -22,7 +23,10 @@ function useCountUp(target: number, decimals: number, active: boolean, duration 
     startedRef.current = true;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const frame = requestAnimationFrame(() => setValue(target));
+      const frame = requestAnimationFrame(() => {
+        setValue(target);
+        setDone(true);
+      });
       return () => cancelAnimationFrame(frame);
     }
 
@@ -32,13 +36,17 @@ function useCountUp(target: number, decimals: number, active: boolean, duration 
       if (start === null) start = ts;
       const t = Math.min(1, (ts - start) / duration);
       setValue(target * easeOutCubic(t));
-      if (t < 1) frame = requestAnimationFrame(step);
+      if (t < 1) {
+        frame = requestAnimationFrame(step);
+      } else {
+        setDone(true);
+      }
     };
     frame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frame);
   }, [active, target, duration]);
 
-  return value.toFixed(decimals);
+  return { display: value.toFixed(decimals), done };
 }
 
 function Stat({
@@ -49,12 +57,16 @@ function Stat({
   label,
   active,
 }: (typeof STATS)[number] & { active: boolean }) {
-  const raw = useCountUp(target, decimals, active);
+  const { display: raw, done } = useCountUp(target, decimals, active);
   const display = commas ? Number(raw).toLocaleString() : raw;
 
   return (
     <div className="text-center">
-      <p className="font-serif text-3xl font-bold text-terracotta tabular-nums sm:text-4xl">
+      <p
+        className={`font-serif text-3xl font-bold text-terracotta tabular-nums sm:text-4xl ${
+          done ? "stat-pop" : ""
+        }`}
+      >
         {display}
         {suffix}
       </p>

@@ -25,10 +25,10 @@ export default function Footer() {
           <div className="text-sm">
             <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Explore</p>
             <ul className="space-y-2 text-sand/80">
-              <li><a className="hover:text-terracotta" href="#property">The Property</a></li>
-              <li><a className="hover:text-terracotta" href="#gallery">Photo Gallery</a></li>
-              <li><a className="hover:text-terracotta" href="#history">History of the Ranch</a></li>
-              <li><a className="hover:text-terracotta" href="#map">Map &amp; Access</a></li>
+              <li><a className="link-sweep hover:text-terracotta" href="#property">The Property</a></li>
+              <li><a className="link-sweep hover:text-terracotta" href="#gallery">Photo Gallery</a></li>
+              <li><a className="link-sweep hover:text-terracotta" href="#history">History of the Ranch</a></li>
+              <li><a className="link-sweep hover:text-terracotta" href="#map">Map &amp; Access</a></li>
             </ul>
           </div>
 
@@ -36,12 +36,12 @@ export default function Footer() {
             <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Contact</p>
             <ul className="space-y-2 text-sand/80">
               <li>
-                <a className="hover:text-terracotta" href="mailto:jeanetteclavin@yahoo.com">
+                <a className="link-sweep hover:text-terracotta" href="mailto:jeanetteclavin@yahoo.com">
                   jeanetteclavin@yahoo.com
                 </a>
               </li>
               <li>
-                <a className="hover:text-terracotta" href="tel:+13107101516">
+                <a className="link-sweep hover:text-terracotta" href="tel:+13107101516">
                   Call or text 310-710-1516
                 </a>
               </li>

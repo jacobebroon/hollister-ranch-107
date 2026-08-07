@@ -671,6 +671,10 @@ export default function Home() {
               first surfboard shop in 1959, would later become known for his
               own influential &ldquo;Yater Spoon&rdquo; longboard model.
             </p>
+            <p className="pull-quote mt-6">
+              Waves ridden quietly at Hollister Ranch helped spark a revolution
+              in surfboard design that reshaped the sport worldwide.
+            </p>
           </Reveal>
 
           <Reveal delay={80} className="mt-16">
