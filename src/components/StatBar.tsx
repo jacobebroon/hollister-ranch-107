@@ -96,9 +96,14 @@ export default function StatBar() {
   }, []);
 
   return (
-    <div ref={ref} className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+    <div
+      ref={ref}
+      className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-cream-line"
+    >
       {STATS.map((s) => (
-        <Stat key={s.label} {...s} active={active} />
+        <div key={s.label} className="sm:px-6">
+          <Stat {...s} active={active} />
+        </div>
       ))}
     </div>
   );

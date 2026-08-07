@@ -208,6 +208,21 @@ body {
 .spotlight-card {
   position: relative;
   isolation: isolate;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.spotlight-card:hover {
+  border-color: var(--gold);
+}
+
+.tilt-glare {
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.35), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
 }
 
 .spotlight-card::before {
