@@ -221,6 +221,11 @@ body {
   transition: opacity 0.4s ease;
 }
 
+/* A tasteful, restrained richness boost applied to every property photo */
+.photo-enhance {
+  filter: saturate(1.1) contrast(1.05) brightness(1.01);
+}
+
 .tilt-card:hover .tilt-glare {
   opacity: 1;
 }

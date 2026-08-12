@@ -9,6 +9,7 @@ export default function Photo({
   className,
   sizes = "100vw",
   priority = false,
+  quality,
 }: {
   slug: string;
   alt: string;
@@ -16,6 +17,7 @@ export default function Photo({
   className?: string;
   sizes?: string;
   priority?: boolean;
+  quality?: number;
 }) {
   const photo = getPhoto(slug);
 
@@ -26,9 +28,10 @@ export default function Photo({
       fill
       sizes={sizes}
       priority={priority}
+      quality={quality ?? (variant === "thumb" ? 75 : 95)}
       placeholder={photo?.blurDataURL ? "blur" : undefined}
       blurDataURL={photo?.blurDataURL}
-      className={className}
+      className={`photo-enhance ${className ?? ""}`}
     />
   );
 }
