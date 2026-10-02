@@ -16,7 +16,7 @@ const body = Inter({
   subsets: ["latin"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hollisterranch107.com";
 const TITLE = "Rancho Alegria — Parcel 107, Hollister Ranch";
 const DESCRIPTION =
   "Rancho Alegria, Parcel 107 of the private 14,400-acre Hollister Ranch on California's Gaviota Coast — history, gallery, and photos.";
