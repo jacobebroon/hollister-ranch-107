@@ -19,7 +19,8 @@ const body = Inter({
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hollisterranch107.com";
 const TITLE = "Rancho Alegria — Parcel 107, Hollister Ranch";
 const DESCRIPTION =
-  "Rancho Alegria, Parcel 107 of the private 14,400-acre Hollister Ranch on California's Gaviota Coast — history, gallery, and photos.";
+  "Rancho Alegria, Parcel 107: 113 private bluff-top acres on Hollister Ranch, Gaviota Coast — main house, guest house, tennis court and hot tub above Razor Blades.";
+const SHARE_IMAGE = { url: "/og/share.jpg", width: 1200, height: 630, alt: TITLE };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,7 +29,10 @@ export const metadata: Metadata = {
     template: "%s — Rancho Alegria",
   },
   description: DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
+    url: "/",
+    images: [SHARE_IMAGE],
     title: TITLE,
     description: DESCRIPTION,
     siteName: "Rancho Alegria",
@@ -39,6 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: [SHARE_IMAGE.url],
   },
 };
 

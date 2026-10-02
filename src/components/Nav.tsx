@@ -100,7 +100,7 @@ export default function Nav() {
         </nav>
 
         <button
-          className="text-ink md:hidden"
+          className="-mr-2 grid h-11 w-11 place-items-center text-ink md:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
