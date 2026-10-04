@@ -17,7 +17,7 @@ const body = Inter({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hollisterranch107.com";
-const TITLE = "Rancho Alegria — Parcel 107, Hollister Ranch";
+const TITLE = "Hollister Ranch 107 — Rancho Alegria, 113 Oceanfront Acres";
 const DESCRIPTION =
   "Rancho Alegria, Parcel 107: 113 private bluff-top acres on Hollister Ranch, Gaviota Coast — main house, guest house, tennis court and hot tub above Razor Blades.";
 const SHARE_IMAGE = { url: "/og/share.jpg", width: 1200, height: 630, alt: TITLE };
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s — Rancho Alegria",
+    template: "%s — Hollister Ranch 107",
   },
   description: DESCRIPTION,
   alternates: { canonical: "/" },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: [SHARE_IMAGE],
     title: TITLE,
     description: DESCRIPTION,
-    siteName: "Rancho Alegria",
+    siteName: "Hollister Ranch 107",
     type: "website",
     locale: "en_US",
   },
@@ -54,9 +54,23 @@ export const viewport: Viewport = {
 const ORG_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Rancho Alegria",
+  "@id": `${SITE_URL}/#org`,
+  name: "Hollister Ranch 107 — Rancho Alegria",
+  alternateName: "Rancho Alegria",
   url: SITE_URL,
   logo: `${SITE_URL}/brand/crest.png`,
+};
+
+// Tells Google which name to show for the site in search results
+const WEBSITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: "Hollister Ranch 107",
+  alternateName: ["Rancho Alegria", "hollisterranch107.com"],
+  url: SITE_URL,
+  inLanguage: "en-US",
+  publisher: { "@id": `${SITE_URL}/#org` },
 };
 
 export default function RootLayout({
@@ -73,6 +87,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
         />
         <a
           href="#main-content"

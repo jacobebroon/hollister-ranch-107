@@ -111,7 +111,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
                 alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
                 fill
                 sizes={featured ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"}
-                quality={featured ? 90 : 80}
+                quality={featured ? 85 : 75}
                 placeholder={photo.blurDataURL ? "blur" : undefined}
                 blurDataURL={photo.blurDataURL}
                 className="photo-enhance object-cover transition-transform duration-500 group-hover:scale-105"
@@ -170,7 +170,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             width={active.width}
             height={active.height}
             sizes="90vw"
-            quality={95}
+            quality={90}
             placeholder={active.blurDataURL ? "blur" : undefined}
             blurDataURL={active.blurDataURL}
             onClick={(e) => e.stopPropagation()}

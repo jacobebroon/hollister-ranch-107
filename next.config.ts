@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
         pathname: "/storage/v1/object/public/**",
       },
     ],
-    qualities: [75, 80, 90, 95],
+    qualities: [75, 80, 85, 90],
+    // Photos are immutable per slug, so cache optimized variants for a year
+    minimumCacheTTL: 31536000,
   },
 };
 

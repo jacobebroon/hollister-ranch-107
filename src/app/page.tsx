@@ -15,6 +15,7 @@ import SpotlightCard from "@/components/SpotlightCard";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import Reveal from "@/components/Reveal";
 import { SURF_BREAKS, PROPERTY } from "@/data/surf";
+import { photoUrl, videoUrl } from "@/lib/media";
 import {
   IconLand,
   IconEye,
@@ -220,6 +221,22 @@ const EXPECT = [
 
 const FAQ = [
   {
+    q: "What is Hollister Ranch 107?",
+    a: "Hollister Ranch 107 is Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break.",
+  },
+  {
+    q: "Who owns Hollister Ranch 107?",
+    a: "Rancho Alegria, Parcel 107, was established in 1987 and has been held by the Clavin family ever since.",
+  },
+  {
+    q: "What is Hollister Ranch?",
+    a: "Hollister Ranch is a private, gated 14,400-acre cattle ranch with 8.5 miles of undeveloped Pacific coastline on the Gaviota Coast, west of Santa Barbara. It was subdivided in 1971 into parcels of 100 acres or more that can never be further divided.",
+  },
+  {
+    q: "Who owns Hollister Ranch?",
+    a: "No single owner. Nearly 1,000 owners hold interests across the ranch's 136 parcels, and the Hollister Ranch Owners' Association manages the shared roads, utilities, and the working cattle cooperative.",
+  },
+  {
     q: "Is Rancho Alegria open to the public?",
     a: "No. Hollister Ranch is a private, gated community with a single guarded entrance — access is limited to parcel owners, their guests, and confirmed visitors.",
   },
@@ -237,25 +254,68 @@ const FAQ = [
   },
 ];
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hollisterranch107.com";
+
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "LandmarksOrHistoricalBuildings",
-  name: "Rancho Alegria — Parcel 107, Hollister Ranch",
+  "@type": ["Place", "LandmarksOrHistoricalBuildings"],
+  "@id": `${SITE_URL}/#place`,
+  name: "Hollister Ranch 107 — Rancho Alegria",
+  alternateName: ["Rancho Alegria", "Hollister Ranch Parcel 107", "107 Hollister Ranch", "HR 107"],
+  url: SITE_URL,
   description:
-    "A 113-acre private parcel on Hollister Ranch's protected coastline on California's Gaviota Coast.",
+    "Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break.",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "107 Hollister Ranch Rd",
     addressLocality: "Gaviota",
     addressRegion: "CA",
+    postalCode: "93117",
     addressCountry: "US",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: PROPERTY.center[1],
+    longitude: PROPERTY.center[0],
+  },
+  containedInPlace: {
+    "@type": "Place",
+    name: "Hollister Ranch",
+    address: { "@type": "PostalAddress", addressRegion: "CA", addressCountry: "US" },
+  },
+  publicAccess: false,
+  amenityFeature: [
+    "Main house",
+    "Separate guest house",
+    "Private ocean-view tennis court",
+    "Private hot tub",
+    "Fruit orchard",
+    "Single guarded gate",
+    "Razor Blades surf break directly below",
+  ].map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
   additionalProperty: [
-    { "@type": "PropertyValue", name: "Access", value: "Single guarded gate" },
-    { "@type": "PropertyValue", name: "Tennis Court", value: "Private, ocean-view, on-site" },
-    { "@type": "PropertyValue", name: "Hot Tub", value: "Private, on-site" },
-    { "@type": "PropertyValue", name: "Guest House", value: "Separate guest house on-site" },
-    { "@type": "PropertyValue", name: "Nearest Surf Break", value: "Razor Blades, directly below the property" },
+    { "@type": "PropertyValue", name: "Acreage", value: 113, unitText: "acres" },
+    { "@type": "PropertyValue", name: "Parcel", value: "107" },
+    { "@type": "PropertyValue", name: "Established", value: "1987" },
   ],
+  photo: photos.slice(0, 12).map((p) => ({
+    "@type": "ImageObject",
+    contentUrl: photoUrl(p.slug),
+    ...(p.caption ? { caption: p.caption } : {}),
+  })),
+};
+
+const VIDEO_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "Rancho Alegria property tour — Hollister Ranch 107",
+  description:
+    "A video tour of Rancho Alegria, Parcel 107 of Hollister Ranch on California's Gaviota Coast.",
+  thumbnailUrl: [`${SITE_URL}/og/share.jpg`, photoUrl("ranch-004")],
+  contentUrl: videoUrl(),
+  uploadDate: "2026-07-18T00:00:00-07:00",
+  duration: "PT4M26S",
+  contentLocation: { "@id": `${SITE_URL}/#place` },
 };
 
 const FAQ_JSON_LD = {
@@ -282,6 +342,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(VIDEO_JSON_LD) }}
+      />
 
       {/* Hero */}
       <section id="top" className="relative flex min-h-[92vh] scroll-mt-24 items-end overflow-hidden">
@@ -301,14 +365,13 @@ export default function Home() {
         />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-40 text-sand sm:px-8 sm:pb-24">
-          <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.35em] text-sand/80">
-            Hollister Ranch &middot; Gaviota Coast, California
-          </p>
-          <h1
-            className="animate-fade-up mt-4 max-w-3xl text-balance font-serif text-5xl font-bold leading-[1.05] drop-shadow-sm sm:text-7xl"
-            style={{ animationDelay: "0.1s" }}
-          >
-            Rancho Alegria
+          <h1 className="max-w-3xl">
+            <span className="block text-xs font-semibold uppercase tracking-[0.35em] text-sand/80">
+              Hollister Ranch 107 &middot; Gaviota Coast, California
+            </span>
+            <span className="mt-4 block text-balance font-serif text-5xl font-bold leading-[1.05] drop-shadow-sm sm:text-7xl">
+              Rancho Alegria
+            </span>
           </h1>
           <p
             className="animate-fade-up mt-4 max-w-xl text-lg text-sand/85 sm:text-xl"
@@ -434,7 +497,7 @@ export default function Home() {
               ever since.
             </p>
             <p>
-              Rancho Alegria, Parcel 107, sits on 113 of those acres: a bluff-top
+              Rancho Alegria &mdash; Hollister Ranch Parcel 107 &mdash; sits on 113 of those acres: a bluff-top
               perch above the Santa Barbara Channel, framed by rolling grassland,
               mature gardens, and an unbroken view of open ocean.
             </p>

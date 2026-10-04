@@ -28,7 +28,7 @@ export default function Photo({
       fill
       sizes={sizes}
       priority={priority}
-      quality={quality ?? (variant === "thumb" ? 75 : 95)}
+      quality={quality ?? (variant === "thumb" ? 75 : 85)}
       placeholder={photo?.blurDataURL ? "blur" : undefined}
       blurDataURL={photo?.blurDataURL}
       className={`photo-enhance ${className ?? ""}`}
