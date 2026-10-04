@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import maplibregl, { type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { SURF_BREAKS, LANDMARKS, PROPERTY } from "@/data/surf";
+import { fmt, type Dict } from "@/i18n";
 
 // Point Conception, the western edge of Hollister Ranch
 const START = { center: [-120.4713, 34.4486] as [number, number], zoom: 12.2 };
@@ -85,7 +86,7 @@ function circlePolygon(center: [number, number], radiusMeters: number, steps = 6
 }
 
 type SkyPreset = {
-  label: string;
+  key: "night" | "dawn" | "day" | "dusk";
   sky: { skyColor: string; horizonColor: string; fogColor: string };
   raster: { brightnessMin: number; brightnessMax: number; saturation: number; contrast: number };
 };
@@ -95,37 +96,37 @@ type SkyPreset = {
 function getSkyPreset(hour: number): SkyPreset {
   if (hour < 5 || hour >= 20) {
     return {
-      label: "Night",
+      key: "night",
       sky: { skyColor: "#0d1a2b", horizonColor: "#1c2c3f", fogColor: "#16232f" },
       raster: { brightnessMin: 0, brightnessMax: 0.55, saturation: -0.3, contrast: 0.05 },
     };
   }
   if (hour < 8) {
     return {
-      label: "Dawn",
+      key: "dawn",
       sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" },
       raster: { brightnessMin: 0, brightnessMax: 0.85, saturation: -0.05, contrast: 0.05 },
     };
   }
   if (hour < 17) {
     return {
-      label: "Day",
+      key: "day",
       sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" },
       raster: { brightnessMin: 0, brightnessMax: 1, saturation: 0, contrast: 0 },
     };
   }
   return {
-    label: "Dusk",
+    key: "dusk",
     sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" },
     raster: { brightnessMin: 0, brightnessMax: 0.8, saturation: 0.05, contrast: 0.05 },
   };
 }
 
-function buildMarkerEl(name: string, kind: "surf" | "landmark") {
+function buildMarkerEl(name: string, kind: "surf" | "landmark", flyLabel: string) {
   const el = document.createElement("button");
   el.type = "button";
   el.className = kind === "surf" ? "surf-marker" : "surf-marker landmark-marker";
-  el.setAttribute("aria-label", `Fly to ${name}`);
+  el.setAttribute("aria-label", flyLabel);
   el.innerHTML = `
     <span class="surf-marker-dot"><span class="surf-marker-ping"></span></span>
     <span class="surf-marker-label">${name}</span>
@@ -133,11 +134,11 @@ function buildMarkerEl(name: string, kind: "surf" | "landmark") {
   return el;
 }
 
-function buildPropertyMarkerEl(name: string) {
+function buildPropertyMarkerEl(name: string, flyLabel: string) {
   const el = document.createElement("button");
   el.type = "button";
   el.className = "surf-marker property-marker";
-  el.setAttribute("aria-label", `Fly to ${name}`);
+  el.setAttribute("aria-label", flyLabel);
   el.innerHTML = `
     <span class="property-marker-dot">
       <img src="/brand/crest.png" alt="" width="30" height="30" />
@@ -150,7 +151,10 @@ function buildPropertyMarkerEl(name: string) {
 
 type ActiveInfo = { name: string; note: string; swell?: string } | null;
 
-export default function Terrain3D() {
+export default function Terrain3D({ t }: { t: Dict["terrain"] }) {
+  // Read inside the one-time map setup effect, which intentionally runs only once
+  const tRef = useRef(t);
+  const propertyInfo = { name: PROPERTY.name, note: t.propertyNote };
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const [ready, setReady] = useState(false);
@@ -224,7 +228,7 @@ export default function Terrain3D() {
       setReady(true);
 
       const preset = getSkyPreset(new Date().getHours());
-      setSkyLabel(preset.label);
+      setSkyLabel(tRef.current.sky[preset.key]);
       map.setSky({
         "sky-color": preset.sky.skyColor,
         "horizon-color": preset.sky.horizonColor,
@@ -278,31 +282,34 @@ export default function Terrain3D() {
         paint: { "line-color": "#c1943a", "line-width": 1.5, "line-opacity": 0.6, "line-dasharray": [2, 2] },
       });
 
-      for (const spot of SURF_BREAKS) {
-        const el = buildMarkerEl(spot.name, "surf");
+      const tt = tRef.current;
+      SURF_BREAKS.forEach((spot, i) => {
+        const info = tt.breaks[i] ?? { swell: spot.swell, note: spot.note };
+        const el = buildMarkerEl(spot.name, "surf", fmt(tt.flyTo, { name: spot.name }));
         el.addEventListener("click", () => {
-          setActive({ name: spot.name, note: spot.note, swell: spot.swell });
+          setActive({ name: spot.name, note: info.note, swell: info.swell });
           flyToSpot(map, spot.center);
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(spot.center)
           .addTo(map);
-      }
+      });
 
-      for (const landmark of LANDMARKS) {
-        const el = buildMarkerEl(landmark.name, "landmark");
+      LANDMARKS.forEach((landmark, i) => {
+        const info = tt.landmarks[i] ?? { name: landmark.name, note: landmark.note };
+        const el = buildMarkerEl(info.name, "landmark", fmt(tt.flyTo, { name: info.name }));
         el.addEventListener("click", () => {
-          setActive({ name: landmark.name, note: landmark.note });
+          setActive({ name: info.name, note: info.note });
           flyToSpot(map, landmark.center);
         });
         new maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat(landmark.center)
           .addTo(map);
-      }
+      });
 
-      const propertyEl = buildPropertyMarkerEl(PROPERTY.name);
+      const propertyEl = buildPropertyMarkerEl(PROPERTY.name, fmt(tt.flyTo, { name: PROPERTY.name }));
       propertyEl.addEventListener("click", () => {
-        setActive({ name: PROPERTY.name, note: PROPERTY.note });
+        setActive({ name: PROPERTY.name, note: tt.propertyNote });
         flyToSpot(map, PROPERTY.center);
       });
       new maplibregl.Marker({ element: propertyEl, anchor: "bottom" })
@@ -336,7 +343,7 @@ export default function Terrain3D() {
 
     if (reducedMotionRef.current) {
       map.jumpTo({ center: PROPERTY.center, zoom: 14.6, pitch: 70, bearing: -20 });
-      setActive({ name: PROPERTY.name, note: PROPERTY.note });
+      setActive({ name: PROPERTY.name, note: tRef.current.propertyNote });
       setFlying(false);
       return;
     }
@@ -365,7 +372,7 @@ export default function Terrain3D() {
       });
       const onArrive = () => {
         map.off("moveend", onArrive);
-        setActive({ name: PROPERTY.name, note: PROPERTY.note });
+        setActive({ name: PROPERTY.name, note: tRef.current.propertyNote });
         setFlying(false);
       };
       map.on("moveend", onArrive);
@@ -379,7 +386,7 @@ export default function Terrain3D() {
 
       {!ready && (
         <div className="skeleton-shimmer absolute inset-0 flex items-center justify-center bg-sand-deep text-sm text-ink/50">
-          Loading terrain&hellip;
+          {t.loading}
         </div>
       )}
 
@@ -389,18 +396,18 @@ export default function Terrain3D() {
           disabled={flying}
           className="truncate rounded-full bg-ink/80 px-4 py-2.5 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
         >
-          {flying ? "Flying the coastline…" : "↻ Replay flyover"}
+          {flying ? t.flying : t.replay}
         </button>
         <button
           onClick={() => {
             if (!mapRef.current) return;
-            setActive({ name: PROPERTY.name, note: PROPERTY.note });
+            setActive(propertyInfo);
             flyToSpot(mapRef.current, PROPERTY.center);
           }}
           disabled={flying}
           className="truncate rounded-full border border-gold/60 bg-ink/80 px-4 py-2.5 text-xs font-semibold text-gold shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
         >
-          View Rancho Alegria
+          {t.viewProperty}
         </button>
       </div>
 
@@ -416,7 +423,7 @@ export default function Terrain3D() {
               )}
               <button
                 type="button"
-                aria-label="Close"
+                aria-label={t.close}
                 onClick={() => setActive(null)}
                 className="text-sand/60 hover:text-sand"
               >
@@ -431,8 +438,8 @@ export default function Terrain3D() {
       )}
 
       <div className="absolute bottom-4 right-4 hidden max-w-[45%] rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur sm:block">
-        Drag to rotate &middot; Click a marker for details
-        {skyLabel && <> &middot; Live sky: {skyLabel}</>}
+        {t.hint}
+        {skyLabel && <> &middot; {t.liveSky}: {skyLabel}</>}
       </div>
     </div>
   );

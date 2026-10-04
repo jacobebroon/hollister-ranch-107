@@ -1,8 +1,14 @@
 import Link from "next/link";
 import Photo from "@/components/Photo";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import en from "@/i18n/en";
 
 export default function NotFound() {
   return (
+    <>
+    <Nav t={en.nav} base="/" />
+    <main className="flex-1">
     <div className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
       <Photo
         slug="img-20150119-123532632"
@@ -29,5 +35,8 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
+    </main>
+    <Footer t={en.footer} base="/" />
+    </>
   );
 }

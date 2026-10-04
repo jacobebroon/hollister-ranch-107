@@ -3,17 +3,22 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import { photoUrl } from "@/lib/media";
-import { CATEGORY_LABELS, type Category, type Photo } from "@/data/photos";
+import type { Category, Photo } from "@/data/photos";
+import { openPhotoTour } from "@/components/PhotoTour";
+import type { Dict } from "@/i18n";
 
-const FILTERS: Array<{ key: Category | "all"; label: string }> = [
-  { key: "all", label: "All Photos" },
-  { key: "residence", label: CATEGORY_LABELS.residence },
-  { key: "grounds", label: CATEGORY_LABELS.grounds },
-  { key: "coastline", label: CATEGORY_LABELS.coastline },
-  { key: "sky", label: CATEGORY_LABELS.sky },
-];
+const FILTER_KEYS: Array<Category | "all"> = ["all", "residence", "grounds", "coastline", "sky"];
 
-export default function Gallery({ photos }: { photos: Photo[] }) {
+export default function Gallery({
+  photos,
+  t,
+  fallbackAlt,
+}: {
+  photos: Photo[];
+  t: Dict["gallery"];
+  fallbackAlt: string;
+}) {
+  const FILTERS = FILTER_KEYS.map((key) => ({ key, label: t.filters[key] }));
   const [filter, setFilter] = useState<Category | "all">("all");
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -92,6 +97,16 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             {f.label}
           </button>
         ))}
+        <button
+          type="button"
+          onClick={() => openPhotoTour(filter === "all" ? undefined : filtered[0]?.slug)}
+          className="ml-auto flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-sand shadow-md transition-colors hover:bg-terracotta"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5z" />
+          </svg>
+          {t.fullscreen}
+        </button>
       </div>
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 [grid-auto-flow:dense]">
@@ -101,14 +116,14 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             <button
               key={photo.slug}
               onClick={() => open(i)}
-              aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ""}`}
+              aria-label={`${t.openPhoto}${photo.caption ? `: ${photo.caption}` : ""}`}
               className={`group relative overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta aspect-[4/3] ${
                 featured ? "sm:col-span-2 sm:row-span-2 sm:aspect-square" : ""
               }`}
             >
               <Image
                 src={photoUrl(photo.slug, "thumb")}
-                alt={photo.caption ?? "Rancho Alegria, Parcel 107"}
+                alt={photo.caption ?? fallbackAlt}
                 fill
                 sizes={featured ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"}
                 quality={featured ? 85 : 75}
@@ -127,7 +142,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-12 text-center text-ink/50">No photos in this category yet.</p>
+        <p className="mt-12 text-center text-ink/50">{t.empty}</p>
       )}
 
       {active && (
@@ -135,13 +150,13 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          aria-label={active.caption ?? "Photo viewer"}
+          aria-label={active.caption ?? t.viewer}
           tabIndex={-1}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink/95 px-4 py-8 outline-none"
           onClick={close}
         >
           <button
-            aria-label="Close"
+            aria-label={t.close}
             onClick={close}
             className="absolute right-5 top-5 rounded-full p-2 text-sand/80 transition-all hover:scale-110 hover:bg-sand/10 hover:text-sand"
           >
@@ -151,7 +166,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           </button>
 
           <button
-            aria-label="Previous"
+            aria-label={t.previous}
             onClick={(e) => {
               e.stopPropagation();
               prev();
@@ -166,7 +181,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           <Image
             key={active.slug}
             src={photoUrl(active.slug, "full")}
-            alt={active.caption ?? "Rancho Alegria, Parcel 107"}
+            alt={active.caption ?? fallbackAlt}
             width={active.width}
             height={active.height}
             sizes="90vw"
@@ -181,7 +196,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           )}
 
           <button
-            aria-label="Next"
+            aria-label={t.next}
             onClick={(e) => {
               e.stopPropagation();
               next();

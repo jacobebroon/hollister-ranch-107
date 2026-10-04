@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const RADIUS = 19;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-export default function BackToTop() {
+export default function BackToTop({ label = "Back to top" }: { label?: string }) {
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -27,7 +27,7 @@ export default function BackToTop() {
   return (
     <a
       href="#top"
-      aria-label="Back to top"
+      aria-label={label}
       className={`fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-ink/80 text-sand shadow-lg backdrop-blur transition-all hover:bg-ink print:hidden ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}

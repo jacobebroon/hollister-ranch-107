@@ -3,8 +3,9 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { videoUrl, photoUrl } from "@/lib/media";
+import type { Dict } from "@/i18n";
 
-export default function VideoPlayer({ posterSlug }: { posterSlug: string }) {
+export default function VideoPlayer({ posterSlug, t }: { posterSlug: string; t: Dict["video"] }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [requested, setRequested] = useState(false);
   const [started, setStarted] = useState(false);
@@ -37,7 +38,7 @@ export default function VideoPlayer({ posterSlug }: { posterSlug: string }) {
       {!started && (
         <Image
           src={photoUrl(posterSlug)}
-          alt="Rancho Alegria property tour — Hollister Ranch 107"
+          alt={t.coverAlt}
           fill
           sizes="(max-width: 1024px) 100vw, 1024px"
           quality={80}
@@ -48,7 +49,7 @@ export default function VideoPlayer({ posterSlug }: { posterSlug: string }) {
       {!playing && (!started || !requested) && (
         <button
           type="button"
-          aria-label={requested ? "Loading the property tour" : "Play the property tour"}
+          aria-label={requested ? t.loading : t.play}
           onClick={play}
           disabled={requested}
           className="group absolute inset-0 flex items-center justify-center bg-ink/20 transition-colors hover:bg-ink/10"

@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const display = Playfair_Display({
@@ -29,7 +26,10 @@ export const metadata: Metadata = {
     template: "%s — Hollister Ranch 107",
   },
   description: DESCRIPTION,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", es: "/es", "x-default": "/" },
+  },
   openGraph: {
     url: "/",
     images: [SHARE_IMAGE],
@@ -92,18 +92,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
         />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-terracotta focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-sand"
-        >
-          Skip to content
-        </a>
-        <Nav />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <BackToTop />
+        {children}
       </body>
     </html>
   );

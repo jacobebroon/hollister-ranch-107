@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const STATS = [
-  { target: 113, decimals: 0, suffix: "", commas: false, label: "Private acres" },
-  { target: 14400, decimals: 0, suffix: "", commas: true, label: "Acre ranch" },
-  { target: 8.5, decimals: 1, suffix: " mi", commas: false, label: "Untouched coastline" },
-  { target: 1866, decimals: 0, suffix: "", commas: false, label: "Ranch founded" },
+  { target: 113, decimals: 0, suffix: "", commas: false },
+  { target: 14400, decimals: 0, suffix: "", commas: true },
+  { target: 8.5, decimals: 1, suffix: " mi", commas: false },
+  { target: 1866, decimals: 0, suffix: "", commas: false },
 ];
 
 function easeOutCubic(t: number) {
@@ -56,9 +56,9 @@ function Stat({
   commas,
   label,
   active,
-}: (typeof STATS)[number] & { active: boolean }) {
+}: (typeof STATS)[number] & { label: string; active: boolean }) {
   const { display: raw, done } = useCountUp(target, decimals, active);
-  const display = commas ? Number(raw).toLocaleString() : raw;
+  const display = commas ? Number(raw).toLocaleString("en-US") : raw;
 
   return (
     <div className="text-center">
@@ -75,7 +75,7 @@ function Stat({
   );
 }
 
-export default function StatBar() {
+export default function StatBar({ labels }: { labels: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -100,9 +100,9 @@ export default function StatBar() {
       ref={ref}
       className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-cream-line"
     >
-      {STATS.map((s) => (
-        <div key={s.label} className="sm:px-6">
-          <Stat {...s} active={active} />
+      {STATS.map((s, i) => (
+        <div key={s.target} className="sm:px-6">
+          <Stat {...s} label={labels[i]} active={active} />
         </div>
       ))}
     </div>

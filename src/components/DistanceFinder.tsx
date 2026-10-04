@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { IconCompass } from "@/components/icons";
 import { PROPERTY } from "@/data/surf";
+import { fmt, type Dict } from "@/i18n";
 
 const RANCH = { lat: PROPERTY.center[1], lng: PROPERTY.center[0] };
 
@@ -41,7 +42,7 @@ type State =
   | { status: "error" }
   | { status: "done"; miles: number; compass: string; deg: number };
 
-export default function DistanceFinder() {
+export default function DistanceFinder({ t }: { t: Dict["distance"] }) {
   const [state, setState] = useState<State>({ status: "idle" });
 
   const locate = () => {
@@ -80,7 +81,7 @@ export default function DistanceFinder() {
             className="transition-transform duration-700 ease-out"
             style={{ transform: `rotate(${state.deg}deg)` }}
             role="img"
-            aria-label={`Bearing to Rancho Alegria: ${state.compass}`}
+            aria-label={fmt(t.bearingAria, { compass: state.compass })}
           >
             <path d="M12 20V4M12 4l-5 5M12 4l5 5" />
           </svg>
@@ -91,33 +92,30 @@ export default function DistanceFinder() {
 
       {state.status === "idle" && (
         <>
-          <p className="text-sm text-ink/70">Curious how far you are from the ranch?</p>
+          <p className="text-sm text-ink/70">{t.prompt}</p>
           <button
             onClick={locate}
             className="ml-auto rounded-full border border-ocean/30 px-4 py-2 text-sm font-semibold text-ocean transition-colors hover:bg-ocean hover:text-sand"
           >
-            Find out
+            {t.button}
           </button>
         </>
       )}
 
-      {state.status === "loading" && <p className="text-sm text-ink/60">Locating&hellip;</p>}
+      {state.status === "loading" && <p className="text-sm text-ink/60">{t.locating}</p>}
 
       {state.status === "done" && (
         <p className="text-sm text-ink/75">
-          You&rsquo;re about <span className="font-bold text-ink">{state.miles} miles</span> from
-          Rancho Alegria, roughly to the {state.compass} of you &mdash; as the crow flies.
+          {fmt(t.result, { miles: state.miles.toLocaleString("en-US"), compass: state.compass })}
         </p>
       )}
 
       {state.status === "denied" && (
-        <p className="text-sm text-ink/60">
-          Location access was declined &mdash; no problem, come back anytime.
-        </p>
+        <p className="text-sm text-ink/60">{t.denied}</p>
       )}
 
       {state.status === "error" && (
-        <p className="text-sm text-ink/60">Couldn&rsquo;t determine your location right now.</p>
+        <p className="text-sm text-ink/60">{t.error}</p>
       )}
     </div>
   );

@@ -1,6 +1,9 @@
 import Image from "next/image";
+import type { Dict } from "@/i18n";
 
-export default function Footer() {
+const ANCHORS = ["#property", "#gallery", "#history", "#map"];
+
+export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: string }) {
   const year = new Date().getFullYear();
 
   return (
@@ -13,27 +16,29 @@ export default function Footer() {
               <Image src="/brand/crest.png" alt="" width={44} height={44} className="rounded-full" />
               <div>
                 <p className="font-serif text-xl font-bold text-sand">Rancho Alegria</p>
-                <p className="text-sm text-sand/60">Parcel 107, Hollister Ranch</p>
+                <p className="text-sm text-sand/60">{t.sub}</p>
               </div>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand/70">
-              113 private acres on one of the last undeveloped stretches of the
-              California coast, on the Gaviota Coast north of Santa Barbara.
+              {t.blurb}
             </p>
           </div>
 
           <div className="text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Explore</p>
+            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">{t.explore}</p>
             <ul className="text-sand/80 md:space-y-2">
-              <li><a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="#property">The Property</a></li>
-              <li><a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="#gallery">Photo Gallery</a></li>
-              <li><a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="#history">History of the Ranch</a></li>
-              <li><a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="#map">Map &amp; Access</a></li>
+              {ANCHORS.map((href, i) => (
+                <li key={href}>
+                  <a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href={base + href}>
+                    {t.links[i]}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">Contact</p>
+            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">{t.contact}</p>
             <ul className="text-sand/80 md:space-y-2">
               <li>
                 <a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="mailto:jeanetteclavin@yahoo.com">
@@ -42,7 +47,7 @@ export default function Footer() {
               </li>
               <li>
                 <a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="tel:+13107101516">
-                  Call or text 310-710-1516
+                  {t.callText} 310-710-1516
                 </a>
               </li>
             </ul>
@@ -50,12 +55,13 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            Hollister Ranch is a private, gated community. This site describes Rancho
-            Alegria, Parcel 107, and is not affiliated with the Hollister Ranch Owners&rsquo;
-            Association.
+          <p>{t.disclaimer}</p>
+          <p className="flex items-center gap-4 whitespace-nowrap text-sand/30">
+            <a href={t.switchHref} hrefLang={t.switchLang} className="text-sand/60 underline-offset-4 hover:text-sand hover:underline">
+              {t.switchName}
+            </a>
+            &copy; {year} Rancho Alegria
           </p>
-          <p className="whitespace-nowrap text-sand/30">&copy; {year} Rancho Alegria</p>
         </div>
       </div>
     </footer>

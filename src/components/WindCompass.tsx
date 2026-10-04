@@ -6,16 +6,18 @@ export default function WindCompass({
   windCompass,
   swellCompass,
   className,
+  t = { swell: "Swell", wind: "Wind", swellFrom: "Swell from the", windFrom: "wind from the" },
 }: {
   windDeg?: number;
   swellDeg?: number;
   windCompass?: string;
   swellCompass?: string;
   className?: string;
+  t?: { swell: string; wind: string; swellFrom: string; windFrom: string };
 }) {
   const label = [
-    swellCompass ? `Swell from the ${swellCompass}` : null,
-    windCompass ? `wind from the ${windCompass}` : null,
+    swellCompass ? `${t.swellFrom} ${swellCompass}` : null,
+    windCompass ? `${t.windFrom} ${windCompass}` : null,
   ]
     .filter(Boolean)
     .join(", ");
@@ -60,10 +62,10 @@ export default function WindCompass({
       </svg>
       <div className="mt-1 flex gap-3 text-[0.65rem] text-ink/50">
         <span className="flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-terracotta" /> Swell
+          <span className="h-1.5 w-1.5 rounded-full bg-terracotta" /> {t.swell}
         </span>
         <span className="flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-ocean" /> Wind
+          <span className="h-1.5 w-1.5 rounded-full bg-ocean" /> {t.wind}
         </span>
       </div>
     </div>

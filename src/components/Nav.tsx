@@ -2,17 +2,12 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import type { Dict } from "@/i18n";
 
-const LINKS = [
-  { href: "#top", label: "Home" },
-  { href: "#property", label: "Rancho Alegria" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#history", label: "The Ranch" },
-  { href: "#map", label: "Map & Access" },
-  { href: "#contact", label: "Contact" },
-];
+const ANCHORS = ["#top", "#property", "#gallery", "#history", "#map", "#contact"];
 
-export default function Nav() {
+export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string }) {
+  const LINKS = ANCHORS.map((href, i) => ({ href, label: t.links[i] }));
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#top");
@@ -34,7 +29,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const sections = LINKS.map((l) => document.getElementById(l.href.slice(1))).filter(
+    const sections = ANCHORS.map((href) => document.getElementById(href.slice(1))).filter(
       (el): el is HTMLElement => !!el
     );
 
@@ -59,7 +54,7 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
+        <a href={`${base}#top`} className="group flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image
             src="/brand/crest.png"
             alt=""
@@ -72,7 +67,7 @@ export default function Nav() {
               Rancho Alegria
             </span>
             <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
-              Parcel 107 · Hollister Ranch
+              {t.brandSub}
             </span>
           </span>
         </a>
@@ -83,7 +78,7 @@ export default function Nav() {
             return (
               <a
                 key={link.href}
-                href={link.href}
+                href={base + link.href}
                 className={`group relative py-1 transition-colors hover:text-terracotta ${
                   isActive ? "text-terracotta" : ""
                 }`}
@@ -97,11 +92,19 @@ export default function Nav() {
               </a>
             );
           })}
+          <a
+            href={t.switchHref}
+            hrefLang={t.switchLabel.toLowerCase()}
+            aria-label={t.switchAria}
+            className="rounded-full border border-cream-line px-3 py-1 text-xs font-semibold tracking-widest text-ocean transition-colors hover:border-terracotta hover:text-terracotta"
+          >
+            {t.switchLabel}
+          </a>
         </nav>
 
         <button
           className="-mr-2 grid h-11 w-11 place-items-center text-ink md:hidden"
-          aria-label="Toggle menu"
+          aria-label={t.toggleMenu}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
@@ -121,11 +124,13 @@ export default function Nav() {
           open ? "grid-rows-[1fr] border-t border-cream-line/70" : "grid-rows-[0fr] border-t border-transparent"
         }`}
       >
-        <nav className="flex min-h-0 flex-col gap-1 px-5 pb-4 pt-2">
+        {/* Padding lives on an inner element so the collapsed row is truly 0px tall */}
+        <div className="min-h-0">
+        <nav className="flex flex-col gap-1 px-5 pb-4 pt-2">
           {LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={base + link.href}
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
               className={`rounded-md px-2 py-2.5 text-sm font-medium ${
@@ -135,7 +140,17 @@ export default function Nav() {
               {link.label}
             </a>
           ))}
+          <a
+            href={t.switchHref}
+            hrefLang={t.switchLabel.toLowerCase()}
+            tabIndex={open ? 0 : -1}
+            className="mt-1 flex items-center justify-between rounded-md border border-cream-line px-2 py-2.5 text-sm font-semibold text-ocean"
+          >
+            {t.switchName}
+            <span className="text-xs tracking-widest text-ink/50">{t.switchLabel}</span>
+          </a>
         </nav>
+        </div>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-0.5 bg-transparent">

@@ -5,9 +5,11 @@ const PADDING = 4;
 export default function TideCurve({
   points,
   nowHour,
+  label = "Today's tide curve",
 }: {
   points: Array<{ hour: number; heightFt: number }>;
   nowHour: number;
+  label?: string;
 }) {
   if (points.length < 2) return null;
 
@@ -30,7 +32,7 @@ export default function TideCurve({
       viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
       className="mt-2 h-14 w-full"
       role="img"
-      aria-label="Today's tide curve"
+      aria-label={label}
     >
       <defs>
         <linearGradient id="tide-fill" x1="0" y1="0" x2="0" y2="1">
