@@ -392,6 +392,46 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </Reveal>
       </section>
 
+      {/* The Clavin family story */}
+      <section id="story" className="scroll-mt-24">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">{t.story.eyebrow}</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl">{t.story.title}</h2>
+            <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
+              {t.story.paragraphs.map((p, i) => (
+                <p key={i} className={i === 0 ? "drop-cap text-lg text-ink/80" : undefined}>
+                  {p}
+                </p>
+              ))}
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
+                <Photo slug="img-0604" variant="thumb" alt={t.story.photoAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
+                <Photo slug="ranch-027" variant="thumb" alt={t.story.courtAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 sm:p-8">
+              <h3 className="font-serif text-2xl font-bold text-ink">{t.story.timelineTitle}</h3>
+              <ol className="relative mt-6 space-y-7 border-l-2 border-terracotta/30 pl-6">
+                {t.story.timeline.map((m) => (
+                  <li key={m.year} className="relative">
+                    <span className="absolute -left-[2.05rem] top-1 h-3.5 w-3.5 rounded-full bg-terracotta ring-4 ring-sand-deep" aria-hidden="true" />
+                    <p className="font-serif text-xl font-bold text-terracotta">{m.year}</p>
+                    <p className="mt-0.5 font-semibold text-ink">{m.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-ink/70">{m.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Interactive estate guide */}
       <section id="estate" className="scroll-mt-24 border-t border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">

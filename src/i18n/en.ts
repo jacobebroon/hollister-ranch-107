@@ -116,6 +116,26 @@ const en = {
     fallbackAlt: "Rancho Alegria, Parcel 107",
   },
 
+  story: {
+    eyebrow: "The Clavin Ranch",
+    title: "Built from the ground up by Harold and Jeanette Clavin",
+    paragraphs: [
+      "Rancho Alegria wasn’t bought finished — it was made. Harold and Jeanette Clavin designed and built Parcel 107 themselves, starting from 113 acres of open, bluff-top grassland and shaping every part of the ranch you see today.",
+      "It was the work of years. Building on Hollister Ranch means one gated road in, county agricultural-preserve rules, permits, and California Coastal Commission requirements at every stage — so the grading, the roads, the house sites, and the gardens here were all planned and built with patience. A lake on the parcel supplied the ranch’s agricultural water, feeding the orchard and plantings as they grew in.",
+      "The result is a hacienda-style main house set low on the bluff, a guest house down the slope, an ocean-view tennis court, an orchard, and stone paths winding to the edge of the Pacific. More than three decades later, Rancho Alegria is still in the Clavin family — now shared by three generations.",
+    ],
+    timelineTitle: "How the ranch was built",
+    timeline: [
+      { year: "1987", title: "The land", body: "Work begins on 113 acres of untouched bluff-top grassland on the western reach of Hollister Ranch." },
+      { year: "1988", title: "Grading", body: "The building sites, terraces, and ranch roads are graded into the hillside." },
+      { year: "1989", title: "The tennis court", body: "The ocean-view tennis court is finished on the bluff." },
+      { year: "1990", title: "The guest house", body: "The guest house is completed down the slope, under its own red-tile roof." },
+      { year: "Today", title: "Three generations", body: "The main house, gardens, orchard, and stone paths complete the ranch — still enjoyed by three generations of the Clavin family." },
+    ],
+    photoAlt: "The residence at sunset, roses climbing toward the eaves",
+    courtAlt: "The private tennis court, finished in 1989, with the ocean beyond",
+  },
+
   estate: {
     eyebrow: "Explore the Estate",
     title: "Walk the grounds from above",
@@ -329,7 +349,8 @@ const en = {
     title: "A few common questions",
     items: [
       { q: "What is Hollister Ranch 107?", a: "Hollister Ranch 107 is Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break." },
-      { q: "Who owns Hollister Ranch 107?", a: "Rancho Alegria, Parcel 107, was established in 1987 and has been held by the Clavin family ever since." },
+      { q: "Who owns Hollister Ranch 107?", a: "Rancho Alegria, Parcel 107, has been held by the Clavin family since 1987 and is now enjoyed by three generations of the family." },
+      { q: "Who built Hollister Ranch 107?", a: "Harold and Jeanette Clavin designed and built Rancho Alegria from the ground up, beginning in 1987: the site was graded in 1988, the tennis court finished in 1989, and the guest house completed in 1990, followed by the main house, gardens, and orchard." },
       { q: "What is Hollister Ranch?", a: "Hollister Ranch is a private, gated 14,400-acre cattle ranch with 8.5 miles of undeveloped Pacific coastline on the Gaviota Coast, west of Santa Barbara. It was subdivided in 1971 into parcels of 100 acres or more that can never be further divided." },
       { q: "Who owns Hollister Ranch?", a: "No single owner. Nearly 1,000 owners hold interests across the ranch's 136 parcels, and the Hollister Ranch Owners' Association manages the shared roads, utilities, and the working cattle cooperative." },
       { q: "Is Rancho Alegria open to the public?", a: "No. Hollister Ranch is a private, gated community with a single guarded entrance — access is limited to parcel owners, their guests, and confirmed visitors." },
@@ -341,7 +362,7 @@ const en = {
 
   schema: {
     placeDescription:
-      "Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break.",
+      "Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break. Designed and built by Harold and Jeanette Clavin beginning in 1987.",
     videoName: "Rancho Alegria property tour — Hollister Ranch 107",
     videoDescription: "A video tour of Rancho Alegria, Parcel 107 of Hollister Ranch on California's Gaviota Coast.",
     amenities: [

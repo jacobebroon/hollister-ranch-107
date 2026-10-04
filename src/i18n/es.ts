@@ -148,6 +148,26 @@ const es: Dict = {
     fallbackAlt: "Rancho Alegria, Parcela 107",
   },
 
+  story: {
+    eyebrow: "El rancho de los Clavin",
+    title: "Construido desde cero por Harold y Jeanette Clavin",
+    paragraphs: [
+      "Rancho Alegria no se compró terminado — se creó. Harold y Jeanette Clavin diseñaron y construyeron ellos mismos la Parcela 107, partiendo de 113 acres de pradera abierta sobre el acantilado y dando forma a cada parte del rancho que se ve hoy.",
+      "Fue el trabajo de años. Construir en Hollister Ranch implica un solo camino de entrada con portón, las normas de reserva agrícola del condado, permisos y los requisitos de la Comisión Costera de California en cada etapa — así que la nivelación del terreno, los caminos, los sitios de las casas y los jardines se planearon y construyeron con paciencia. Un lago en la parcela abastecía el agua agrícola del rancho y alimentaba el huerto y la vegetación mientras crecían.",
+      "El resultado es una casa principal estilo hacienda asentada sobre el acantilado, una casa de huéspedes ladera abajo, una cancha de tenis con vista al mar, un huerto y senderos de piedra que llegan hasta el borde del Pacífico. Más de tres décadas después, Rancho Alegria sigue en manos de la familia Clavin — y hoy la disfrutan tres generaciones.",
+    ],
+    timelineTitle: "Cómo se construyó el rancho",
+    timeline: [
+      { year: "1987", title: "El terreno", body: "Comienzan los trabajos en 113 acres de pradera intacta sobre el acantilado, en el extremo occidental de Hollister Ranch." },
+      { year: "1988", title: "Nivelación", body: "Se nivelan en la ladera los sitios de construcción, las terrazas y los caminos del rancho." },
+      { year: "1989", title: "La cancha de tenis", body: "Se termina la cancha de tenis con vista al mar sobre el acantilado." },
+      { year: "1990", title: "La casa de huéspedes", body: "Se completa la casa de huéspedes ladera abajo, bajo su propio techo de tejas rojas." },
+      { year: "Hoy", title: "Tres generaciones", body: "La casa principal, los jardines, el huerto y los senderos de piedra completan el rancho — que hoy disfrutan tres generaciones de la familia Clavin." },
+    ],
+    photoAlt: "La residencia al atardecer, con rosas trepando hacia los aleros",
+    courtAlt: "La cancha de tenis privada, terminada en 1989, con el océano al fondo",
+  },
+
   estate: {
     eyebrow: "Explore la propiedad",
     title: "Recorra la propiedad desde el aire",
@@ -359,7 +379,8 @@ const es: Dict = {
     title: "Algunas preguntas comunes",
     items: [
       { q: "¿Qué es Hollister Ranch 107?", a: "Hollister Ranch 107 es Rancho Alegria, la Parcela 107 de Hollister Ranch: 113 acres privados sobre el acantilado en la costa de Gaviota, California, con casa principal, casa de huéspedes, cancha de tenis con vista al mar y jacuzzi, justo encima de la rompiente Razor Blades." },
-      { q: "¿Quién es el propietario de Hollister Ranch 107?", a: "Rancho Alegria, Parcela 107, se estableció en 1987 y ha pertenecido a la familia Clavin desde entonces." },
+      { q: "¿Quién es el propietario de Hollister Ranch 107?", a: "Rancho Alegria, Parcela 107, pertenece a la familia Clavin desde 1987 y hoy la disfrutan tres generaciones de la familia." },
+      { q: "¿Quién construyó Hollister Ranch 107?", a: "Harold y Jeanette Clavin diseñaron y construyeron Rancho Alegria desde cero a partir de 1987: el terreno se niveló en 1988, la cancha de tenis se terminó en 1989 y la casa de huéspedes se completó en 1990, seguidas de la casa principal, los jardines y el huerto." },
       { q: "¿Qué es Hollister Ranch?", a: "Hollister Ranch es un rancho ganadero privado y cerrado de 14,400 acres con 8.5 millas de costa del Pacífico sin urbanizar en la costa de Gaviota, al oeste de Santa Bárbara. En 1971 se dividió en parcelas de 100 acres o más que nunca podrán subdividirse." },
       { q: "¿Quién es el dueño de Hollister Ranch?", a: "No tiene un único dueño. Cerca de 1,000 propietarios tienen participación en las 136 parcelas del rancho, y la Asociación de Propietarios de Hollister Ranch administra los caminos y servicios compartidos y la cooperativa ganadera." },
       { q: "¿Rancho Alegria está abierto al público?", a: "No. Hollister Ranch es una comunidad privada y cerrada con una sola entrada vigilada — el acceso está limitado a los propietarios, sus invitados y visitantes confirmados." },
@@ -371,7 +392,7 @@ const es: Dict = {
 
   schema: {
     placeDescription:
-      "Rancho Alegria, Parcela 107 de Hollister Ranch: 113 acres privados sobre el acantilado en la costa de Gaviota, California, con casa principal, casa de huéspedes, cancha de tenis con vista al mar y jacuzzi, justo encima de la rompiente Razor Blades.",
+      "Rancho Alegria, Parcela 107 de Hollister Ranch: 113 acres privados sobre el acantilado en la costa de Gaviota, California, con casa principal, casa de huéspedes, cancha de tenis con vista al mar y jacuzzi, justo encima de la rompiente Razor Blades. Diseñada y construida por Harold y Jeanette Clavin a partir de 1987.",
     videoName: "Recorrido de Rancho Alegria — Hollister Ranch 107",
     videoDescription: "Un recorrido en video por Rancho Alegria, Parcela 107 de Hollister Ranch en la costa de Gaviota, California.",
     amenities: [
