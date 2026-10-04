@@ -4,7 +4,7 @@ import Photo from "@/components/Photo";
 import StatBar from "@/components/StatBar";
 import VideoPlayer from "@/components/VideoPlayer";
 import Gallery from "@/components/Gallery";
-import Terrain3D from "@/components/Terrain3D";
+import Terrain3D from "@/components/Terrain3DLazy";
 import LazyMount from "@/components/LazyMount";
 import Conditions from "@/components/Conditions";
 import DistanceFinder from "@/components/DistanceFinder";
