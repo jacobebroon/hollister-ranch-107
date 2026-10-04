@@ -120,9 +120,9 @@ const en = {
     eyebrow: "Explore the Estate",
     title: "Walk the grounds from above",
     intro:
-      "Tap a marker on the aerial photograph to step inside that part of Rancho Alegria — the residence, the motor court, the ranch drive, and the water below.",
+      "Tap a marker on the aerial photograph to step inside that part of Rancho Alegria — the residence, the motor court, the ranch drive, the guest house, and the water below.",
     hint: "Tap a marker to explore",
-    photoAlt: "Aerial photograph of Rancho Alegria’s residence, motor court, and ranch drive above the Pacific",
+    photoAlt: "Aerial photograph of Rancho Alegria’s residence, motor court, ranch drive, and guest house above the Pacific",
     close: "Close",
     prevPhoto: "Previous photo",
     nextPhoto: "Next photo",
@@ -138,6 +138,10 @@ const en = {
       {
         title: "The ranch drive",
         body: "A private paved drive curls up through palms and native planting from the ranch road — one of the few roads on 14,400 acres reached only through the single guarded gate.",
+      },
+      {
+        title: "The guest house",
+        body: "Down the slope under its own red-tile roof, the separate guest house gives visiting family and friends a private place of their own among the gardens — steps from the main house, with the same open view across the Santa Barbara Channel.",
       },
       {
         title: "The Pacific & Razor Blades",
@@ -261,7 +265,7 @@ const en = {
     aboveTitle: "The residence itself",
     aboveBody: "Where the terrain map shows the land, these are the real aerial photographs of Rancho Alegria on it.",
     aerialAlt1: "Aerial view of Rancho Alegria and the Pacific",
-    aerialAlt2: "The residence and coastline from above",
+    aerialAlt2: "The guest house and coastline from above",
     loadingTerrain: "Loading terrain…",
   },
 

@@ -57,7 +57,7 @@ const CAPTIONS: Record<string, { caption?: string; category: Category }> = {
 
   "dsc-0050": { caption: "The great room, vaulted beam ceiling and a three-tier iron chandelier.", category: "residence" },
   "dsc-0052": { caption: "The kitchen — copper pendant lights over a long stone-topped island.", category: "residence" },
-  "dsc-0067": { caption: "The residence and coastline seen from above, bluff to horizon.", category: "coastline" },
+  "dsc-0067": { caption: "The guest house among the gardens, the coastline stretching to the horizon.", category: "residence" },
   "dsc-0074": { caption: "A palm-lined motor court above the Santa Barbara Channel.", category: "residence" },
   "dsc-0077": { caption: "Rancho Alegria's roofline against 180 degrees of open Pacific.", category: "coastline" },
   "dsc-0078": { caption: "A quiet study, ranch memorabilia and ocean light.", category: "residence" },

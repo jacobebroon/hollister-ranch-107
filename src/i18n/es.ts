@@ -152,9 +152,9 @@ const es: Dict = {
     eyebrow: "Explore la propiedad",
     title: "Recorra la propiedad desde el aire",
     intro:
-      "Toque un marcador en la fotografía aérea para conocer esa parte de Rancho Alegria — la residencia, el patio de llegada, el camino del rancho y el mar a sus pies.",
+      "Toque un marcador en la fotografía aérea para conocer esa parte de Rancho Alegria — la residencia, el patio de llegada, el camino del rancho, la casa de huéspedes y el mar a sus pies.",
     hint: "Toque un marcador para explorar",
-    photoAlt: "Fotografía aérea de la residencia, el patio de llegada y el camino de Rancho Alegria sobre el Pacífico",
+    photoAlt: "Fotografía aérea de la residencia, el patio de llegada, el camino y la casa de huéspedes de Rancho Alegria sobre el Pacífico",
     close: "Cerrar",
     prevPhoto: "Foto anterior",
     nextPhoto: "Foto siguiente",
@@ -170,6 +170,10 @@ const es: Dict = {
       {
         title: "El camino del rancho",
         body: "Un camino privado pavimentado sube entre palmeras y vegetación nativa desde la carretera del rancho — una de las pocas vías en 14,400 acres a la que solo se llega por la única entrada vigilada.",
+      },
+      {
+        title: "La casa de huéspedes",
+        body: "Más abajo en la ladera, bajo su propio techo de tejas rojas, la casa de huéspedes independiente da a familiares y amigos un espacio privado entre los jardines — a pocos pasos de la casa principal, con la misma vista abierta del canal de Santa Bárbara.",
       },
       {
         title: "El Pacífico y Razor Blades",
@@ -293,7 +297,7 @@ const es: Dict = {
     aboveTitle: "La residencia",
     aboveBody: "Si el mapa de relieve muestra el terreno, estas son las fotografías aéreas reales de Rancho Alegria sobre él.",
     aerialAlt1: "Vista aérea de Rancho Alegria y el Pacífico",
-    aerialAlt2: "La residencia y la costa desde el aire",
+    aerialAlt2: "La casa de huéspedes y la costa desde lo alto",
     loadingTerrain: "Cargando el relieve…",
   },
 
@@ -401,7 +405,7 @@ const es: Dict = {
     "dscn3202": "Invitados y uno de los caballos del rancho en el césped sobre el acantilado.",
     "dsc-0050": "La gran sala: techo abovedado con vigas y una lámpara de hierro de tres niveles.",
     "dsc-0052": "La cocina — lámparas colgantes de cobre sobre una larga isla con cubierta de piedra.",
-    "dsc-0067": "La residencia y la costa vistas desde lo alto, del acantilado al horizonte.",
+    "dsc-0067": "La casa de huéspedes entre los jardines, con la costa extendiéndose hasta el horizonte.",
     "dsc-0074": "Un patio de llegada bordeado de palmeras sobre el canal de Santa Bárbara.",
     "dsc-0077": "El techo de Rancho Alegria frente a 180 grados de Pacífico abierto.",
     "dsc-0078": "Un estudio tranquilo, con recuerdos del rancho y luz del océano.",
