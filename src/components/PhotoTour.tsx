@@ -165,7 +165,8 @@ export default function PhotoTour({ photos, t }: { photos: Photo[]; t: Dict["tou
             fill
             sizes="100vw"
             quality={85}
-            priority
+            loading="eager"
+            fetchPriority="high"
             placeholder={current.blurDataURL ? "blur" : undefined}
             blurDataURL={current.blurDataURL}
             className={`photo-enhance object-contain ${playing ? "animate-tour-zoom" : ""}`}

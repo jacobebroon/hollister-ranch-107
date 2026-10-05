@@ -124,6 +124,12 @@ const en = {
       "It was the work of years. Building on Hollister Ranch means one gated road in, county agricultural-preserve rules, permits, and California Coastal Commission requirements at every stage — so the grading, the roads, the house sites, and the gardens here were all planned and built with patience. A lake on the parcel supplied the ranch’s agricultural water, feeding the orchard and plantings as they grew in.",
       "The result is a hacienda-style main house set low on the bluff, a guest house down the slope, an ocean-view tennis court, an orchard, and stone paths winding to the edge of the Pacific. More than three decades later, Rancho Alegria is still in the Clavin family — now shared by three generations.",
     ],
+    builderEyebrow: "The builders",
+    builderName: "Harold Clavin, M.D., and Jeanette Clavin",
+    builderBio: [
+      "Harold Clavin is a Los Angeles native who went to Fairfax High School, earned his undergraduate degree at UCLA, and his medical degree at the University of Southern California. A board-certified plastic and reconstructive surgeon and Fellow of the American College of Surgeons, he founded the Clavin Center in Santa Monica and served as president of the Los Angeles Society of Plastic Surgeons.",
+      "He brought the same precision and eye for proportion to Parcel 107 — and with his wife, Jeanette, turned an empty hillside into a ranch built to last for generations.",
+    ],
     timelineTitle: "How the ranch was built",
     timeline: [
       { year: "1987", title: "The land", body: "Work begins on 113 acres of untouched bluff-top grassland on the western reach of Hollister Ranch." },
@@ -279,6 +285,7 @@ const en = {
       { label: "Access gates", value: "1" },
     ],
     iframeTitle: "Rancho Alegria, Parcel 107 — approximate location",
+    showMap: "Show the interactive map",
     approx: "Approximate property location — Hollister Ranch does not publish exact coordinates or gate directions",
     earth: "Explore the coastline in Google Earth →",
     aboveEyebrow: "From Above",
@@ -350,7 +357,7 @@ const en = {
     items: [
       { q: "What is Hollister Ranch 107?", a: "Hollister Ranch 107 is Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break." },
       { q: "Who owns Hollister Ranch 107?", a: "Rancho Alegria, Parcel 107, has been held by the Clavin family since 1987 and is now enjoyed by three generations of the family." },
-      { q: "Who built Hollister Ranch 107?", a: "Harold and Jeanette Clavin designed and built Rancho Alegria from the ground up, beginning in 1987: the site was graded in 1988, the tennis court finished in 1989, and the guest house completed in 1990, followed by the main house, gardens, and orchard." },
+      { q: "Who built Hollister Ranch 107?", a: "Harold Clavin, M.D. — a Los Angeles plastic and reconstructive surgeon — and his wife, Jeanette Clavin, designed and built Rancho Alegria from the ground up, beginning in 1987: the site was graded in 1988, the tennis court finished in 1989, and the guest house completed in 1990, followed by the main house, gardens, and orchard." },
       { q: "What is Hollister Ranch?", a: "Hollister Ranch is a private, gated 14,400-acre cattle ranch with 8.5 miles of undeveloped Pacific coastline on the Gaviota Coast, west of Santa Barbara. It was subdivided in 1971 into parcels of 100 acres or more that can never be further divided." },
       { q: "Who owns Hollister Ranch?", a: "No single owner. Nearly 1,000 owners hold interests across the ranch's 136 parcels, and the Hollister Ranch Owners' Association manages the shared roads, utilities, and the working cattle cooperative." },
       { q: "Is Rancho Alegria open to the public?", a: "No. Hollister Ranch is a private, gated community with a single guarded entrance — access is limited to parcel owners, their guests, and confirmed visitors." },

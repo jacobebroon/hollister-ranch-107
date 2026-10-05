@@ -25,7 +25,7 @@ export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: str
           </div>
 
           <div className="text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">{t.explore}</p>
+            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/75">{t.explore}</p>
             <ul className="text-sand/80 md:space-y-2">
               {ANCHORS.map((href, i) => (
                 <li key={href}>
@@ -38,7 +38,7 @@ export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: str
           </div>
 
           <div className="text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/50">{t.contact}</p>
+            <p className="mb-3 font-semibold uppercase tracking-widest text-sand/75">{t.contact}</p>
             <ul className="text-sand/80 md:space-y-2">
               <li>
                 <a className="link-sweep inline-block py-2 hover:text-terracotta md:py-0" href="mailto:jeanetteclavin@yahoo.com">
@@ -54,10 +54,10 @@ export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: str
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{t.disclaimer}</p>
-          <p className="flex items-center gap-4 whitespace-nowrap text-sand/30">
-            <a href={t.switchHref} hrefLang={t.switchLang} className="text-sand/60 underline-offset-4 hover:text-sand hover:underline">
+          <p className="flex items-center gap-4 whitespace-nowrap text-sand/70">
+            <a href={t.switchHref} hrefLang={t.switchLang} className="text-sand/85 underline-offset-4 hover:text-sand hover:underline">
               {t.switchName}
             </a>
             &copy; {year} Rancho Alegria

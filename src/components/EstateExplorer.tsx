@@ -6,21 +6,9 @@ import { photoUrl } from "@/lib/media";
 import { openPhotoTour } from "@/components/PhotoTour";
 import type { Photo } from "@/data/photos";
 import type { Dict } from "@/i18n";
+import { SPOTS, AMENITY_SLUGS } from "@/data/estate";
 
 const AERIAL_SLUG = "dsc-0077";
-
-// Marker positions (% of the aerial photo) for features clearly visible in it, in the same
-// order as t.spots, plus the gallery photos that show each one up close.
-const SPOTS = [
-  { x: 14, y: 40, slugs: ["dsc-0050", "dsc-0052", "162", "img-0605", "dsc-0078"] },
-  { x: 31, y: 59, slugs: ["dsc-0074", "ranch-005"] },
-  { x: 87, y: 66, slugs: ["ranch-023", "ranch-024"] },
-  { x: 68, y: 55, slugs: ["dsc-0067"] },
-  { x: 62, y: 33, slugs: ["img-20150118-173149189", "img-0991", "img-20150215-124719191"] },
-];
-
-// Same order as t.amenities; a slug makes the chip open that photo in the tour
-const AMENITY_SLUGS: Array<string | null> = ["dsc-0067", null, "ranch-027", "1000003478", "img-0602", "ranch-009"];
 
 export default function EstateExplorer({ t, photos }: { t: Dict["estate"]; photos: Photo[] }) {
   const [active, setActive] = useState(0);
@@ -104,7 +92,7 @@ export default function EstateExplorer({ t, photos }: { t: Dict["estate"]; photo
                 <Image
                   key={photo.slug}
                   src={photoUrl(photo.slug, "thumb")}
-                  alt={photo.caption ?? info.title}
+                  alt=""
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   quality={80}

@@ -123,7 +123,7 @@ export default function Gallery({
             >
               <Image
                 src={photoUrl(photo.slug, "thumb")}
-                alt={photo.caption ?? fallbackAlt}
+                alt=""
                 fill
                 sizes={featured ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"}
                 quality={featured ? 85 : 75}

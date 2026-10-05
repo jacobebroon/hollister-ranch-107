@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import PhotoTour, { TourTrigger } from "@/components/PhotoTour";
 import EstateExplorer from "@/components/EstateExplorer";
+import MapEmbed from "@/components/MapEmbed";
+import { ESTATE_SLUGS } from "@/data/estate";
 import Photo from "@/components/Photo";
 import StatBar from "@/components/StatBar";
 import VideoPlayer from "@/components/VideoPlayer";
@@ -428,6 +430,15 @@ export default function HomePage({ lang }: { lang: Lang }) {
                 ))}
               </ol>
             </div>
+            <div className="mt-6 rounded-2xl border border-terracotta/30 bg-terracotta/5 p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">{t.story.builderEyebrow}</p>
+              <h3 className="mt-2 font-serif text-2xl font-bold text-ink">{t.story.builderName}</h3>
+              <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink/75">
+                {t.story.builderBio.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -443,7 +454,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             <p className="mt-4 leading-relaxed text-ink/70">{t.estate.intro}</p>
           </Reveal>
           <Reveal delay={100}>
-            <EstateExplorer t={t.estate} photos={photos} />
+            <EstateExplorer t={t.estate} photos={photos.filter((p) => ESTATE_SLUGS.has(p.slug))} />
           </Reveal>
         </div>
       </section>
@@ -738,14 +749,12 @@ export default function HomePage({ lang }: { lang: Lang }) {
           ))}
         </Reveal>
         <Reveal className="print:hidden">
-          <div className="overflow-hidden rounded-2xl border border-cream-line shadow-lg">
-            <iframe
-              title={t.map.iframeTitle}
-              src={`https://www.google.com/maps?q=${PROPERTY.center[1]},${PROPERTY.center[0]}&z=14&output=embed`}
-              className="h-[360px] w-full sm:h-[420px]"
-              loading="lazy"
-            />
-          </div>
+          <MapEmbed
+            title={t.map.iframeTitle}
+            src={`https://www.google.com/maps?q=${PROPERTY.center[1]},${PROPERTY.center[0]}&z=14&hl=${lang}&output=embed`}
+            label={t.map.showMap}
+            posterAlt={t.map.aerialAlt1}
+          />
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-ink/60">
             <p>{t.map.approx}</p>
             <a
@@ -881,7 +890,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </main>
       <Footer t={t.footer} />
       <BackToTop label={t.footer.backToTop} />
-      <PhotoTour photos={photos} t={t.tour} />
+      <PhotoTour photos={photos.map((p) => ({ ...p, blurDataURL: undefined }))} t={t.tour} />
     </div>
   );
 }

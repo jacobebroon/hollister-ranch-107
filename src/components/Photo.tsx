@@ -27,7 +27,9 @@ export default function Photo({
       alt={alt}
       fill
       sizes={sizes}
-      priority={priority}
+      preload={priority}
+      fetchPriority={priority ? "high" : undefined}
+      loading={priority ? "eager" : undefined}
       quality={quality ?? (variant === "thumb" ? 75 : 85)}
       placeholder={photo?.blurDataURL ? "blur" : undefined}
       blurDataURL={photo?.blurDataURL}
