@@ -23,7 +23,7 @@ import SpotlightCard from "@/components/SpotlightCard";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import Reveal from "@/components/Reveal";
 import { SURF_BREAKS, PROPERTY } from "@/data/surf";
-import { photoUrl, videoUrl } from "@/lib/media";
+import { absoluteUrl, photoUrl, videoUrl } from "@/lib/media";
 import {
   IconLand,
   IconEye,
@@ -124,7 +124,7 @@ function buildJsonLd(t: Dict, localPhotos: PhotoT[]) {
     ],
     photo: localPhotos.slice(0, 12).map((p) => ({
       "@type": "ImageObject",
-      contentUrl: photoUrl(p.slug),
+      contentUrl: absoluteUrl(photoUrl(p.slug)),
       ...(p.caption ? { caption: p.caption } : {}),
     })),
   };
@@ -134,8 +134,8 @@ function buildJsonLd(t: Dict, localPhotos: PhotoT[]) {
     name: t.schema.videoName,
     description: t.schema.videoDescription,
     inLanguage: "en",
-    thumbnailUrl: [`${SITE_URL}/og/share.jpg`, photoUrl("ranch-004")],
-    contentUrl: videoUrl(),
+    thumbnailUrl: [`${SITE_URL}/og/share.jpg`, absoluteUrl(photoUrl("ranch-004"))],
+    contentUrl: absoluteUrl(videoUrl()),
     uploadDate: "2026-07-18T00:00:00-07:00",
     duration: "PT4M26S",
     contentLocation: { "@id": `${SITE_URL}/#place` },

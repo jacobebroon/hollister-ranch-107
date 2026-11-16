@@ -215,6 +215,7 @@ const en = {
     next: "Next",
     empty: "No photos in this category yet.",
     fullscreen: "Full-screen tour",
+    showMore: "Show {count} more photos",
   },
 
   history: {

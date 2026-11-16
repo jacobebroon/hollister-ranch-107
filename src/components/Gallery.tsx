@@ -5,7 +5,10 @@ import Image from "next/image";
 import { photoUrl } from "@/lib/media";
 import type { Category, Photo } from "@/data/photos";
 import { openPhotoTour } from "@/components/PhotoTour";
-import type { Dict } from "@/i18n";
+import { fmt, type Dict } from "@/i18n";
+
+// Rendering all 81 thumbnails up front is the page's heaviest DOM work; show a first batch
+const INITIAL_COUNT = 16;
 
 const FILTER_KEYS: Array<Category | "all"> = ["all", "residence", "grounds", "coastline", "sky"];
 
@@ -24,6 +27,7 @@ export default function Gallery({
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
+  const [showAll, setShowAll] = useState(false);
   const filtered = useMemo(
     () => (filter === "all" ? photos : photos.filter((p) => p.category === filter)),
     [photos, filter]
@@ -86,7 +90,10 @@ export default function Gallery({
         {FILTERS.map((f) => (
           <button
             key={f.key}
-            onClick={() => setFilter(f.key)}
+            onClick={() => {
+              setFilter(f.key);
+              setShowAll(false);
+            }}
             aria-pressed={filter === f.key}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-95 ${
               filter === f.key
@@ -110,7 +117,7 @@ export default function Gallery({
       </div>
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 [grid-auto-flow:dense]">
-        {filtered.map((photo, i) => {
+        {(showAll ? filtered : filtered.slice(0, INITIAL_COUNT)).map((photo, i) => {
           const featured = filtered.length > 6 && i % 9 === 4;
           return (
             <button
@@ -140,6 +147,18 @@ export default function Gallery({
           );
         })}
       </div>
+
+      {!showAll && filtered.length > INITIAL_COUNT && (
+        <div className="mt-10 text-center">
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="rounded-full border border-terracotta px-6 py-3 text-sm font-semibold text-terracotta transition-colors hover:bg-terracotta hover:text-sand"
+          >
+            {fmt(t.showMore, { count: filtered.length - INITIAL_COUNT })}
+          </button>
+        </div>
+      )}
 
       {filtered.length === 0 && (
         <p className="mt-12 text-center text-ink/50">{t.empty}</p>

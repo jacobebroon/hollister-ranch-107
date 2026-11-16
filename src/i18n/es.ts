@@ -247,6 +247,7 @@ const es: Dict = {
     next: "Siguiente",
     empty: "Aún no hay fotos en esta categoría.",
     fullscreen: "Recorrido a pantalla completa",
+    showMore: "Mostrar {count} fotos más",
   },
 
   history: {
