@@ -60,7 +60,7 @@ export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: str
             <a href={t.switchHref} hrefLang={t.switchLang} className="text-sand/85 underline-offset-4 hover:text-sand hover:underline">
               {t.switchName}
             </a>
-            &copy; {year} Rancho Alegria
+            &copy; {year} Clavin Family · Rancho Alegria
           </p>
         </div>
       </div>

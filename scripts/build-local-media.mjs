@@ -37,22 +37,30 @@ function findSource(entry) {
   return null;
 }
 
+// Copyright tags travel inside each file, so copies elsewhere still carry the family credit
+const EXIF = { IFD0: { Artist: "Clavin Family", Copyright: "© Clavin Family / Rancho Alegria (hollisterranch107.com). All rights reserved." } };
+
+// Decode to raw pixels first (lossless), so none of the camera metadata or its embedded
+// preview survives; then encode once to WebP carrying only the copyright tags
+async function build(src, out, width, sigma, quality) {
+  const { data, info } = await sharp(src)
+    .rotate()
+    .resize({ width, withoutEnlargement: true })
+    .sharpen({ sigma })
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
+    .withExif(EXIF)
+    .webp({ quality, effort: 6 })
+    .toFile(out);
+}
+
 let done = 0;
 for (const entry of manifest) {
   const src = findSource(entry);
   if (!src) throw new Error(`No original found for ${entry.slug}`);
-  await sharp(src)
-    .rotate()
-    .resize({ width: 2400, withoutEnlargement: true })
-    .sharpen({ sigma: 0.6 })
-    .webp({ quality: 85, effort: 6 })
-    .toFile(path.join(FULL_DIR, `${entry.slug}.webp`));
-  await sharp(src)
-    .rotate()
-    .resize({ width: 800, withoutEnlargement: true })
-    .sharpen({ sigma: 0.5 })
-    .webp({ quality: 82, effort: 6 })
-    .toFile(path.join(THUMB_DIR, `${entry.slug}.webp`));
+  await build(src, path.join(FULL_DIR, `${entry.slug}.webp`), 2400, 0.6, 85);
+  await build(src, path.join(THUMB_DIR, `${entry.slug}.webp`), 800, 0.5, 82);
   done += 1;
 }
 console.log(`built ${done} photos into ${OUT_DIR}`);

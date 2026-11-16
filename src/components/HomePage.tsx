@@ -126,6 +126,11 @@ function buildJsonLd(t: Dict, localPhotos: PhotoT[]) {
       "@type": "ImageObject",
       contentUrl: absoluteUrl(photoUrl(p.slug)),
       ...(p.caption ? { caption: p.caption } : {}),
+      // Image-rights metadata (shown by Google Images; marks these as the family photos)
+      creator: { "@type": "Organization", name: "The Clavin Family" },
+      creditText: "Clavin Family / Rancho Alegria",
+      copyrightNotice: "© Clavin Family. All rights reserved.",
+      acquireLicensePage: `${SITE_URL}/#contact`,
     })),
   };
   const video = {
