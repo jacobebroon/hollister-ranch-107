@@ -55,14 +55,15 @@ const es: Dict = {
       "Tres generaciones"
     ],
     ctaPrimary: "Lea nuestra historia",
+    ctaFilm: "Ver el video",
     ctaTour: "Recorrido fotográfico",
-    ctaSecondary: "Fotos de familia",
-    scrollAria: "Desplácese a la historia de la familia",
+    scrollAria: "Desplácese al video",
     imageAlt: "Atardecer sobre el canal de Santa Bárbara desde el acantilado de Rancho Alegria, Hollister Ranch 107",
   },
 
   video: {
-    eyebrow: "Recórralo",
+    eyebrow: "El video",
+    intro: "Sobrevuele el acantilado, recorra los senderos de piedra y entre en la casa que construyeron Harold y Jeanette — un video de cuatro minutos y medio de todo el rancho.",
     title: "Conozca Rancho Alegria",
     caption: "Un recorrido en video por Rancho Alegria, Parcela 107.",
     play: "Reproducir el recorrido de la propiedad",

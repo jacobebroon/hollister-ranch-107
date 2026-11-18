@@ -239,26 +239,26 @@ export default function HomePage({ lang }: { lang: Lang }) {
                 &rarr;
               </span>
             </a>
-            <TourTrigger
-              label={t.hero.ctaTour}
+            <a
+              href="#video"
               className="flex items-center gap-2 rounded-full border border-sand/50 bg-ink/20 px-6 py-3 text-sm font-semibold text-sand backdrop-blur transition-colors hover:bg-sand/15"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M8 5.5v13l11-6.5z" />
               </svg>
+              {t.hero.ctaFilm}
+            </a>
+            <TourTrigger
+              label={t.hero.ctaTour}
+              className="rounded-full px-4 py-3 text-sm font-semibold text-sand/85 underline-offset-4 transition-colors hover:text-sand hover:underline"
+            >
               {t.hero.ctaTour}
             </TourTrigger>
-            <a
-              href="#memories"
-              className="hidden rounded-full px-4 py-3 text-sm font-semibold text-sand/85 underline-offset-4 transition-colors hover:text-sand hover:underline sm:inline-block"
-            >
-              {t.hero.ctaSecondary}
-            </a>
           </div>
         </div>
 
         <a
-          href="#story"
+          href="#video"
           aria-label={t.hero.scrollAria}
           className="animate-bob absolute bottom-14 left-1/2 z-10 hidden -translate-x-1/2 text-sand/70 transition-colors hover:text-sand sm:bottom-20 sm:block"
         >
@@ -278,6 +278,25 @@ export default function HomePage({ lang }: { lang: Lang }) {
             d="M0,32 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"
           />
         </svg>
+      </section>
+
+      {/* Video */}
+      <section id="video" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-20 pt-14 sm:px-8 sm:pt-16">
+        <Reveal className="mb-8 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
+            {t.video.eyebrow}
+          </p>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-5xl">
+            {t.video.title}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-ink/70">{t.video.intro}</p>
+        </Reveal>
+        <Reveal delay={100} className="print:hidden">
+          <VideoPlayer posterSlug="ranch-004" t={t.video} />
+          <p className="mt-3 text-center text-sm text-ink/50">
+            {t.video.caption}
+          </p>
+        </Reveal>
       </section>
 
       {/* The Clavin family story */}
@@ -340,24 +359,6 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <Memories t={t.memories} photos={photos.filter((p) => MEMORY_SLUGS.has(p.slug))} />
           <p className="mt-14 text-center text-sm italic text-ink/50">{t.memories.credit}</p>
         </div>
-      </section>
-
-      {/* Video */}
-      <section id="video" className="mx-auto max-w-5xl scroll-mt-24 px-5 py-20 sm:px-8">
-        <Reveal className="mb-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
-            {t.video.eyebrow}
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
-            {t.video.title}
-          </h2>
-        </Reveal>
-        <Reveal delay={100} className="print:hidden">
-          <VideoPlayer posterSlug="ranch-004" t={t.video} />
-          <p className="mt-3 text-center text-sm text-ink/50">
-            {t.video.caption}
-          </p>
-        </Reveal>
       </section>
 
       {/* Live conditions */}

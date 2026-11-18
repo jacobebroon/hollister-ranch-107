@@ -54,14 +54,15 @@ const en = {
       "Three generations"
     ],
     ctaPrimary: "Read Our Story",
+    ctaFilm: "Watch the Film",
     ctaTour: "Take the Photo Tour",
-    ctaSecondary: "Family Photos",
-    scrollAria: "Scroll to the family story",
+    scrollAria: "Scroll to the film",
     imageAlt: "Sunset over the Santa Barbara Channel from the bluff at Rancho Alegria, Hollister Ranch 107",
   },
 
   video: {
-    eyebrow: "Walk Through It",
+    eyebrow: "The Film",
+    intro: "Fly over the bluff, walk the stone paths, and step inside the house Harold and Jeanette built — a four-and-a-half-minute film of the whole ranch.",
     title: "See Rancho Alegria",
     caption: "A film tour of Rancho Alegria, Parcel 107.",
     play: "Play the property tour",
