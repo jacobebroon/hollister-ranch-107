@@ -10,6 +10,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 80, 85, 90],
+    // Fewer candidate widths keeps every srcset (and the page) smaller; these still cover phones to 4K
+    deviceSizes: [640, 828, 1200, 1920, 2560],
+    imageSizes: [96, 256, 384],
     // Photos are immutable per slug, so cache optimized variants for a year
     minimumCacheTTL: 31536000,
   },

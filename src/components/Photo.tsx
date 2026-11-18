@@ -10,6 +10,7 @@ export default function Photo({
   sizes = "100vw",
   priority = false,
   quality,
+  enhance = true,
 }: {
   slug: string;
   alt: string;
@@ -18,6 +19,8 @@ export default function Photo({
   sizes?: string;
   priority?: boolean;
   quality?: number;
+  /** Live color boost; off for photos whose file already has it baked in (the hero) */
+  enhance?: boolean;
 }) {
   const photo = getPhoto(slug);
 
@@ -31,9 +34,10 @@ export default function Photo({
       fetchPriority={priority ? "high" : undefined}
       loading={priority ? "eager" : undefined}
       quality={quality ?? (variant === "thumb" ? 75 : 85)}
-      placeholder={photo?.blurDataURL ? "blur" : undefined}
-      blurDataURL={photo?.blurDataURL}
-      className={`photo-enhance ${className ?? ""}`}
+      // Blur preview only for the above-the-fold hero; elsewhere it costs more than it shows
+      placeholder={priority && photo?.blurDataURL ? "blur" : undefined}
+      blurDataURL={priority ? photo?.blurDataURL : undefined}
+      className={`${enhance ? "photo-enhance " : ""}${className ?? ""}`}
     />
   );
 }

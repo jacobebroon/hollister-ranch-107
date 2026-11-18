@@ -158,12 +158,44 @@ function buildJsonLd(t: Dict, localPhotos: PhotoT[]) {
       acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
   };
-  return [place, video, faq];
+  // The builders, as people search engines can connect to the place
+  const builders = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#harold-clavin`,
+        name: "Harold Clavin",
+        alternateName: "Harold D. Clavin",
+        honorificSuffix: "M.D., F.A.C.S.",
+        jobTitle: "Plastic and reconstructive surgeon",
+        alumniOf: [
+          { "@type": "CollegeOrUniversity", name: "University of California, Los Angeles" },
+          { "@type": "CollegeOrUniversity", name: "University of Southern California" },
+        ],
+        spouse: { "@id": `${SITE_URL}/#jeanette-clavin` },
+        description: "Designed and built Rancho Alegria, Hollister Ranch Parcel 107, from the ground up beginning in 1987 with his wife, Jeanette Clavin.",
+        url: `${SITE_URL}/#story`,
+      },
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#jeanette-clavin`,
+        name: "Jeanette Clavin",
+        spouse: { "@id": `${SITE_URL}/#harold-clavin` },
+        description: "Designed and built Rancho Alegria, Hollister Ranch Parcel 107, with her husband, Harold Clavin, and planted its gardens.",
+        url: `${SITE_URL}/#story`,
+      },
+    ],
+  };
+  return [place, video, faq, builders];
 }
 
 export default function HomePage({ lang }: { lang: Lang }) {
   const t = getDict(lang);
   const photos = localizedPhotos(t);
+  // Client components get photos without blur previews: each one would otherwise be written
+  // into the page twice (HTML + hydration data), which slows the first paint on phones
+  const leanPhotos = photos.map((p) => ({ ...p, blurDataURL: undefined }));
   const featuredPhotos = featuredSlugs
     .map((slug) => photos.find((p) => p.slug === slug))
     .filter((p): p is PhotoT => Boolean(p));
@@ -179,14 +211,15 @@ export default function HomePage({ lang }: { lang: Lang }) {
       >
         {lang === "es" ? "Saltar al contenido" : "Skip to content"}
       </a>
-      <Nav t={t.nav} />
+      <Nav t={t.nav} overHero />
       <main id="main-content" className="flex-1">
       {/* Hero */}
-      <section id="top" className="relative flex min-h-[92vh] scroll-mt-24 items-end overflow-hidden">
+      <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden">
         <Photo
           slug={heroSlug}
           alt={t.hero.imageAlt}
           priority
+          enhance={false}
           sizes="100vw"
           className="animate-ken-burns object-cover"
         />
@@ -358,7 +391,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-5xl">{t.memories.title}</h2>
             <p className="mt-5 text-lg leading-relaxed text-ink/75">{t.memories.intro}</p>
           </Reveal>
-          <Memories t={t.memories} photos={photos.filter((p) => MEMORY_SLUGS.has(p.slug))} />
+          <Memories t={t.memories} photos={leanPhotos.filter((p) => MEMORY_SLUGS.has(p.slug))} />
           <p className="mt-14 text-center text-sm italic text-ink/50">{t.memories.credit}</p>
         </div>
       </section>
@@ -483,7 +516,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             <p className="mt-4 leading-relaxed text-ink/70">{t.estate.intro}</p>
           </Reveal>
           <Reveal delay={100}>
-            <EstateExplorer t={t.estate} photos={photos.filter((p) => ESTATE_SLUGS.has(p.slug))} />
+            <EstateExplorer t={t.estate} photos={leanPhotos.filter((p) => ESTATE_SLUGS.has(p.slug))} />
           </Reveal>
         </div>
       </section>
@@ -525,7 +558,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <p className="mt-4 max-w-2xl text-ink/70">{t.gallery.intro}</p>
 
         <div className="mt-10">
-          <Gallery photos={photos} t={t.gallery} fallbackAlt={t.property.fallbackAlt} />
+          <Gallery photos={leanPhotos} t={t.gallery} fallbackAlt={t.property.fallbackAlt} />
         </div>
       </section>
 
@@ -933,7 +966,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </main>
       <Footer t={t.footer} />
       <BackToTop label={t.footer.backToTop} />
-      <PhotoTour photos={photos.map((p) => ({ ...p, blurDataURL: undefined }))} t={t.tour} />
+      <PhotoTour photos={leanPhotos} t={t.tour} />
     </div>
   );
 }

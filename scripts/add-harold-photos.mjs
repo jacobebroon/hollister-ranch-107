@@ -60,11 +60,14 @@ const PHOTOS = {
   "hc-palm-walk": "harold-photos/personal/5343.jpg",
 };
 
-async function encode(src, out, width, sigma, quality) {
-  const { data, info } = await sharp(src)
-    .rotate()
-    .resize({ width, withoutEnlargement: true })
-    .sharpen({ sigma })
+// The hero is shown without the live CSS color boost (it is costly on a full-screen photo),
+// so its files get the same boost baked in
+const BAKED = new Set(["hc-5264"]);
+
+async function encode(src, out, width, sigma, quality, bake = false) {
+  let img = sharp(src).rotate().resize({ width, withoutEnlargement: true }).sharpen({ sigma });
+  if (bake) img = img.modulate({ saturation: 1.1, brightness: 1.01 }).linear(1.05, -6.4);
+  const { data, info } = await img
     .raw()
     .toBuffer({ resolveWithObject: true });
   await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
@@ -78,8 +81,8 @@ const manifest = JSON.parse(fs.readFileSync(MANIFEST, "utf8"));
 const bySlug = new Map(manifest.map((e) => [e.slug, e]));
 
 for (const [slug, original] of Object.entries(PHOTOS)) {
-  const full = await encode(original, path.join(OUT, "full", `${slug}.webp`), 2400, 0.6, 85);
-  await encode(original, path.join(OUT, "thumb", `${slug}.webp`), 800, 0.5, 82);
+  const full = await encode(original, path.join(OUT, "full", `${slug}.webp`), 2400, 0.6, 85, BAKED.has(slug));
+  await encode(original, path.join(OUT, "thumb", `${slug}.webp`), 800, 0.5, 82, BAKED.has(slug));
   const blur = await sharp(original).rotate().resize(16).webp({ quality: 40 }).toBuffer();
   bySlug.set(slug, {
     slug,

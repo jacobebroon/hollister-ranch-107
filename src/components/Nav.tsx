@@ -6,12 +6,22 @@ import type { Dict } from "@/i18n";
 
 const ANCHORS = ["#top", "#story", "#memories", "#gallery", "#history", "#contact"];
 
-export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string }) {
+export default function Nav({
+  t,
+  base = "",
+  overHero = false,
+}: {
+  t: Dict["nav"];
+  base?: string;
+  /** Float over a full-bleed hero, see-through until the page scrolls */
+  overHero?: boolean;
+}) {
   const LINKS = ANCHORS.map((href, i) => ({ href, label: t.links[i] }));
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#top");
   const [progress, setProgress] = useState(0);
+  const clear = overHero && !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => {
@@ -49,8 +59,10 @@ export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string })
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b bg-sand/90 backdrop-blur transition-shadow print:hidden ${
-        scrolled ? "border-cream-line shadow-[0_1px_16px_-4px_rgba(36,28,20,0.15)]" : "border-cream-line/70"
+      className={`${overHero ? "fixed inset-x-0" : "sticky"} top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 print:hidden ${
+        clear
+          ? "border-transparent bg-transparent [text-shadow:0_1px_10px_rgba(0,0,0,0.35)]"
+          : `bg-sand/90 backdrop-blur ${scrolled ? "border-cream-line shadow-[0_1px_16px_-4px_rgba(36,28,20,0.15)]" : "border-cream-line/70"}`
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -63,29 +75,29 @@ export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string })
             className="rounded-full"
           />
           <span className="flex flex-col leading-none">
-            <span className="font-serif text-lg font-bold tracking-wide text-ink transition-colors group-hover:text-terracotta">
+            <span className={`font-serif text-lg font-bold tracking-wide transition-colors group-hover:text-terracotta ${clear ? "text-sand" : "text-ink"}`}>
               Rancho Alegria
             </span>
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-ocean/70">
+            <span className={`text-[0.65rem] uppercase tracking-[0.25em] transition-colors ${clear ? "text-sand/80" : "text-ocean/70"}`}>
               {t.brandSub}
             </span>
           </span>
         </a>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium tracking-wide text-ink/80 md:flex">
+        <nav className={`hidden items-center gap-7 text-sm font-medium tracking-wide transition-colors md:flex ${clear ? "text-sand/90" : "text-ink/80"}`}>
           {LINKS.map((link) => {
             const isActive = active === link.href;
             return (
               <a
                 key={link.href}
                 href={base + link.href}
-                className={`group relative py-1 transition-colors hover:text-terracotta ${
-                  isActive ? "text-terracotta" : ""
+                className={`group relative py-1 transition-colors ${clear ? "hover:text-white" : "hover:text-terracotta"} ${
+                  isActive ? (clear ? "text-white" : "text-terracotta") : ""
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-px w-full origin-left bg-terracotta transition-transform duration-300 group-hover:scale-x-100 ${
+                  className={`absolute -bottom-1 left-0 h-px w-full origin-left ${clear ? "bg-sand" : "bg-terracotta"} transition-transform duration-300 group-hover:scale-x-100 ${
                     isActive ? "scale-x-100" : "scale-x-0"
                   }`}
                 />
@@ -96,14 +108,16 @@ export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string })
             href={t.switchHref}
             hrefLang={t.switchLabel.toLowerCase()}
             aria-label={t.switchAria}
-            className="rounded-full border border-cream-line px-3 py-1 text-xs font-semibold tracking-widest text-ocean transition-colors hover:border-terracotta hover:text-terracotta"
+            className={`rounded-full border px-3 py-1 text-xs font-semibold tracking-widest transition-colors ${
+              clear ? "border-sand/45 text-sand hover:border-sand" : "border-cream-line text-ocean hover:border-terracotta hover:text-terracotta"
+            }`}
           >
             {t.switchLabel}
           </a>
         </nav>
 
         <button
-          className="-mr-2 grid h-11 w-11 place-items-center text-ink md:hidden"
+          className={`-mr-2 grid h-11 w-11 place-items-center transition-colors md:hidden ${clear ? "text-sand" : "text-ink"}`}
           aria-label={t.toggleMenu}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -120,7 +134,7 @@ export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string })
 
       <div
         aria-hidden={!open}
-        className={`grid overflow-hidden bg-sand transition-[grid-template-rows] duration-300 ease-out md:hidden ${
+        className={`grid overflow-hidden bg-sand bg-clip-padding transition-[grid-template-rows] duration-300 ease-out md:hidden ${
           open ? "grid-rows-[1fr] border-t border-cream-line/70" : "grid-rows-[0fr] border-t border-transparent"
         }`}
       >

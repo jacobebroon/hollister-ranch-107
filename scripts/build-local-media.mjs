@@ -44,11 +44,13 @@ const EXIF = { IFD0: { Artist: "Clavin Family", Copyright: "© Clavin Family / R
 
 // Decode to raw pixels first (lossless), so none of the camera metadata or its embedded
 // preview survives; then encode once to WebP carrying only the copyright tags
-async function build(src, out, width, sigma, quality) {
-  const { data, info } = await sharp(src)
-    .rotate()
-    .resize({ width, withoutEnlargement: true })
-    .sharpen({ sigma })
+// Hero photo: color boost baked into the file instead of applied live in CSS
+const BAKED = new Set(["hc-5264"]);
+
+async function build(src, out, width, sigma, quality, bake = false) {
+  let img = sharp(src).rotate().resize({ width, withoutEnlargement: true }).sharpen({ sigma });
+  if (bake) img = img.modulate({ saturation: 1.1, brightness: 1.01 }).linear(1.05, -6.4);
+  const { data, info } = await img
     .raw()
     .toBuffer({ resolveWithObject: true });
   await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
@@ -61,8 +63,8 @@ let done = 0;
 for (const entry of manifest) {
   const src = findSource(entry);
   if (!src) throw new Error(`No original found for ${entry.slug}`);
-  await build(src, path.join(FULL_DIR, `${entry.slug}.webp`), 2400, 0.6, 85);
-  await build(src, path.join(THUMB_DIR, `${entry.slug}.webp`), 800, 0.5, 82);
+  await build(src, path.join(FULL_DIR, `${entry.slug}.webp`), 2400, 0.6, 85, BAKED.has(entry.slug));
+  await build(src, path.join(THUMB_DIR, `${entry.slug}.webp`), 800, 0.5, 82, BAKED.has(entry.slug));
   done += 1;
 }
 console.log(`built ${done} photos into ${OUT_DIR}`);
