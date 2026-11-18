@@ -9,7 +9,8 @@ import EstateExplorer from "@/components/EstateExplorer";
 import MapEmbed from "@/components/MapEmbed";
 import { ESTATE_SLUGS } from "@/data/estate";
 import Photo from "@/components/Photo";
-import StatBar from "@/components/StatBar";
+import Memories from "@/components/Memories";
+import { MEMORY_SLUGS } from "@/data/memories";
 import VideoPlayer from "@/components/VideoPlayer";
 import Gallery from "@/components/Gallery";
 import Terrain3D from "@/components/Terrain3DLazy";
@@ -187,11 +188,11 @@ export default function HomePage({ lang }: { lang: Lang }) {
           sizes="100vw"
           className="animate-ken-burns object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-transparent" />
         <div
           className="pointer-events-none absolute inset-0"
-          style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.35) 100%)" }}
+          style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.25) 100%)" }}
           aria-hidden="true"
         />
 
@@ -230,7 +231,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             style={{ animationDelay: "0.35s" }}
           >
             <a
-              href="#property"
+              href="#story"
               className="btn-shine group rounded-full bg-terracotta px-6 py-3 text-sm font-semibold text-sand shadow-lg transition-colors hover:bg-terracotta-deep"
             >
               {t.hero.ctaPrimary}
@@ -248,7 +249,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
               {t.hero.ctaTour}
             </TourTrigger>
             <a
-              href="#gallery"
+              href="#memories"
               className="hidden rounded-full px-4 py-3 text-sm font-semibold text-sand/85 underline-offset-4 transition-colors hover:text-sand hover:underline sm:inline-block"
             >
               {t.hero.ctaSecondary}
@@ -257,7 +258,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </div>
 
         <a
-          href="#video"
+          href="#story"
           aria-label={t.hero.scrollAria}
           className="animate-bob absolute bottom-14 left-1/2 z-10 hidden -translate-x-1/2 text-sand/70 transition-colors hover:text-sand sm:bottom-20 sm:block"
         >
@@ -277,6 +278,68 @@ export default function HomePage({ lang }: { lang: Lang }) {
             d="M0,32 C240,80 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"
           />
         </svg>
+      </section>
+
+      {/* The Clavin family story */}
+      <section id="story" className="scroll-mt-24">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">{t.story.eyebrow}</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl">{t.story.title}</h2>
+            <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
+              {t.story.paragraphs.map((p, i) => (
+                <p key={i} className={i === 0 ? "drop-cap text-lg text-ink/80" : undefined}>
+                  {p}
+                </p>
+              ))}
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
+                <Photo slug="hc-front-a" variant="thumb" alt={t.story.photoAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
+                <Photo slug="hc-tennis" variant="thumb" alt={t.story.courtAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 sm:p-8">
+              <h3 className="font-serif text-2xl font-bold text-ink">{t.story.timelineTitle}</h3>
+              <ol className="relative mt-6 space-y-7 border-l-2 border-terracotta/30 pl-6">
+                {t.story.timeline.map((m) => (
+                  <li key={m.year} className="relative">
+                    <span className="absolute -left-[2.05rem] top-1 h-3.5 w-3.5 rounded-full bg-terracotta ring-4 ring-sand-deep" aria-hidden="true" />
+                    <p className="font-serif text-xl font-bold text-terracotta">{m.year}</p>
+                    <p className="mt-0.5 font-semibold text-ink">{m.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-ink/70">{m.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="mt-6 rounded-2xl border border-terracotta/30 bg-terracotta/5 p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">{t.story.builderEyebrow}</p>
+              <h3 className="mt-2 font-serif text-2xl font-bold text-ink">{t.story.builderName}</h3>
+              <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink/75">
+                {t.story.builderBio.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Family photos & memories */}
+      <section id="memories" className="scroll-mt-24 border-y border-cream-line bg-sand-deep/50">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <Reveal className="mx-auto mb-14 max-w-3xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">{t.memories.eyebrow}</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-5xl">{t.memories.title}</h2>
+            <p className="mt-5 text-lg leading-relaxed text-ink/75">{t.memories.intro}</p>
+          </Reveal>
+          <Memories t={t.memories} photos={photos.filter((p) => MEMORY_SLUGS.has(p.slug))} />
+          <p className="mt-14 text-center text-sm italic text-ink/50">{t.memories.credit}</p>
+        </div>
       </section>
 
       {/* Video */}
@@ -303,13 +366,6 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <Suspense fallback={<ConditionsFallback />}>
             <Conditions t={t.conditions} />
           </Suspense>
-        </Reveal>
-      </section>
-
-      {/* Stats */}
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        <Reveal>
-          <StatBar labels={t.stats} />
         </Reveal>
       </section>
 
@@ -397,55 +453,6 @@ export default function HomePage({ lang }: { lang: Lang }) {
             );
           })}
         </Reveal>
-      </section>
-
-      {/* The Clavin family story */}
-      <section id="story" className="scroll-mt-24">
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">{t.story.eyebrow}</p>
-            <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl">{t.story.title}</h2>
-            <div className="mt-6 space-y-4 leading-relaxed text-ink/75">
-              {t.story.paragraphs.map((p, i) => (
-                <p key={i} className={i === 0 ? "drop-cap text-lg text-ink/80" : undefined}>
-                  {p}
-                </p>
-              ))}
-            </div>
-            <div className="mt-8 grid grid-cols-2 gap-3">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
-                <Photo slug="img-0604" variant="thumb" alt={t.story.photoAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
-              </div>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-md">
-                <Photo slug="ranch-027" variant="thumb" alt={t.story.courtAlt} sizes="(max-width: 1024px) 50vw, 30vw" className="object-cover" />
-              </div>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="rounded-2xl border border-cream-line bg-sand-deep/40 p-6 sm:p-8">
-              <h3 className="font-serif text-2xl font-bold text-ink">{t.story.timelineTitle}</h3>
-              <ol className="relative mt-6 space-y-7 border-l-2 border-terracotta/30 pl-6">
-                {t.story.timeline.map((m) => (
-                  <li key={m.year} className="relative">
-                    <span className="absolute -left-[2.05rem] top-1 h-3.5 w-3.5 rounded-full bg-terracotta ring-4 ring-sand-deep" aria-hidden="true" />
-                    <p className="font-serif text-xl font-bold text-terracotta">{m.year}</p>
-                    <p className="mt-0.5 font-semibold text-ink">{m.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-ink/70">{m.body}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="mt-6 rounded-2xl border border-terracotta/30 bg-terracotta/5 p-6 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">{t.story.builderEyebrow}</p>
-              <h3 className="mt-2 font-serif text-2xl font-bold text-ink">{t.story.builderName}</h3>
-              <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink/75">
-                {t.story.builderBio.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
       </section>
 
       {/* Interactive estate guide */}
@@ -802,7 +809,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent" />
           <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-14 text-sand sm:px-8">
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-sand/80">
               {t.contact.eyebrow}

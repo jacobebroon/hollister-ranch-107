@@ -14,9 +14,9 @@ const body = Inter({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hollisterranch107.com";
-const TITLE = "Hollister Ranch 107 — Rancho Alegria, 113 Oceanfront Acres";
+const TITLE = "Hollister Ranch 107 — Rancho Alegria, the Clavin Family Ranch";
 const DESCRIPTION =
-  "Rancho Alegria, Parcel 107: 113 private bluff-top acres on Hollister Ranch, Gaviota Coast — main house, guest house, tennis court and hot tub above Razor Blades.";
+  "Rancho Alegria, Hollister Ranch Parcel 107: the bluff-top ranch on California's Gaviota Coast that Harold and Jeanette Clavin built from the ground up in 1987 — its story, family photos, and history, above Razor Blades.";
 const SHARE_IMAGE = { url: "/og/share.jpg", width: 1200, height: 630, alt: TITLE };
 
 export const metadata: Metadata = {

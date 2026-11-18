@@ -556,5 +556,327 @@
     "width": 3072,
     "height": 4080,
     "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABwBACdASoQABUAPu1iqU2ppaOiMAgBMB2JagCdMoMYADwjDiv4/HmHxANoVAD6Zunokmc3seSCByKkH6bK+w4IjvB5NKpYKAxiIf2pizJKZcrZn4E/NS0hzuJa8WN9RGbpy/B5nlXbyGDhdHAoysVHsTUREwZTjlCFOJoVdjD6Z7J+MTgAAA=="
+  },
+  {
+    "slug": "hc-5264",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/5264.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAwAA4BaJQBOgB5nH5HkAAD+QIFlGHKa2TGMyX649MTHn+3PHvqmkJjH4Q6xOwy87+0Vgr9LKQwAAAA="
+  },
+  {
+    "slug": "hc-front-a",
+    "width": 2400,
+    "height": 1398,
+    "original": "harold-photos/front-page/front-a.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwAQCdASoQAAkAA4BaJZgCdADbARHgAP7VFS5HVhJbM8kUU2mxAl5kn27/sdHtl18iEu9uSE2vuYuU8uOTwRp1UgMsDEHopuJTDEpUKFwkAAAA"
+  },
+  {
+    "slug": "hc-front-b",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/front-page/front-b.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAwAA4BaJQBOgCHiHF1wA2QAAP7vzsnX0NwUK1hO4Fhw5lSVQH0CZf/lkf5hD+BKTAZTQ+QWHP8O85xRK7YAAAA="
+  },
+  {
+    "slug": "hc-jeanette-garden",
+    "width": 1080,
+    "height": 810,
+    "original": "harold-photos/garden/jeanette-garden.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABQAgCdASoQAAwAA4BaJaACdAEUU7Z6K2n/VQAA4gQp0Hvovc4nv4SAYB4iQHE/EKwgWAfYYYbM6fZNDMYQdgEMeOiC+62IvhhLICCMoP3XouaeH5/3nTHnF1gBcoAA"
+  },
+  {
+    "slug": "hc-1385",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/descriptions/1385.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAwAA4BaJQBOgBttHwXTMwAAzgJF5gK8vXNxhE+GvyMmcbVetKAN2picbCIAar7Pg7JBZXVR76qWCrjk74XPi/oUgAAA"
+  },
+  {
+    "slug": "hc-1395",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/descriptions/1395.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoQAAwAA4BaJYgCdACZc+R9RfgA/tRc9OMLNufnR9DyLfb/4yHOoINokriHUG0ST6ALz4zj+R9skGjm/MbkbyaitLoevYDS+4aR+aN5Q2+yxtt+AAA="
+  },
+  {
+    "slug": "hc-dining",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/descriptions/20260604_175517.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAwAA4BaJYwCdAC3sUN38VQAySH/79o8sy5qfKGxdlbK7XNRfy+rbXxWOW0oRVMbkdlZJ1VwNwbgGIuDlZ6hQFeedIkW4Rn5X/QA"
+  },
+  {
+    "slug": "hc-bobcat-patio",
+    "width": 2400,
+    "height": 3200,
+    "original": "harold-photos/descriptions/20260605_110256.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JZwDE2CIL7IsKmaG6zpEz+AD8jw8+jjSdpEyoXdtlgPvWW5ZYz52lOnRPYVD3G6iQs6PoxjXo9ui+zi/OoKvdxMN79bJy5AglKgAm34AAAA=="
+  },
+  {
+    "slug": "hc-1440",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/1440.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABQAgCdASoQAAwAA4BaJbACdGuAAs5xL2O8AjAA/I8/9IVL+y91YTGi3bfiZZUN/kkKfYwqPBzCpdThgDdULBtmCBD6/QttBQ32Fs4MzTAAAA=="
+  },
+  {
+    "slug": "hc-1494",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/1494.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAwAA4BaJQBOgCPapMeD+agA3l15BxWix0EUAyCxNTOcQTJ3bZzPO/XTeFshDgdI1isG7lJlxl8yohSeCzkjPwaYu4uq+b3hrgAA"
+  },
+  {
+    "slug": "hc-1907",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/1907.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAwAA4BaJbACdAEMRzMsgADyce4Nx7xSAn/w/PHazRTQkrjV7FmLOruevwrsanoiyZROvEX3Rb9/Ey3SHt8/j29UfAAA"
+  },
+  {
+    "slug": "hc-1908",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/1908.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoQAAwAA4BaJZgCdGuAAsu1u2AAAP1QiQMGzxpgcZ39Er44UmoeS3ja111IlypIc1FWDQXYJ+6GKoCBoSEH2PM+sZxQAA=="
+  },
+  {
+    "slug": "hc-1917",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/1917.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAQCdASoQAAwAA4BaJbACdAD0TW8AAP0rVHTynQAJgpXKCbAqlFtECMKbWcYdIN7qMP9iDdqlYAuZuWgq2gAA"
+  },
+  {
+    "slug": "hc-garden-stairs",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131453.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAQCdASoQAAwAA4BaJZACdAECmCc3urAA/CEz516PhjPh1luimJ0bsQzur6PkdPgdUjz5Ob6WUKnDMwqFIIcSor3X9vjA9htDNk8O/1yYgDb2iEa5S5aGYNdPMgaAAAA="
+  },
+  {
+    "slug": "hc-garden-lawn",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131457.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoQAAwAA4BaJaACdAE08xVN1nfByAD+oxlYd4/u6JhVURko8wv7WpSjX1fdn3kLGiueyr5hRsNqFxcIo61VmntcFzhYxqGJisFIKJpB4KwwAA=="
+  },
+  {
+    "slug": "hc-house-cactus",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131511.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAwAgCdASoQAAwAA4BaJZACdADp2LYmtL8KAAD+7YmNv2Q+M+Vn0zDO6bcc5JbDnpV33dKGW5rgjVqMzdMyENv6cFhs9g22emW5fILgwQ7s78KuyMcH3aOainDfNQoAAAA="
+  },
+  {
+    "slug": "hc-palms-sea",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131516.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoQAAwAA4BaJQBOgCP83gcy85PUAAD9AZsDvJwGpzpmv6+568LMo4yMTveSEbZC7X7O0Wg0LE5BEooRYKzuNZmshLZ5tK/c17IZJ+Is2J+aXUQ6H91wAA=="
+  },
+  {
+    "slug": "hc-palm-path",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131544.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAwAA4BaJQBOgCK3j63ctuAAzj652hgTRPNZyZ8XQnl3TZya6GsodtcnrhH7vqyMmYobdJRhy8T44hKrB+Xd+EL2lzQAAAA="
+  },
+  {
+    "slug": "hc-terrace-chairs",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_131624.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACwAQCdASoQAAwAA4BaJZACdAEDx5WAAPi2UjoR26KmPZd3kFYCCUxock0TKu4DBVeSa13eLt94IE/AgmczG7EWZW8RjBHrOkyxMjEWwaMsgttkAAA="
+  },
+  {
+    "slug": "hc-low-tide",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/20260118_153017.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoQAAwAA4BaJZACdAEDexd5ynOAAPjegkbn/eEc3MtKFd2KBtb3VQ1BRAXMW+z0pPKKIPZqzTGJKvIcs4CdDAAA"
+  },
+  {
+    "slug": "hc-family-beach",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/4627ef6f-3c1f-452c-bb61-06dbab2ec8c9-1_all_332.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAwAA4BaJQBOgCIKCuWCAAD88yKigeeju7pYZYWHcdHGZ0bnlFWVIcPcCjx5ex2m3iD0IQwaeEQKsigAAA=="
+  },
+  {
+    "slug": "hc-5251",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/5251.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAwAA4BaJZACdAEPhUlZ/4AA/rX9rMGYP1phXeGECaR4EhfxwUjXDrK5+UGtEaXXsVJ78axCNkyWWmcXBX5GAlLGP4AA"
+  },
+  {
+    "slug": "hc-5260",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/5260.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAwAA4BaJQAAXNG2b18AAP6OvBK2DEXLqqpCjyS5ypPijK7SdZxR+e7RJ4wzklKeH+Tj3KilDq4BhAA="
+  },
+  {
+    "slug": "hc-5296",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/5296.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoQAAwAA4BaJYgCdAEfccb3KMsYAAD7nyjCoxcAm/F+VLO8u55oVcAjHZrPzC2rpyNyS+M0RdVKvGJxfzo/xQz1u1f6yzP64puQJcAA"
+  },
+  {
+    "slug": "hc-5298",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/drive/5298.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAwAA4BaJQBOgCBy6MyQjgAA/tRdDfILdv8IbFgRbzCXDPmyi/LzUt/XiZLhawZaqtkEhL2quBdT74geiHkkmz9f1IAA"
+  },
+  {
+    "slug": "hc-2999",
+    "width": 1485,
+    "height": 1426,
+    "original": "harold-photos/more/2999.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQAQCdASoQAA8AA4BaJQBOj+ACmntoAAD+8eBiS7Coo3OJEs5L1nSadYFfmg7bwnjyOJEm3ydlDP5sRJaY+vfE6iVG5/gIjaDztmu1esYK2vo6wlVq3nvfyANSuI2GabrI8AAA"
+  },
+  {
+    "slug": "hc-3014",
+    "width": 2400,
+    "height": 3200,
+    "original": "harold-photos/more/3014.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAAAwBACdASoQABUAPu1iqU2ppaOiMAgBMB2JbAC1CIjC+PNRIRIWcgyHDgAA/tT+YefQDjHI45OXCk7XmKilTifd60hPVfWq4wki1TuJjRmbdbT2BLF8vBEUaaysQ09MVI1b48WWvWvk+dFwAgcelw17YRJJ5Rei3hBU2KR6n94tW3D5iKSIJo0o2B9rFiA0AAA="
+  },
+  {
+    "slug": "hc-4772",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/more/4772.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoQAAwAA4BaJbACdACwA0kh1SAA9dkqYeTAn3TnsJGdZ60hXfpjADkm2K6RFVqhHdNFPlnNQRNzAu2PG/vTC4eQ8+GABOvErgAAAA=="
+  },
+  {
+    "slug": "hc-4876",
+    "width": 1014,
+    "height": 1276,
+    "original": "harold-photos/more/4876.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JQBYdhDxD8AYIDbyVKh6QAP7ekcdwfx/rA5co13U6cQNBFqv3JDjPe0ok2kl5KM/ccB6fZUPoAMWUcu98XkLWpIlX9N+JiXuXebiKOPrT16tn0UrBn4ql7E6YzKQA"
+  },
+  {
+    "slug": "hc-4942",
+    "width": 2400,
+    "height": 3200,
+    "original": "harold-photos/more/4942.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABQAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JQAALe07ASWfQAAD6a4ROf5sp4/o27RfNVQeBgekjGR/T+s/uHuXsRj0MpKtG24+usDCdRGzfzL74AAA="
+  },
+  {
+    "slug": "hc-4943",
+    "width": 2400,
+    "height": 3200,
+    "original": "harold-photos/more/4943.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JZgC7ACKq8N8uSQyjcBLclhgAAP3i83f08A7AUXIrO2xRvhoEooOqDJVEN+Ii8yIBOIgblqZBZst52DXhAWMPbv8jm56tbRrhNoskuYdNGV6V2j75cnkKwAA="
+  },
+  {
+    "slug": "hc-5232",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/more/5232.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAABQAgCdASoQAAwAA4BaJaACdH8GJ/gegOpzwAAA/udVz2Syno9PzUVvfBp2b/cDxU1vaf1eS2NHectwYrjKUexDoAA="
+  },
+  {
+    "slug": "hc-5234",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/more/5234.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAwAA4BaJQBOgCG0/B4sV4AA/tcjyS2eulSXd10yoj63X6T2M17/AmV+YTmPxsVa8a452sNRbZV8FUsbPVCqwonhaWGGAAA="
+  },
+  {
+    "slug": "hc-guest-house-sign",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/older/1064.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoQAAwAA4BaJQBYdiKtj8h4g9uAAPZgMiNpWFlXqKSO5XFc0P+p4/3OuzGrC7qbvJlvorDwzyS9wyzyNPJZKEMKYw5merYBzGEXgORgHDmh93F5044AAA=="
+  },
+  {
+    "slug": "hc-tennis",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/older/1316.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAwAA4BaJbACdEf/gbaSsTAA4npNRMaPi06HQawHqgUU0Fhlde5eD883SWDsgPz0wmu44SpLTCJ76eVSMkwWgA0Q9i9rwAA="
+  },
+  {
+    "slug": "hc-spa",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/older/1503.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAwAA4BaJQBOgCLJlrkb0wAA4DYZOrpSRZXrkdkxfO4QTXwH4Pw4iTX7kO37DEAXh/iyTAbAobE59iipBhFl1O/YiJggAAA="
+  },
+  {
+    "slug": "hc-sunset-gathering",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/older/1507.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAwAA4BaJYwC7AENWL3U4AD+l0QnhfJCOHNdL5fdQbUmLWOWcKNr98yZmCc8lDeiK9it8gWQAA=="
+  },
+  {
+    "slug": "hc-bobcat-drive",
+    "width": 768,
+    "height": 1024,
+    "original": "harold-photos/older/887.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADwAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JQBWABH+JqdnvkH2oANyEAP7c3HU+AA3q5o6aQYBbSQyTlr7s+lXlgrZVw3Lbugd5YlJEOhF27AcbH0PH5fMUntQ6cfT1Twl7aJ5jZVTE1TGKv/7oVWBOf1a/oNw+Tm85wAAA"
+  },
+  {
+    "slug": "hc-967",
+    "width": 1541,
+    "height": 1545,
+    "original": "harold-photos/older/967.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoQABAAA4BaJbACdAD2NEXMLc4AAP6cAJUsxz8DOUmnnt/I5S5oFQBlnZp8R84jncOKdjjdTlgecZWVQYYTu1g9l6GFz4sx7D0UBWjp5WQ5w2gNPppxamoVBaYD1Vf2ae1oAA=="
+  },
+  {
+    "slug": "hc-968",
+    "width": 2041,
+    "height": 2464,
+    "original": "harold-photos/older/968.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACsAB9fawMZURyjAJoAAP7VcljiiOGciBICGdfCCrI2qg9KuI1gOMds7pWTIr9H3Z+PC5ZRn49f3aVja9sAdtZYRUpcnKnZ7GBpM5FGeBKzVNvU4rTLsuqLiowCvkFXFwx5kAA="
+  },
+  {
+    "slug": "hc-quail",
+    "width": 1254,
+    "height": 2312,
+    "original": "harold-photos/personal/4627ef6f-3c1f-452c-bb61-06dbab2ec8c9-1_all_5252.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBACdASoQAB4APu1kqU4ppaOiMAgBMB2JQBakKABYrKwAAkPVx3fdAAD+85JBySqBp69a8/YcjVVPXzHeOC8QsF4f1dQ/w2t95fYxHYCTNTWlWvMRxDLn4HF6G4AA"
+  },
+  {
+    "slug": "hc-cactus-garden",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/personal/4627ef6f-3c1f-452c-bb61-06dbab2ec8c9-1_all_5268.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADQAQCdASoQAAwAA4BaJagCdAEVVU1YAAD+s22KVVp5W4eav7lodDZvmGB3uPyN69iS6ocQwxXse0nnno8yDUxJLbIbFVCPbQKdkUenDPSymfQnl1vi/UoAAAA="
+  },
+  {
+    "slug": "hc-guest-house",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/personal/5301.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAwAA4BaJaACdAEKy9Tu7YAAAP7nrN5chC9BtkisslEboM2umaNHt+NRCJMOO9LugumntRT0Lj642FJgbccAAAA="
+  },
+  {
+    "slug": "hc-veranda-chairs",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/personal/5313.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAwAA4BaJZACdAYubk+hi8yAAP4+GnxVwrU97iPWLS+wd/UPyTUWbETJ397eemXFzduAHHVTNj/WODAXx55Msp3DEe9mwMzWp8HKfpbCJOKPnln8HgAA"
+  },
+  {
+    "slug": "hc-garden-path",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/personal/5337.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAQCdASoQAAwAA4BaJZACdAECmCc3urAA/CEz516PhjPh1luimJ0bsQzur6PkdPgdUjz5Ob6WUKnDMwqFIIcSor3X9vjA9htDNk8O/1yYgDb2iEa5S5aGYNdPMgaAAAA="
+  },
+  {
+    "slug": "hc-palm-walk",
+    "width": 2400,
+    "height": 1800,
+    "original": "harold-photos/personal/5343.jpg",
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAwAA4BaJQBOgCK3j63ctuAAzj652hgTRPNZyZ8XQnl3TZya6GsodtcnrhH7vqyMmYobdJRhy8T44hKrB+Xd+EL2lzQAAAA="
   }
 ]

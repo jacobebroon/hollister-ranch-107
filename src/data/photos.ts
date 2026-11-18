@@ -1,6 +1,6 @@
 import manifest from "./photos-manifest.json";
 
-export type Category = "residence" | "grounds" | "coastline" | "sky";
+export type Category = "family" | "residence" | "grounds" | "coastline" | "sky";
 
 export type Photo = {
   slug: string;
@@ -12,6 +12,7 @@ export type Photo = {
 };
 
 export const CATEGORY_LABELS: Record<Category, string> = {
+  family: "Family & Memories",
   residence: "Residence",
   grounds: "Grounds & Gardens",
   coastline: "Coastline",
@@ -110,6 +111,54 @@ const CAPTIONS: Record<string, { caption?: string; category: Category }> = {
   "1000002822": { caption: "Cattle on the spring-green hillside, morning sun over the water.", category: "grounds" },
   "1000003478": { caption: "Ice plant in bloom above the orchard, sunset over the Pacific.", category: "coastline" },
   "img-0991": { caption: "Waves rolling in below the bluffs at first light.", category: "coastline" },
+
+  // Photos from Harold Clavin (Aug 2026): family life, wildlife, and the grounds today
+  "hc-5264": { caption: "Sunset from the bluff, the Channel glowing pink and gold below the orchard.", category: "sky" },
+  "hc-front-a": { caption: "The main house from the hillside above, its tile roof set against the open Pacific.", category: "residence" },
+  "hc-front-b": { caption: "The covered veranda, looking out past the palms to the sea.", category: "residence" },
+  "hc-jeanette-garden": { caption: "Jeanette Clavin in her ranch garden.", category: "family" },
+  "hc-1385": { caption: "A rest on the old stump seats by the ranch gate.", category: "family" },
+  "hc-1395": { caption: "Under the palms in the hillside garden.", category: "family" },
+  "hc-dining": { caption: "The dining room, its window looking straight out to sea.", category: "residence" },
+  "hc-bobcat-patio": { caption: "A bobcat stops by the patio — one of the ranch's regular visitors.", category: "family" },
+  "hc-1440": { caption: "Tide pools on the rocky shore below the ranch.", category: "coastline" },
+  "hc-1494": { caption: "A storm sky breaking over the point.", category: "sky" },
+  "hc-1907": { caption: "Wading in the surf on a ranch beach.", category: "family" },
+  "hc-1908": { caption: "A beach walk with the family dog.", category: "family" },
+  "hc-1917": { caption: "Sun hats and bare feet on a morning beach walk.", category: "family" },
+  "hc-garden-stairs": { caption: "The stone stairway winding down through the garden.", category: "grounds" },
+  "hc-garden-lawn": { caption: "Geraniums, cactus, and a chair on the garden lawn.", category: "grounds" },
+  "hc-house-cactus": { caption: "The main house above the cactus garden.", category: "residence" },
+  "hc-palms-sea": { caption: "Palms and orchard trees stepping down toward the sea.", category: "grounds" },
+  "hc-palm-path": { caption: "The palm-lined stone path out to the bluff.", category: "grounds" },
+  "hc-terrace-chairs": { caption: "Iron chairs on the stone terrace, a red-tile roof beyond.", category: "grounds" },
+  "hc-low-tide": { caption: "Exploring the reef at low tide.", category: "family" },
+  "hc-family-beach": { caption: "Together on the beach below the ranch.", category: "family" },
+  "hc-5251": { caption: "Walking up the stone path at sunset.", category: "family" },
+  "hc-5260": { caption: "The coastal railroad trestle at dusk.", category: "coastline" },
+  "hc-5296": { caption: "The family dog keeping watch over the Channel.", category: "family" },
+  "hc-5298": { caption: "Waiting on the stepping stones for the next walk.", category: "family" },
+  "hc-2999": { caption: "An evening on the beach.", category: "family" },
+  "hc-3014": { caption: "Relaxing on the hillside above the house.", category: "family" },
+  "hc-4772": { caption: "The sun setting into the Pacific from the beach.", category: "coastline" },
+  "hc-4876": { caption: "Out on the rocks at low tide.", category: "family" },
+  "hc-4942": { caption: "Watching the sun go down from the rocks.", category: "family" },
+  "hc-4943": { caption: "Golden hour on the rocks below the ranch.", category: "family" },
+  "hc-5232": { caption: "Dusk over the green hills, the coastline curving away below.", category: "coastline" },
+  "hc-5234": { caption: "The fire-pit terrace at sunset.", category: "grounds" },
+  "hc-guest-house-sign": { caption: "The guest house, signposted at the end of the drive.", category: "residence" },
+  "hc-tennis": { caption: "The ocean-view tennis court.", category: "grounds" },
+  "hc-spa": { caption: "The hot tub on the bluff-top terrace, among flowering coral trees.", category: "grounds" },
+  "hc-sunset-gathering": { caption: "Gathered on the bluff to watch the sunset.", category: "family" },
+  "hc-bobcat-drive": { caption: "Another bobcat crossing the drive.", category: "family" },
+  "hc-967": { caption: "A morning with the dog in the spring grass.", category: "family" },
+  "hc-968": { caption: "Morning coffee in the spring grass.", category: "family" },
+  "hc-quail": { caption: "A California quail on the roofline.", category: "family" },
+  "hc-cactus-garden": { caption: "The cactus garden on the hillside, the ocean beyond.", category: "grounds" },
+  "hc-guest-house": { caption: "The guest house under its red-tile roof, spring grass all around.", category: "residence" },
+  "hc-veranda-chairs": { caption: "Adirondack chairs at the end of the veranda.", category: "grounds" },
+  "hc-garden-path": { caption: "Stone steps through the flowering garden.", category: "grounds" },
+  "hc-palm-walk": { caption: "The palm walk out to the edge of the bluff.", category: "grounds" },
 };
 
 type ManifestEntry = {
@@ -133,13 +182,13 @@ export function getPhoto(slug: string): Photo | undefined {
 }
 
 export const featuredSlugs = [
-  "ranch-004",
+  "hc-front-a",
   "162",
+  "hc-5232",
   "201",
-  "167",
+  "hc-spa",
   "img-0602",
-  "ranch-001",
-  "img-20150118-173149189",
+  "hc-palm-walk",
   "157",
 ];
 
@@ -147,4 +196,4 @@ export const featuredPhotos = featuredSlugs
   .map((slug) => photos.find((p) => p.slug === slug))
   .filter((p): p is Photo => Boolean(p));
 
-export const heroSlug = "ranch-004";
+export const heroSlug = "hc-5264";

@@ -10,7 +10,7 @@ import { fmt, type Dict } from "@/i18n";
 // Rendering all 81 thumbnails up front is the page's heaviest DOM work; show a first batch
 const INITIAL_COUNT = 16;
 
-const FILTER_KEYS: Array<Category | "all"> = ["all", "residence", "grounds", "coastline", "sky"];
+const FILTER_KEYS: Array<Category | "all"> = ["all", "family", "residence", "grounds", "coastline", "sky"];
 
 export default function Gallery({
   photos,

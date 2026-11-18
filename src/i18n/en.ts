@@ -6,13 +6,20 @@ const en = {
   homePath: "/",
 
   meta: {
-    title: "Hollister Ranch 107 — Rancho Alegria, 113 Oceanfront Acres",
+    title: "Hollister Ranch 107 — Rancho Alegria, the Clavin Family Ranch",
     description:
-      "Rancho Alegria, Parcel 107: 113 private bluff-top acres on Hollister Ranch, Gaviota Coast — main house, guest house, tennis court and hot tub above Razor Blades.",
+      "Rancho Alegria, Hollister Ranch Parcel 107: the bluff-top ranch on California's Gaviota Coast that Harold and Jeanette Clavin built from the ground up in 1987 — its story, family photos, and history, above Razor Blades.",
   },
 
   nav: {
-    links: ["Home", "Rancho Alegria", "Gallery", "The Ranch", "Map & Access", "Contact"],
+    links: [
+      "Home",
+      "Our Story",
+      "Memories",
+      "Gallery",
+      "The Ranch",
+      "Contact"
+    ],
     brandSub: "Parcel 107 · Hollister Ranch",
     toggleMenu: "Toggle menu",
     switchLabel: "ES",
@@ -24,7 +31,7 @@ const en = {
   footer: {
     sub: "Parcel 107, Hollister Ranch",
     blurb:
-      "113 private acres on one of the last undeveloped stretches of the California coast, on the Gaviota Coast north of Santa Barbara.",
+      "A family ranch on 113 acres of bluff above the Pacific, built by Harold and Jeanette Clavin on the Gaviota Coast north of Santa Barbara.",
     explore: "Explore",
     links: ["The Property", "Photo Gallery", "History of the Ranch", "Map & Access"],
     contact: "Contact",
@@ -40,19 +47,23 @@ const en = {
   hero: {
     eyebrow: "Hollister Ranch 107 · Gaviota Coast, California",
     tagline:
-      "113 private, bluff-top acres — Parcel 107 of the last untouched 14,400-acre stretch of California’s coast.",
-    facts: ["113 Private Acres", "8.5 Mi Coastline", "Est. 1866"],
-    ctaPrimary: "Discover the Property",
+      "A family ranch on the edge of the Pacific — built by hand by Harold and Jeanette Clavin, and loved by three generations since 1987.",
+    facts: [
+      "Built by the Clavin family",
+      "Since 1987",
+      "Three generations"
+    ],
+    ctaPrimary: "Read Our Story",
     ctaTour: "Take the Photo Tour",
-    ctaSecondary: "View Gallery & Film",
-    scrollAria: "Scroll to see the property tour",
-    imageAlt: "Rancho Alegria, Parcel 107, overlooking the Pacific at Hollister Ranch",
+    ctaSecondary: "Family Photos",
+    scrollAria: "Scroll to the family story",
+    imageAlt: "Sunset over the Santa Barbara Channel from the bluff at Rancho Alegria, Hollister Ranch 107",
   },
 
   video: {
-    eyebrow: "Watch the Tour",
+    eyebrow: "Walk Through It",
     title: "See Rancho Alegria",
-    caption: "A tour of Rancho Alegria, Parcel 107.",
+    caption: "A film tour of Rancho Alegria, Parcel 107.",
     play: "Play the property tour",
     loading: "Loading the property tour",
     coverAlt: "Rancho Alegria property tour — Hollister Ranch 107",
@@ -81,34 +92,66 @@ const en = {
     moonPhases: {} as Record<string, string>,
   },
 
-  stats: ["Private acres", "Acre ranch", "Untouched coastline", "Ranch founded"],
 
   intro: {
-    eyebrow: "Welcome to the Ranch",
+    eyebrow: "Where It Is",
     title: "One of California’s last truly wild coastlines",
-    p1: "Hollister Ranch is a private, gated 14,400-acre cattle ranch spanning 8.5 miles of undeveloped Pacific coastline on the Gaviota Coast, just north of Santa Barbara. Named for Colonel William Welles Hollister, who acquired the land in 1866, the ranch was divided in 1971 into roughly 100-acre parcels — permanently protected from further subdivision — and has remained one of the most exclusive and least-developed stretches of coast in the continental United States ever since.",
-    p2: "Rancho Alegria — Hollister Ranch Parcel 107 — sits on 113 of those acres: a bluff-top perch above the Santa Barbara Channel, framed by rolling grassland, mature gardens, and an unbroken view of open ocean.",
+    p1: "Hollister Ranch is a private, gated 14,400-acre cattle ranch spanning 8.5 miles of undeveloped Pacific coastline on the Gaviota Coast, just north of Santa Barbara. Named for Colonel William Welles Hollister, who acquired the land in 1866, the ranch was divided in 1971 into parcels of 100 acres or more — permanently protected from further subdivision — and has remained one of the least-developed stretches of coast in the continental United States ever since.",
+    p2: "Rancho Alegria — Hollister Ranch Parcel 107 — is the Clavin family's piece of it: 113 acres of bluff above the Santa Barbara Channel, framed by rolling grassland, the gardens they planted, and an unbroken view of open ocean.",
     link: "Read the full history of Hollister Ranch →",
   },
 
   property: {
-    eyebrow: "Why Rancho Alegria",
-    title: "113 acres, one view that never changes",
-    p1: "Rancho Alegria occupies 113 acres of bluff, grassland, and garden on the western reach of Hollister Ranch, where the Santa Rosa Hills meet the Santa Barbara Channel, named for nearby Alegria Canyon. Established in 1987 and held by the Clavin family ever since, the single-level main residence was built to disappear into the land around it — terracotta roof tiles, reclaimed wood, and hand-forged iron inside, with every principal room opening onto the same view: open Pacific, unbroken to the horizon.",
-    p2: "A separate guest house, a private hot tub, a full-size tennis court, a fruit orchard, and landscaped stone pathways round out the grounds, threading between agave and native wildflowers on their way to the bluff’s edge — all inside the ranch’s single guarded gate.",
-    p3: "The bluff below fronts Razor Blades, the named point break closest to the Gaviota entrance — putting some of the ranch’s most-surfed water directly out front, not just nearby.",
+    eyebrow: "Around the Ranch",
+    title: "The home they built, and the life around it",
+    p1: "Rancho Alegria takes its name from nearby Alegria Canyon, on the western reach of Hollister Ranch where the Santa Rosa Hills meet the Santa Barbara Channel. The single-level main house was built to sit quietly in the land — terracotta tiles, reclaimed wood, and hand-forged iron — with every main room opening onto the same view of open Pacific.",
+    p2: "Around it, the family added a guest house for visiting children and grandchildren, a hot tub on the bluff, an ocean-view tennis court, a fruit orchard, and stone paths that wander through Jeanette's gardens to the edge of the bluff.",
+    p3: "Below the bluff is Razor Blades, the named surf break closest to the Gaviota gate — close enough to watch the sets roll in from the house.",
     advantages: [
-      { title: "113 private acres", body: "A full parcel of Hollister Ranch's protected 100-acre-minimum land — room to roam, ride, and never see a neighbor." },
-      { title: "Bluff-top ocean views", body: "Panoramic, unobstructed Pacific views across the Santa Barbara Channel, from sunrise to whale season." },
-      { title: "Single guarded gate", body: "One private, guarded entrance controls all access to the ranch — total privacy and security, mile after mile." },
-      { title: "Legendary surf coast", body: "Parcel 107 sits within Hollister Ranch's storied 8.5-mile stretch of point breaks, among the finest in the continental US." },
-      { title: "Fronts Razor Blades", body: "Rancho Alegria sits directly across from Razor Blades, the named point break closest to the Gaviota gate — a rare, walk-out surf address, not just a nearby one." },
-      { title: "Hacienda-style residence", body: "A single-level home with terracotta tile roofline, hand-forged ironwork, and a wraparound window-seat great room built to frame the horizon." },
-      { title: "Dark skies, working ranch", body: "Surrounded by an active cattle cooperative and native grassland — no light pollution, no traffic, just open land." },
-      { title: "Private ocean-view tennis court", body: "A full-size tennis court set into the bluff, backdropped by open Pacific and the ranch's coastal hills." },
-      { title: "Main house plus guest house", body: "A separate guest house alongside the main residence gives visiting family or friends their own private space." },
-      { title: "Private hot tub", body: "A hot tub set into the grounds for soaking after a day on the water or the trails — steps from the main house." },
-      { title: "120+ miles of ranch trails", body: "Hollister Ranch maintains an extensive network of equestrian trails across its 14,400 acres, open to owners and their guests." },
+      {
+        title: "113 acres of open land",
+        body: "Grassland, orchard, and garden with room to wander — and a view in every direction."
+      },
+      {
+        title: "The view from the bluff",
+        body: "The Santa Barbara Channel and the Channel Islands, from first light to whale season."
+      },
+      {
+        title: "One gate in",
+        body: "A single guarded entrance to the whole ranch keeps the road quiet and the land wild."
+      },
+      {
+        title: "A legendary surf coast",
+        body: "Parcel 107 sits along Hollister Ranch's 8.5 miles of point breaks, first explored by Santa Barbara surfers in the 1950s."
+      },
+      {
+        title: "Above Razor Blades",
+        body: "The surf break directly below the bluff — the named break closest to the Gaviota gate."
+      },
+      {
+        title: "The main house",
+        body: "Single-level and hacienda-style, with a terracotta roof, hand-forged ironwork, and a window seat built for watching the horizon."
+      },
+      {
+        title: "Dark skies, working ranch",
+        body: "Cattle graze the hills around the parcel, and at night there's no light but the stars."
+      },
+      {
+        title: "The tennis court",
+        body: "Finished in 1989 and set into the bluff, with open Pacific behind the far baseline."
+      },
+      {
+        title: "The guest house",
+        body: "Completed in 1990 down the slope under its own red-tile roof, so visiting family have a place of their own."
+      },
+      {
+        title: "The hot tub",
+        body: "On the bluff-top terrace among the coral trees — the best seat on the ranch for sunset."
+      },
+      {
+        title: "Miles of ranch trails",
+        body: "Hollister Ranch keeps more than 120 miles of trails across its 14,400 acres for owners and their guests."
+      }
     ],
     insideOut: "Inside & Out",
     viewGallery: "View full gallery →",
@@ -117,7 +160,7 @@ const en = {
   },
 
   story: {
-    eyebrow: "The Clavin Ranch",
+    eyebrow: "Our Story",
     title: "Built from the ground up by Harold and Jeanette Clavin",
     paragraphs: [
       "Rancho Alegria wasn’t bought finished — it was made. Harold and Jeanette Clavin designed and built Parcel 107 themselves, starting from 113 acres of open, bluff-top grassland and shaping every part of the ranch you see today.",
@@ -138,8 +181,34 @@ const en = {
       { year: "1990", title: "The guest house", body: "The guest house is completed down the slope, under its own red-tile roof." },
       { year: "Today", title: "Three generations", body: "The main house, gardens, orchard, and stone paths complete the ranch — still enjoyed by three generations of the Clavin family." },
     ],
-    photoAlt: "The residence at sunset, roses climbing toward the eaves",
+    photoAlt: "The main house from the hillside above, its tile roof against the Pacific",
     courtAlt: "The private tennis court, finished in 1989, with the ocean beyond",
+  },
+
+  memories: {
+    eyebrow: "Family Photos & Memories",
+    title: "Life at Rancho Alegria",
+    intro: "More than three decades on, this is where the Clavin family comes together — beach walks at low tide, evenings on the bluff watching the sun drop into the Channel, and the occasional bobcat wandering past the patio as if it owns the place. These are some of the family's own photos.",
+    groups: [
+      {
+        title: "Days on the beach",
+        body: "Low tide on the reef, sun hats, bare feet, and the dog leading the way."
+      },
+      {
+        title: "Evenings on the bluff",
+        body: "Most days end the same way: everyone outside for the sunset."
+      },
+      {
+        title: "Home and garden",
+        body: "Jeanette in her garden, morning coffee in the spring grass, and the dog keeping watch."
+      },
+      {
+        title: "Our wild neighbors",
+        body: "Bobcats, quail, and the rest of the ranch's locals stop by often."
+      }
+    ],
+    open: "Open in the photo tour",
+    credit: "Photos courtesy of the Clavin family."
   },
 
   estate: {
@@ -190,6 +259,7 @@ const en = {
     hint: "Use ← → keys or swipe · Space to pause",
     fullscreen: "Full screen",
     chapters: {
+      family: "Family & Memories",
       residence: "The Residence",
       grounds: "Grounds & Gardens",
       coastline: "The Coastline",
@@ -200,9 +270,10 @@ const en = {
   gallery: {
     eyebrow: "Gallery",
     title: "Rancho Alegria in Full",
-    intro: "Photographs of the residence, gardens, and coastline — taken across different seasons and years at Parcel 107.",
+    intro: "Photographs of the house, the gardens, the coastline, and family life at Parcel 107 — taken across many seasons and years.",
     filters: {
       all: "All Photos",
+      family: "Family & Memories",
       residence: "Residence",
       grounds: "Grounds & Gardens",
       coastline: "Coastline",
@@ -259,9 +330,9 @@ const en = {
   },
 
   seasons: {
-    eyebrow: "Plan Your Season",
-    title: "Best time to visit",
-    intro: "The ranch changes with the seasons — here’s what to expect through the year.",
+    eyebrow: "Through the Year",
+    title: "The ranch through the seasons",
+    intro: "The ranch changes with every season — here’s what each one brings.",
     now: "Happening now",
     items: [
       { months: "Dec – Feb", title: "Winter swell", body: "Big west and northwest swells wrap onto Drake's, Little Drake's, Utah, and Razor Blades — the ranch's most consistent, powerful stretch of the year." },
@@ -274,7 +345,7 @@ const en = {
   map: {
     eyebrow: "Location & Access",
     title: "Find the Ranch",
-    body: "Hollister Ranch sits on the Gaviota Coast in Santa Barbara County, about 2 hours 15 minutes from Los Angeles and 30 minutes from downtown Santa Barbara. Because the ranch is a private, gated community with a single guarded entrance, we share Rancho Alegria’s exact address and gate directions directly with confirmed guests rather than publishing them here.",
+    body: "Hollister Ranch sits on the Gaviota Coast in Santa Barbara County, about 2 hours 15 minutes from Los Angeles and 30 minutes from downtown Santa Barbara. Because the ranch is a private, gated community with a single guarded entrance, Rancho Alegria’s exact address and gate directions aren’t published here.",
     terrainEyebrow: "Fly the Coastline",
     terrainTitle: "8.5 miles of coast, in real 3D terrain",
     terrainBody: "An actual terrain map built from real elevation and satellite data — not a photo. Watch the opening flight from Point Conception east along the ranch toward Gaviota, then drag to rotate, tilt, and explore the coastline yourself.",
@@ -346,9 +417,9 @@ const en = {
     callOrText: "Call or Text",
     aboutTitle: "About this site",
     expect: [
-      "A private, gated 113-acre parcel on Hollister Ranch's protected coastline.",
+      "The Clavin family's ranch, on Hollister Ranch's protected coastline.",
       "Answers to questions about the property, its history, and the ranch.",
-      "This site is for information only — reach out directly with any questions.",
+      "This site is for information only — reach out directly with any questions."
     ],
   },
 

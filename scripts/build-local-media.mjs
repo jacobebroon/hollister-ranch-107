@@ -27,6 +27,8 @@ for (const dir of SOURCE_DIRS) {
   }
 }
 function findSource(entry) {
+  // Photos added later record their original by project-relative path (e.g. harold-photos/...)
+  if (entry.original && fs.existsSync(entry.original)) return entry.original;
   if (entry.original && sources.has(entry.original.toLowerCase())) return sources.get(entry.original.toLowerCase());
   const base = entry.slug.replace(/-/g, "_");
   for (const ext of ["jpg", "jpeg"]) {

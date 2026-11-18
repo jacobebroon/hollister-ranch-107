@@ -7,13 +7,20 @@ const es: Dict = {
   homePath: "/es",
 
   meta: {
-    title: "Hollister Ranch 107 — Rancho Alegria, 113 acres frente al mar",
+    title: "Hollister Ranch 107 — Rancho Alegria, el rancho de la familia Clavin",
     description:
-      "Rancho Alegria, Parcela 107: 113 acres privados sobre el acantilado en Hollister Ranch, costa de Gaviota — casa principal, casa de huéspedes, cancha de tenis y jacuzzi frente a Razor Blades.",
+      "Rancho Alegria, Parcela 107 de Hollister Ranch: el rancho sobre el acantilado en la costa de Gaviota, California, que Harold y Jeanette Clavin construyeron desde cero en 1987 — su historia, fotos de familia e historia del rancho, sobre Razor Blades.",
   },
 
   nav: {
-    links: ["Inicio", "Rancho Alegria", "Galería", "El Rancho", "Mapa y acceso", "Contacto"],
+    links: [
+      "Inicio",
+      "Nuestra historia",
+      "Recuerdos",
+      "Galería",
+      "El rancho",
+      "Contacto"
+    ],
     brandSub: "Parcela 107 · Hollister Ranch",
     toggleMenu: "Abrir o cerrar el menú",
     switchLabel: "EN",
@@ -25,7 +32,7 @@ const es: Dict = {
   footer: {
     sub: "Parcela 107, Hollister Ranch",
     blurb:
-      "113 acres privados en uno de los últimos tramos sin urbanizar de la costa de California, en la costa de Gaviota, al norte de Santa Bárbara.",
+      "Un rancho familiar en 113 acres de acantilado sobre el Pacífico, construido por Harold y Jeanette Clavin en la costa de Gaviota, al norte de Santa Bárbara.",
     explore: "Explorar",
     links: ["La propiedad", "Galería de fotos", "Historia del rancho", "Mapa y acceso"],
     contact: "Contacto",
@@ -41,19 +48,23 @@ const es: Dict = {
   hero: {
     eyebrow: "Hollister Ranch 107 · Costa de Gaviota, California",
     tagline:
-      "113 acres privados sobre el acantilado — la Parcela 107 del último tramo intacto de 14,400 acres de la costa de California.",
-    facts: ["113 acres privados", "8.5 mi de costa", "Desde 1866"],
-    ctaPrimary: "Descubra la propiedad",
+      "Un rancho familiar al borde del Pacífico — construido a mano por Harold y Jeanette Clavin, y querido por tres generaciones desde 1987.",
+    facts: [
+      "Construido por la familia Clavin",
+      "Desde 1987",
+      "Tres generaciones"
+    ],
+    ctaPrimary: "Lea nuestra historia",
     ctaTour: "Recorrido fotográfico",
-    ctaSecondary: "Galería y video",
-    scrollAria: "Desplácese para ver el recorrido de la propiedad",
-    imageAlt: "Rancho Alegria, Parcela 107, con vista al Pacífico en Hollister Ranch",
+    ctaSecondary: "Fotos de familia",
+    scrollAria: "Desplácese a la historia de la familia",
+    imageAlt: "Atardecer sobre el canal de Santa Bárbara desde el acantilado de Rancho Alegria, Hollister Ranch 107",
   },
 
   video: {
-    eyebrow: "Vea el recorrido",
+    eyebrow: "Recórralo",
     title: "Conozca Rancho Alegria",
-    caption: "Un recorrido por Rancho Alegria, Parcela 107 (narración en inglés).",
+    caption: "Un recorrido en video por Rancho Alegria, Parcela 107.",
     play: "Reproducir el recorrido de la propiedad",
     loading: "Cargando el recorrido de la propiedad",
     coverAlt: "Recorrido de Rancho Alegria — Hollister Ranch 107",
@@ -113,34 +124,66 @@ const es: Dict = {
     },
   },
 
-  stats: ["Acres privados", "Acres del rancho", "Millas de costa intacta", "Fundación del rancho"],
 
   intro: {
-    eyebrow: "Bienvenidos al rancho",
+    eyebrow: "Dónde está",
     title: "Una de las últimas costas verdaderamente salvajes de California",
-    p1: "Hollister Ranch es un rancho ganadero privado y cerrado de 14,400 acres que abarca 8.5 millas de costa del Pacífico sin urbanizar en la costa de Gaviota, justo al norte de Santa Bárbara. Lleva el nombre del coronel William Welles Hollister, quien adquirió las tierras en 1866. En 1971 el rancho se dividió en parcelas de aproximadamente 100 acres — protegidas para siempre contra nuevas subdivisiones — y desde entonces sigue siendo uno de los tramos de costa más exclusivos y menos urbanizados de los Estados Unidos continentales.",
-    p2: "Rancho Alegria — la Parcela 107 de Hollister Ranch — ocupa 113 de esos acres: un mirador sobre el acantilado frente al canal de Santa Bárbara, rodeado de praderas onduladas, jardines maduros y una vista ininterrumpida del océano abierto.",
+    p1: "Hollister Ranch es un rancho ganadero privado y cerrado de 14,400 acres que abarca 8.5 millas de costa del Pacífico sin urbanizar en la costa de Gaviota, justo al norte de Santa Bárbara. Lleva el nombre del coronel William Welles Hollister, quien adquirió las tierras en 1866. En 1971 el rancho se dividió en parcelas de 100 acres o más — protegidas para siempre contra nuevas subdivisiones — y desde entonces sigue siendo uno de los tramos de costa menos urbanizados de los Estados Unidos continentales.",
+    p2: "Rancho Alegria — la Parcela 107 de Hollister Ranch — es el rincón de la familia Clavin: 113 acres de acantilado sobre el canal de Santa Bárbara, rodeados de praderas onduladas, los jardines que ellos plantaron y una vista ininterrumpida del océano abierto.",
     link: "Lea la historia completa de Hollister Ranch →",
   },
 
   property: {
-    eyebrow: "Por qué Rancho Alegria",
-    title: "113 acres, una vista que nunca cambia",
-    p1: "Rancho Alegria ocupa 113 acres de acantilado, pradera y jardín en el extremo occidental de Hollister Ranch, donde las colinas de Santa Rosa se encuentran con el canal de Santa Bárbara, y toma su nombre del cercano cañón Alegria. Establecida en 1987 y en manos de la familia Clavin desde entonces, la residencia principal de una sola planta fue construida para fundirse con el paisaje — tejas de terracota, madera recuperada y hierro forjado a mano en su interior, con cada habitación principal abierta a la misma vista: el Pacífico abierto, sin interrupciones hasta el horizonte.",
-    p2: "Una casa de huéspedes independiente, un jacuzzi privado, una cancha de tenis reglamentaria, un huerto frutal y senderos de piedra ajardinados completan la propiedad, serpenteando entre agaves y flores silvestres nativas hasta el borde del acantilado — todo dentro de la única entrada vigilada del rancho.",
-    p3: "El acantilado da directamente a Razor Blades, la rompiente con nombre más cercana a la entrada de Gaviota — lo que pone algunas de las olas más surfeadas del rancho justo enfrente, no simplemente cerca.",
+    eyebrow: "Por el rancho",
+    title: "La casa que construyeron y la vida a su alrededor",
+    p1: "Rancho Alegria toma su nombre del cercano cañón Alegria, en el extremo oeste de Hollister Ranch, donde las colinas de Santa Rosa se encuentran con el canal de Santa Bárbara. La casa principal, de una sola planta, se construyó para integrarse en el terreno — tejas de terracota, madera recuperada y hierro forjado a mano — y cada habitación principal se abre a la misma vista del Pacífico abierto.",
+    p2: "A su alrededor, la familia añadió una casa de huéspedes para los hijos y nietos que vienen de visita, un jacuzzi en el acantilado, una cancha de tenis con vista al mar, un huerto frutal y senderos de piedra que serpentean por los jardines de Jeanette hasta el borde del acantilado.",
+    p3: "Bajo el acantilado está Razor Blades, la ola con nombre más cercana a la entrada de Gaviota — tan cerca que se ven llegar las series desde la casa.",
     advantages: [
-      { title: "113 acres privados", body: "Una parcela completa del terreno protegido de Hollister Ranch, con un mínimo de 100 acres — espacio para recorrer, cabalgar y no ver nunca a un vecino." },
-      { title: "Vistas al mar desde el acantilado", body: "Vistas panorámicas y despejadas del Pacífico a través del canal de Santa Bárbara, desde el amanecer hasta la temporada de ballenas." },
-      { title: "Una sola entrada vigilada", body: "Una única entrada privada y vigilada controla todo el acceso al rancho — privacidad y seguridad totales, milla tras milla." },
-      { title: "Costa legendaria para el surf", body: "La Parcela 107 se encuentra dentro del célebre tramo de 8.5 millas de rompientes de Hollister Ranch, entre las mejores de los Estados Unidos continentales." },
-      { title: "Frente a Razor Blades", body: "Rancho Alegria está justo frente a Razor Blades, la rompiente con nombre más cercana a la entrada de Gaviota — una dirección excepcional con el surf a pie de casa, no solo cerca." },
-      { title: "Residencia estilo hacienda", body: "Una casa de una sola planta con techo de tejas de terracota, herrería forjada a mano y una gran sala con banco junto a la ventana, pensada para enmarcar el horizonte." },
-      { title: "Cielos oscuros, rancho en activo", body: "Rodeada por una cooperativa ganadera en activo y praderas nativas — sin contaminación lumínica ni tráfico, solo tierra abierta." },
-      { title: "Cancha de tenis privada con vista al mar", body: "Una cancha de tenis reglamentaria integrada en el acantilado, con el Pacífico abierto y las colinas costeras del rancho como telón de fondo." },
-      { title: "Casa principal y casa de huéspedes", body: "Una casa de huéspedes independiente junto a la residencia principal ofrece a familiares o amigos su propio espacio privado." },
-      { title: "Jacuzzi privado", body: "Un jacuzzi en los jardines para relajarse después de un día en el agua o en los senderos — a pocos pasos de la casa principal." },
-      { title: "Más de 120 millas de senderos", body: "Hollister Ranch mantiene una extensa red de senderos ecuestres en sus 14,400 acres, abiertos a los propietarios y sus invitados." },
+      {
+        title: "113 acres de campo abierto",
+        body: "Pradera, huerto y jardín con espacio para recorrer — y vista en todas las direcciones."
+      },
+      {
+        title: "La vista desde el acantilado",
+        body: "El canal de Santa Bárbara y las islas del Canal, desde el amanecer hasta la temporada de ballenas."
+      },
+      {
+        title: "Una sola entrada",
+        body: "Una única entrada vigilada a todo el rancho mantiene el camino tranquilo y la tierra salvaje."
+      },
+      {
+        title: "Una costa de surf legendaria",
+        body: "La Parcela 107 está a lo largo de las 8.5 millas de olas de Hollister Ranch, exploradas por surfistas de Santa Bárbara en los años cincuenta."
+      },
+      {
+        title: "Sobre Razor Blades",
+        body: "La ola justo debajo del acantilado — la ola con nombre más cercana a la entrada de Gaviota."
+      },
+      {
+        title: "La casa principal",
+        body: "De una sola planta y estilo hacienda, con techo de terracota, herrería forjada a mano y un banco junto a la ventana hecho para mirar el horizonte."
+      },
+      {
+        title: "Cielos oscuros, rancho en activo",
+        body: "El ganado pasta en las colinas alrededor de la parcela, y de noche no hay más luz que las estrellas."
+      },
+      {
+        title: "La cancha de tenis",
+        body: "Terminada en 1989 y encajada en el acantilado, con el Pacífico abierto detrás de la línea de fondo."
+      },
+      {
+        title: "La casa de huéspedes",
+        body: "Terminada en 1990 cuesta abajo bajo su propio techo de teja roja, para que la familia que visita tenga su propio espacio."
+      },
+      {
+        title: "El jacuzzi",
+        body: "En la terraza del acantilado entre los árboles de coral — el mejor lugar del rancho para ver el atardecer."
+      },
+      {
+        title: "Millas de senderos",
+        body: "Hollister Ranch mantiene más de 120 millas de senderos en sus 14,400 acres para los propietarios y sus invitados."
+      }
     ],
     insideOut: "Interior y exterior",
     viewGallery: "Ver la galería completa →",
@@ -149,7 +192,7 @@ const es: Dict = {
   },
 
   story: {
-    eyebrow: "El rancho de los Clavin",
+    eyebrow: "Nuestra historia",
     title: "Construido desde cero por Harold y Jeanette Clavin",
     paragraphs: [
       "Rancho Alegria no se compró terminado — se creó. Harold y Jeanette Clavin diseñaron y construyeron ellos mismos la Parcela 107, partiendo de 113 acres de pradera abierta sobre el acantilado y dando forma a cada parte del rancho que se ve hoy.",
@@ -170,8 +213,34 @@ const es: Dict = {
       { year: "1990", title: "La casa de huéspedes", body: "Se completa la casa de huéspedes ladera abajo, bajo su propio techo de tejas rojas." },
       { year: "Hoy", title: "Tres generaciones", body: "La casa principal, los jardines, el huerto y los senderos de piedra completan el rancho — que hoy disfrutan tres generaciones de la familia Clavin." },
     ],
-    photoAlt: "La residencia al atardecer, con rosas trepando hacia los aleros",
+    photoAlt: "La casa principal desde la ladera, con su techo de tejas frente al Pacífico",
     courtAlt: "La cancha de tenis privada, terminada en 1989, con el océano al fondo",
+  },
+
+  memories: {
+    eyebrow: "Fotos y recuerdos de familia",
+    title: "La vida en Rancho Alegria",
+    intro: "Más de tres décadas después, aquí es donde se reúne la familia Clavin — paseos por la playa con la marea baja, tardes en el acantilado viendo el sol caer en el canal, y algún lince rojo que pasa junto al patio como si fuera el dueño. Estas son algunas de las fotos de la propia familia.",
+    groups: [
+      {
+        title: "Días de playa",
+        body: "Marea baja en el arrecife, sombreros, pies descalzos y el perro abriendo camino."
+      },
+      {
+        title: "Tardes en el acantilado",
+        body: "Casi todos los días terminan igual: todos afuera para ver el atardecer."
+      },
+      {
+        title: "La casa y el jardín",
+        body: "Jeanette en su jardín, café por la mañana entre la hierba de primavera y el perro vigilando."
+      },
+      {
+        title: "Nuestros vecinos salvajes",
+        body: "Linces rojos, codornices y los demás vecinos del rancho pasan a menudo."
+      }
+    ],
+    open: "Abrir en el recorrido fotográfico",
+    credit: "Fotos cortesía de la familia Clavin."
   },
 
   estate: {
@@ -222,6 +291,7 @@ const es: Dict = {
     hint: "Use las teclas ← → o deslice · Espacio para pausar",
     fullscreen: "Pantalla completa",
     chapters: {
+      family: "Familia y recuerdos",
       residence: "La residencia",
       grounds: "Jardines y terrenos",
       coastline: "La costa",
@@ -232,9 +302,10 @@ const es: Dict = {
   gallery: {
     eyebrow: "Galería",
     title: "Rancho Alegria en detalle",
-    intro: "Fotografías de la residencia, los jardines y la costa — tomadas en distintas estaciones y años en la Parcela 107.",
+    intro: "Fotografías de la casa, los jardines, la costa y la vida en familia en la Parcela 107 — tomadas a lo largo de muchas estaciones y años.",
     filters: {
       all: "Todas las fotos",
+      family: "Familia y recuerdos",
       residence: "Residencia",
       grounds: "Jardines y terrenos",
       coastline: "Costa",
@@ -291,9 +362,9 @@ const es: Dict = {
   },
 
   seasons: {
-    eyebrow: "Planee su temporada",
-    title: "La mejor época para visitar",
-    intro: "El rancho cambia con las estaciones — esto es lo que puede esperar a lo largo del año.",
+    eyebrow: "A lo largo del año",
+    title: "El rancho en cada estación",
+    intro: "El rancho cambia con cada estación — esto es lo que trae cada una.",
     now: "Ahora mismo",
     items: [
       { months: "Dic – Feb", title: "Mar de fondo de invierno", body: "Grandes marejadas del oeste y noroeste llegan a Drake's, Little Drake's, Utah y Razor Blades — la temporada más constante y potente del año en el rancho." },
@@ -306,7 +377,7 @@ const es: Dict = {
   map: {
     eyebrow: "Ubicación y acceso",
     title: "Cómo encontrar el rancho",
-    body: "Hollister Ranch se encuentra en la costa de Gaviota, en el condado de Santa Bárbara, a unas 2 horas y 15 minutos de Los Ángeles y a 30 minutos del centro de Santa Bárbara. Como el rancho es una comunidad privada y cerrada con una sola entrada vigilada, compartimos la dirección exacta de Rancho Alegria y las indicaciones de acceso directamente con los invitados confirmados, en lugar de publicarlas aquí.",
+    body: "Hollister Ranch está en la costa de Gaviota, en el condado de Santa Bárbara, a unas 2 horas y 15 minutos de Los Ángeles y a 30 minutos del centro de Santa Bárbara. Como el rancho es una comunidad privada y cerrada con una sola entrada vigilada, la dirección exacta de Rancho Alegria y las indicaciones para la entrada no se publican aquí.",
     terrainEyebrow: "Sobrevuele la costa",
     terrainTitle: "8.5 millas de costa en relieve 3D real",
     terrainBody: "Un mapa de relieve real creado con datos de elevación y satelitales — no es una foto. Vea el vuelo inicial desde Point Conception hacia el este a lo largo del rancho rumbo a Gaviota, y luego arrastre para girar, inclinar y explorar la costa usted mismo.",
@@ -376,9 +447,9 @@ const es: Dict = {
     callOrText: "Llamada o mensaje",
     aboutTitle: "Acerca de este sitio",
     expect: [
-      "Una parcela privada y cerrada de 113 acres en la costa protegida de Hollister Ranch.",
+      "El rancho de la familia Clavin, en la costa protegida de Hollister Ranch.",
       "Respuestas a preguntas sobre la propiedad, su historia y el rancho.",
-      "Este sitio es solo informativo — comuníquese directamente con cualquier pregunta.",
+      "Este sitio es solo informativo — comuníquese directamente con cualquier pregunta."
     ],
   },
 
@@ -457,6 +528,52 @@ const es: Dict = {
     "1000002822": "Ganado en la ladera verde de primavera, con el sol de la mañana sobre el agua.",
     "1000003478": "Uña de gato en flor sobre el huerto, atardecer sobre el Pacífico.",
     "img-0991": "Olas rompiendo bajo los acantilados con la primera luz.",
+    "hc-5264": "Atardecer desde el acantilado: el canal brilla en rosa y oro bajo el huerto.",
+    "hc-front-a": "La casa principal desde la ladera, con su techo de tejas frente al Pacífico abierto.",
+    "hc-front-b": "La galería cubierta, mirando más allá de las palmeras hacia el mar.",
+    "hc-jeanette-garden": "Jeanette Clavin en su jardín del rancho.",
+    "hc-1385": "Un descanso en los viejos asientos de tronco junto a la puerta del rancho.",
+    "hc-1395": "Bajo las palmeras del jardín de la ladera.",
+    "hc-dining": "El comedor, con su ventana mirando directamente al mar.",
+    "hc-bobcat-patio": "Un lince rojo pasa por el patio — uno de los visitantes habituales del rancho.",
+    "hc-1440": "Pozas de marea en la costa rocosa bajo el rancho.",
+    "hc-1494": "Un cielo de tormenta abriéndose sobre la punta.",
+    "hc-1907": "En las olas de una playa del rancho.",
+    "hc-1908": "Un paseo por la playa con el perro de la familia.",
+    "hc-1917": "Sombreros y pies descalzos en un paseo matutino por la playa.",
+    "hc-garden-stairs": "La escalera de piedra que baja serpenteando por el jardín.",
+    "hc-garden-lawn": "Geranios, cactus y una silla en el césped del jardín.",
+    "hc-house-cactus": "La casa principal sobre el jardín de cactus.",
+    "hc-palms-sea": "Palmeras y árboles del huerto que bajan hacia el mar.",
+    "hc-palm-path": "El sendero de piedra bordeado de palmeras hasta el acantilado.",
+    "hc-terrace-chairs": "Sillas de hierro en la terraza de piedra, con un techo de teja roja al fondo.",
+    "hc-low-tide": "Explorando el arrecife con la marea baja.",
+    "hc-family-beach": "Juntos en la playa bajo el rancho.",
+    "hc-5251": "Subiendo el sendero de piedra al atardecer.",
+    "hc-5260": "El puente ferroviario de la costa al anochecer.",
+    "hc-5296": "El perro de la familia vigilando el canal.",
+    "hc-5298": "Esperando en las piedras el siguiente paseo.",
+    "hc-2999": "Una tarde en la playa.",
+    "hc-3014": "Descansando en la ladera sobre la casa.",
+    "hc-4772": "El sol poniéndose en el Pacífico desde la playa.",
+    "hc-4876": "Sobre las rocas con la marea baja.",
+    "hc-4942": "Viendo ponerse el sol desde las rocas.",
+    "hc-4943": "La hora dorada en las rocas bajo el rancho.",
+    "hc-5232": "Anochecer sobre las colinas verdes, con la costa curvándose abajo.",
+    "hc-5234": "La terraza con fogata al atardecer.",
+    "hc-guest-house-sign": "La casa de huéspedes, señalada al final del camino.",
+    "hc-tennis": "La cancha de tenis con vista al mar.",
+    "hc-spa": "El jacuzzi en la terraza del acantilado, entre árboles de coral en flor.",
+    "hc-sunset-gathering": "Reunidos en el acantilado para ver el atardecer.",
+    "hc-bobcat-drive": "Otro lince rojo cruzando el camino.",
+    "hc-967": "Una mañana con el perro entre la hierba de primavera.",
+    "hc-968": "Café por la mañana entre la hierba de primavera.",
+    "hc-quail": "Una codorniz de California en el borde del techo.",
+    "hc-cactus-garden": "El jardín de cactus en la ladera, con el océano al fondo.",
+    "hc-guest-house": "La casa de huéspedes bajo su techo de teja roja, rodeada de hierba de primavera.",
+    "hc-veranda-chairs": "Sillas Adirondack al final de la galería.",
+    "hc-garden-path": "Escalones de piedra por el jardín en flor.",
+    "hc-palm-walk": "El paseo de palmeras hasta el borde del acantilado.",
   },
 };
 

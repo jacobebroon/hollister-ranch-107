@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import type { Dict } from "@/i18n";
 
-const ANCHORS = ["#top", "#property", "#gallery", "#history", "#map", "#contact"];
+const ANCHORS = ["#top", "#story", "#memories", "#gallery", "#history", "#contact"];
 
 export default function Nav({ t, base = "" }: { t: Dict["nav"]; base?: string }) {
   const LINKS = ANCHORS.map((href, i) => ({ href, label: t.links[i] }));

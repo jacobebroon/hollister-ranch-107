@@ -8,7 +8,7 @@ import type { Dict } from "@/i18n";
 
 const OPEN_EVENT = "open-photo-tour";
 const SLIDE_MS = 6500;
-const CHAPTER_ORDER: Category[] = ["residence", "grounds", "coastline", "sky"];
+const CHAPTER_ORDER: Category[] = ["residence", "grounds", "coastline", "sky", "family"];
 
 /** Opens the tour from anywhere on the page (e.g. a server-rendered hero button). */
 export function openPhotoTour(startSlug?: string) {
