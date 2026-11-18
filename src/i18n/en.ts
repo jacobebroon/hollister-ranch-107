@@ -30,6 +30,7 @@ const en = {
 
   footer: {
     sub: "Parcel 107, Hollister Ranch",
+    signature: "Built by hand by Harold & Jeanette Clavin, 1987",
     blurb:
       "A family ranch on 113 acres of bluff above the Pacific, built by Harold and Jeanette Clavin on the Gaviota Coast north of Santa Barbara.",
     explore: "Explore",
@@ -150,6 +151,10 @@ const en = {
         body: "On the bluff-top terrace among the coral trees — the best seat on the ranch for sunset."
       },
       {
+        title: "The fire pit",
+        body: "A fire-pit terrace on the hillside, where cool evenings on the coast end with the stars coming out."
+      },
+      {
         title: "Miles of ranch trails",
         body: "Hollister Ranch keeps more than 120 miles of trails across its 14,400 acres for owners and their guests."
       }
@@ -211,6 +216,19 @@ const en = {
     open: "Open in the photo tour",
     credit: "Photos courtesy of the Clavin family."
   },
+
+  interludes: [
+    {
+      line: "113 acres. One family. Since 1987.",
+      sub: "Rancho Alegria · Hollister Ranch 107",
+      alt: "Dusk over the green hills of Rancho Alegria, the coastline curving away below"
+    },
+    {
+      line: "Every evening, the same view — and it never gets old.",
+      sub: "Sunset below the bluff",
+      alt: "The sun setting into the Pacific from the beach below the ranch"
+    }
+  ],
 
   estate: {
     eyebrow: "Explore the Estate",
@@ -437,6 +455,8 @@ const en = {
       { q: "Where exactly is the property?", a: "On the Gaviota Coast in Santa Barbara County, about 2 hours 15 minutes from Los Angeles and 30 minutes from downtown Santa Barbara." },
       { q: "What amenities does the property have?", a: "A main house and a separate guest house, a private hot tub, and a full-size ocean-view tennis court — all inside the ranch's single guarded gate, on the bluff directly above the Razor Blades surf break." },
       { q: "Does this website handle bookings?", a: "No — this site exists to share the property's history and character. For any questions, including about visiting, reach out directly using the contact details above." },
+      { q: "What wildlife lives at Rancho Alegria?", a: "Bobcats are regular visitors — the family has photographed them on the patio and crossing the drive — along with California quail, hawks, coyotes, and deer. Hollister Ranch as a whole records over 200 bird species, and gray whales pass offshore from December through May." },
+      { q: "Where can I see photos of the family at the ranch?", a: "The Family Photos & Memories section on this page has the Clavin family's own photos — beach walks at low tide, sunsets on the bluff, Jeanette in her garden, and the ranch's wild neighbors. More are in the gallery under Family & Memories." },
     ],
   },
 

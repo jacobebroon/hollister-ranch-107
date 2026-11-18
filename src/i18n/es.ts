@@ -31,6 +31,7 @@ const es: Dict = {
 
   footer: {
     sub: "Parcela 107, Hollister Ranch",
+    signature: "Construido a mano por Harold y Jeanette Clavin, 1987",
     blurb:
       "Un rancho familiar en 113 acres de acantilado sobre el Pacífico, construido por Harold y Jeanette Clavin en la costa de Gaviota, al norte de Santa Bárbara.",
     explore: "Explorar",
@@ -182,6 +183,10 @@ const es: Dict = {
         body: "En la terraza del acantilado entre los árboles de coral — el mejor lugar del rancho para ver el atardecer."
       },
       {
+        title: "La fogata",
+        body: "Una terraza con fogata en la ladera, donde las noches frescas de la costa terminan con la salida de las estrellas."
+      },
+      {
         title: "Millas de senderos",
         body: "Hollister Ranch mantiene más de 120 millas de senderos en sus 14,400 acres para los propietarios y sus invitados."
       }
@@ -243,6 +248,19 @@ const es: Dict = {
     open: "Abrir en el recorrido fotográfico",
     credit: "Fotos cortesía de la familia Clavin."
   },
+
+  interludes: [
+    {
+      line: "113 acres. Una familia. Desde 1987.",
+      sub: "Rancho Alegria · Hollister Ranch 107",
+      alt: "Anochecer sobre las colinas verdes de Rancho Alegria, con la costa curvándose abajo"
+    },
+    {
+      line: "Cada tarde, la misma vista — y nunca cansa.",
+      sub: "Atardecer bajo el acantilado",
+      alt: "El sol poniéndose en el Pacífico desde la playa bajo el rancho"
+    }
+  ],
 
   estate: {
     eyebrow: "Explore la propiedad",
@@ -467,6 +485,8 @@ const es: Dict = {
       { q: "¿Dónde está exactamente la propiedad?", a: "En la costa de Gaviota, en el condado de Santa Bárbara, a unas 2 horas y 15 minutos de Los Ángeles y a 30 minutos del centro de Santa Bárbara." },
       { q: "¿Qué comodidades tiene la propiedad?", a: "Una casa principal y una casa de huéspedes independiente, un jacuzzi privado y una cancha de tenis reglamentaria con vista al mar — todo dentro de la única entrada vigilada del rancho, en el acantilado justo encima de la rompiente Razor Blades." },
       { q: "¿Este sitio web gestiona reservaciones?", a: "No — este sitio existe para compartir la historia y el carácter de la propiedad. Para cualquier pregunta, incluso sobre visitas, comuníquese directamente con los datos de contacto que aparecen arriba." },
+      { q: "¿Qué fauna vive en Rancho Alegria?", a: "Los linces rojos son visitantes habituales — la familia los ha fotografiado en el patio y cruzando el camino — junto con codornices de California, halcones, coyotes y venados. Hollister Ranch en su conjunto registra más de 200 especies de aves, y las ballenas grises pasan frente a la costa de diciembre a mayo." },
+      { q: "¿Dónde puedo ver fotos de la familia en el rancho?", a: "La sección Fotos y recuerdos de familia de esta página tiene las fotos de la propia familia Clavin — paseos por la playa con la marea baja, atardeceres en el acantilado, Jeanette en su jardín y los vecinos salvajes del rancho. Hay más en la galería, en Familia y recuerdos." },
     ],
   },
 

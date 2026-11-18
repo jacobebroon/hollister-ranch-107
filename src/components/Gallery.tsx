@@ -29,7 +29,10 @@ export default function Gallery({
 
   const [showAll, setShowAll] = useState(false);
   const filtered = useMemo(
-    () => (filter === "all" ? photos : photos.filter((p) => p.category === filter)),
+    () =>
+      filter === "all"
+        ? [...photos].sort((a, b) => Number(Boolean(b.caption)) - Number(Boolean(a.caption)))
+        : photos.filter((p) => p.category === filter),
     [photos, filter]
   );
 

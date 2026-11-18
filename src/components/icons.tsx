@@ -202,3 +202,12 @@ export function IconCompass({ className }: IconProps) {
     </svg>
   );
 }
+
+export function IconFire({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className ?? base}>
+      <path d="M12 3c.5 3-2.5 4.5-2.5 7.5A2.5 2.5 0 0 0 12 13a2.5 2.5 0 0 0 2.5-2.5c0-1-.4-1.8-.9-2.5 2 1 3.4 3 3.4 5.3A5 5 0 0 1 12 18.3a5 5 0 0 1-5-5C7 8.5 11 7 12 3Z" strokeLinejoin="round" />
+      <path d="M4 21h16M6.5 18.5 4 21m13.5-2.5L20 21" strokeLinecap="round" />
+    </svg>
+  );
+}

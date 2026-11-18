@@ -44,6 +44,7 @@ import {
   IconBird,
   IconPaw,
   IconShell,
+  IconFire,
 } from "@/components/icons";
 
 const ADVANTAGE_ICONS = [
@@ -57,6 +58,7 @@ const ADVANTAGE_ICONS = [
   IconTennis,
   IconGuestHome,
   IconHotTub,
+  IconFire,
   IconTrail,
 ];
 
@@ -361,8 +363,22 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      {/* Photo interlude */}
+      <section className="relative isolate flex min-h-[60vh] items-center justify-center overflow-hidden sm:min-h-[72vh]" aria-label={t.interludes[0].sub}>
+        <div className="absolute -inset-y-16 inset-x-0 -z-10">
+          <ParallaxLayer strength={60}>
+            <Photo slug="hc-5232" alt={t.interludes[0].alt} sizes="100vw" className="object-cover" />
+          </ParallaxLayer>
+        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/45 via-ink/30 to-ink/60" aria-hidden="true" />
+        <Reveal className="mx-auto max-w-4xl px-6 text-center text-sand">
+          <p className="text-balance font-serif text-4xl font-bold leading-tight drop-shadow-md sm:text-6xl">{t.interludes[0].line}</p>
+          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.35em] text-sand/85">{t.interludes[0].sub}</p>
+        </Reveal>
+      </section>
+
       {/* Live conditions */}
-      <section id="conditions" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-20 sm:px-8 print:hidden">
+      <section id="conditions" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8 print:hidden">
         <Reveal>
           <Suspense fallback={<ConditionsFallback />}>
             <Conditions t={t.conditions} />
@@ -476,13 +492,13 @@ export default function HomePage({ lang }: { lang: Lang }) {
       <section className="border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal delay={120} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {featuredPhotos.slice(0, 8).map((photo, i) => (
+            {featuredPhotos.slice(0, 9).map((photo, i) => (
               <a
                 key={photo.slug}
                 href="#gallery"
                 aria-label={photo.caption ? `${t.property.viewInGallery}: ${photo.caption}` : t.property.viewInGallery}
                 className={`group relative block overflow-hidden rounded-xl bg-sand-deep ${
-                  i === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-[4/3]"
+                  i === 0 ? "col-span-2 row-span-2 aspect-square sm:aspect-auto" : "aspect-[4/3]"
                 }`}
               >
                 <Photo
@@ -799,6 +815,20 @@ export default function HomePage({ lang }: { lang: Lang }) {
             <TiltCard slug="dsc-0067" alt={t.map.aerialAlt2} />
           </Reveal>
         </div>
+      </section>
+
+      {/* Photo interlude */}
+      <section className="relative isolate flex min-h-[60vh] items-center justify-center overflow-hidden sm:min-h-[72vh]" aria-label={t.interludes[1].sub}>
+        <div className="absolute -inset-y-16 inset-x-0 -z-10">
+          <ParallaxLayer strength={60}>
+            <Photo slug="hc-4772" alt={t.interludes[1].alt} sizes="100vw" className="object-cover" />
+          </ParallaxLayer>
+        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/45 via-ink/30 to-ink/60" aria-hidden="true" />
+        <Reveal className="mx-auto max-w-4xl px-6 text-center text-sand">
+          <p className="text-balance font-serif text-4xl font-bold leading-tight drop-shadow-md sm:text-6xl">{t.interludes[1].line}</p>
+          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.35em] text-sand/85">{t.interludes[1].sub}</p>
+        </Reveal>
       </section>
 
       {/* Contact */}

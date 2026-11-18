@@ -22,6 +22,7 @@ export default function Footer({ t, base = "" }: { t: Dict["footer"]; base?: str
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand/70">
               {t.blurb}
             </p>
+            <p className="mt-5 font-serif text-lg italic text-gold">{t.signature}</p>
           </div>
 
           <div className="text-sm">

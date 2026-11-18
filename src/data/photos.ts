@@ -190,6 +190,7 @@ export const featuredSlugs = [
   "img-0602",
   "hc-palm-walk",
   "157",
+  "hc-4772",
 ];
 
 export const featuredPhotos = featuredSlugs
