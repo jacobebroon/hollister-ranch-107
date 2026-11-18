@@ -444,7 +444,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Property */}
-      <section id="property" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
+      <section id="property" className="cv-auto mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             {t.property.eyebrow}
@@ -506,7 +506,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Interactive estate guide */}
-      <section id="estate" className="scroll-mt-24 border-t border-cream-line bg-sand-deep/40">
+      <section id="estate" className="cv-auto scroll-mt-24 border-t border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal className="mb-10 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
@@ -522,7 +522,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Featured teaser grid */}
-      <section className="border-y border-cream-line bg-sand-deep/40">
+      <section className="cv-auto border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
           <Reveal delay={120} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {featuredPhotos.slice(0, 9).map((photo, i) => (
@@ -548,7 +548,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Gallery */}
-      <section id="gallery" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
+      <section id="gallery" className="cv-auto mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-8">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
           {t.gallery.eyebrow}
         </p>
@@ -563,7 +563,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* History */}
-      <section id="history" className="scroll-mt-24 border-y border-cream-line bg-sand-deep/40">
+      <section id="history" className="cv-auto scroll-mt-24 border-y border-cream-line bg-sand-deep/40">
         <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
@@ -709,7 +709,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Best time to visit */}
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      <section className="cv-auto mx-auto max-w-6xl px-5 py-20 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             {t.seasons.eyebrow}
@@ -785,7 +785,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </Reveal>
         <Reveal delay={120} className="mt-8">
           <LazyMount fallback={<TerrainFallback label={t.map.loadingTerrain} />}>
-            <Terrain3D t={t.terrain} />
+            <Terrain3D t={t.terrain} lang={lang} />
           </LazyMount>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
             <span className="flex items-center gap-2">
@@ -812,10 +812,18 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </Reveal>
         <Reveal className="print:hidden">
           <MapEmbed
-            title={t.map.iframeTitle}
-            src={`https://www.google.com/maps?q=${PROPERTY.center[1]},${PROPERTY.center[0]}&z=14&hl=${lang}&output=embed`}
-            label={t.map.showMap}
-            posterAlt={t.map.aerialAlt1}
+            lat={PROPERTY.center[1]}
+            lng={PROPERTY.center[0]}
+            lang={lang}
+            labels={{
+              title: t.map.iframeTitle,
+              show: t.map.showMap,
+              posterAlt: t.map.aerialAlt1,
+              map: t.map.viewMap,
+              satellite: t.map.viewSatellite,
+              openGoogle: t.map.openGoogle,
+              openApple: t.map.openApple,
+            }}
           />
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-ink/60">
             <p>{t.map.approx}</p>
@@ -865,7 +873,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="scroll-mt-24">
+      <section id="contact" className="cv-auto scroll-mt-24">
         <div className="relative flex h-[46vh] min-h-[340px] items-end overflow-hidden">
           <Photo
             slug="img-20150118-173149189"

@@ -38,6 +38,40 @@ export default function Nav({
     };
   }, []);
 
+  // Sections far down the page render lazily (content-visibility), so their heights settle a
+  // moment after a jump. Re-align on the target a few times so in-page links land exactly.
+  useEffect(() => {
+    // Runs once the (smooth) scroll has finished, so it never fights the animation
+    const settle = (id: string) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const align = (tries: number) => {
+        const offset = el.getBoundingClientRect().top - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
+        if (Math.abs(offset) > 4) {
+          window.scrollBy({ top: offset, behavior: "instant" as ScrollBehavior });
+          if (tries > 0) window.setTimeout(() => align(tries - 1), 250);
+        }
+      };
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        window.removeEventListener("scrollend", finish);
+        align(2);
+      };
+      window.addEventListener("scrollend", finish, { once: true });
+      window.setTimeout(finish, 2500); // browsers without scrollend
+    };
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement).closest?.("a[href*=\"#\"]") as HTMLAnchorElement | null;
+      if (!a || a.pathname !== window.location.pathname || !a.hash) return;
+      settle(decodeURIComponent(a.hash.slice(1)));
+    };
+    document.addEventListener("click", onClick);
+    if (window.location.hash) settle(decodeURIComponent(window.location.hash.slice(1)));
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   useEffect(() => {
     const sections = ANCHORS.map((href) => document.getElementById(href.slice(1))).filter(
       (el): el is HTMLElement => !!el

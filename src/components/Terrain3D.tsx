@@ -1,40 +1,54 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { SURF_BREAKS, LANDMARKS, PROPERTY } from "@/data/surf";
 import { fmt, type Dict } from "@/i18n";
 
-// Point Conception, the western edge of Hollister Ranch
-const START = { center: [-120.4713, 34.4486] as [number, number], zoom: 12.2 };
-// Gaviota, the eastern edge of the ranch
-const END = { center: [-120.2288, 34.4717] as [number, number], zoom: 12.2 };
-
 const MAX_EXAGGERATION = 1.6;
+const STOP_PAUSE_MS = 3200;
+const LABELS_TILES =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}";
+const DEM_TILES = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
 
 const STYLE: StyleSpecification = {
   version: 8,
   sources: {
     satellite: {
       type: "raster",
-      tiles: [
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      ],
+      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
       tileSize: 256,
       maxzoom: 18,
       attribution: "Imagery &copy; Esri, Maxar, Earthstar Geographics",
     },
     terrain: {
       type: "raster-dem",
-      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+      tiles: [DEM_TILES],
       tileSize: 256,
       encoding: "terrarium",
       maxzoom: 14,
       attribution: "Terrain data: AWS Terrain Tiles / Mapzen",
     },
+    // MapLibre wants a separate DEM source for hillshading
+    hillshade: { type: "raster-dem", tiles: [DEM_TILES], tileSize: 256, encoding: "terrarium", maxzoom: 14 },
+    labels: { type: "raster", tiles: [LABELS_TILES], tileSize: 256, maxzoom: 16 },
   },
-  layers: [{ id: "satellite", type: "raster", source: "satellite" }],
+  layers: [
+    { id: "satellite", type: "raster", source: "satellite" },
+    {
+      id: "hillshade",
+      type: "hillshade",
+      source: "hillshade",
+      paint: {
+        "hillshade-exaggeration": 0.35,
+        "hillshade-shadow-color": "#1d2a33",
+        "hillshade-highlight-color": "#fff6e6",
+        "hillshade-illumination-direction": 300,
+      },
+    },
+    { id: "labels", type: "raster", source: "labels", layout: { visibility: "none" }, paint: { "raster-opacity": 0.9 } },
+  ],
   terrain: { source: "terrain", exaggeration: 0 },
   sky: {
     "sky-color": "#bcd9ea",
@@ -47,20 +61,8 @@ const STYLE: StyleSpecification = {
 // The dash-cycle used to animate a "flowing" line along the coast route,
 // adapted from the standard MapLibre/Mapbox animated-line pattern.
 const DASH_SEQUENCE: number[][] = [
-  [0, 4, 3],
-  [0.5, 4, 2.5],
-  [1, 4, 2],
-  [1.5, 4, 1.5],
-  [2, 4, 1],
-  [2.5, 4, 0.5],
-  [3, 4, 0],
-  [0, 0.5, 3, 3.5],
-  [0, 1, 3, 3],
-  [0, 1.5, 3, 2.5],
-  [0, 2, 3, 2],
-  [0, 2.5, 3, 1.5],
-  [0, 3, 3, 1],
-  [0, 3.5, 3, 0.5],
+  [0, 4, 3], [0.5, 4, 2.5], [1, 4, 2], [1.5, 4, 1.5], [2, 4, 1], [2.5, 4, 0.5], [3, 4, 0],
+  [0, 0.5, 3, 3.5], [0, 1, 3, 3], [0, 1.5, 3, 2.5], [0, 2, 3, 2], [0, 2.5, 3, 1.5], [0, 3, 3, 1], [0, 3.5, 3, 0.5],
 ];
 
 function easeOutCubic(t: number) {
@@ -78,11 +80,17 @@ function circlePolygon(center: [number, number], radiusMeters: number, steps = 6
     const theta = (i / steps) * 2 * Math.PI;
     coords.push([lng + distanceX * Math.cos(theta), lat + distanceY * Math.sin(theta)]);
   }
-  return {
-    type: "Feature" as const,
-    properties: {},
-    geometry: { type: "Polygon" as const, coordinates: [coords] },
-  };
+  return { type: "Feature" as const, properties: {}, geometry: { type: "Polygon" as const, coordinates: [coords] } };
+}
+
+/** Great-circle distance in miles */
+function milesBetween(a: [number, number], b: [number, number]) {
+  const R = 3958.8;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b[1] - a[1]);
+  const dLng = toRad(b[0] - a[0]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a[1])) * Math.cos(toRad(b[1])) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
 }
 
 type SkyPreset = {
@@ -95,99 +103,162 @@ type SkyPreset = {
 // showing the same midday lighting no matter when you visit the site.
 function getSkyPreset(hour: number): SkyPreset {
   if (hour < 5 || hour >= 20) {
-    return {
-      key: "night",
-      sky: { skyColor: "#0d1a2b", horizonColor: "#1c2c3f", fogColor: "#16232f" },
-      raster: { brightnessMin: 0, brightnessMax: 0.55, saturation: -0.3, contrast: 0.05 },
-    };
+    return { key: "night", sky: { skyColor: "#0d1a2b", horizonColor: "#1c2c3f", fogColor: "#16232f" }, raster: { brightnessMin: 0, brightnessMax: 0.55, saturation: -0.3, contrast: 0.05 } };
   }
   if (hour < 8) {
-    return {
-      key: "dawn",
-      sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" },
-      raster: { brightnessMin: 0, brightnessMax: 0.85, saturation: -0.05, contrast: 0.05 },
-    };
+    return { key: "dawn", sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" }, raster: { brightnessMin: 0, brightnessMax: 0.85, saturation: -0.05, contrast: 0.05 } };
   }
   if (hour < 17) {
-    return {
-      key: "day",
-      sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" },
-      raster: { brightnessMin: 0, brightnessMax: 1, saturation: 0, contrast: 0 },
-    };
+    return { key: "day", sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" }, raster: { brightnessMin: 0, brightnessMax: 1, saturation: 0.05, contrast: 0.05 } };
   }
-  return {
-    key: "dusk",
-    sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" },
-    raster: { brightnessMin: 0, brightnessMax: 0.8, saturation: 0.05, contrast: 0.05 },
-  };
+  return { key: "dusk", sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" }, raster: { brightnessMin: 0, brightnessMax: 0.8, saturation: 0.05, contrast: 0.05 } };
 }
 
-function buildMarkerEl(name: string, kind: "surf" | "landmark", flyLabel: string) {
+type Kind = "surf" | "landmark" | "property";
+type Stop = { name: string; note: string; swell?: string; center: [number, number]; kind: Kind };
+
+function buildMarkerEl(stop: Stop, label: string) {
   const el = document.createElement("button");
   el.type = "button";
-  el.className = kind === "surf" ? "surf-marker" : "surf-marker landmark-marker";
-  el.setAttribute("aria-label", flyLabel);
-  el.innerHTML = `
-    <span class="surf-marker-dot"><span class="surf-marker-ping"></span></span>
-    <span class="surf-marker-label">${name}</span>
-  `;
+  el.className = `surf-marker${stop.kind === "landmark" ? " landmark-marker" : ""}${stop.kind === "property" ? " property-marker" : ""}`;
+  el.setAttribute("aria-label", label);
+  const dot =
+    stop.kind === "property"
+      ? `<span class="property-marker-dot"><img src="/brand/icon-192.png" alt="" width="30" height="30" /><span class="surf-marker-ping"></span></span>`
+      : `<span class="surf-marker-dot"><span class="surf-marker-ping"></span></span>`;
+  const labelEl = document.createElement("span");
+  labelEl.className = `surf-marker-label${stop.kind === "property" ? " property-marker-label" : ""}`;
+  labelEl.textContent = stop.name;
+  el.innerHTML = dot;
+  el.appendChild(labelEl);
   return el;
 }
 
-function buildPropertyMarkerEl(name: string, flyLabel: string) {
-  const el = document.createElement("button");
-  el.type = "button";
-  el.className = "surf-marker property-marker";
-  el.setAttribute("aria-label", flyLabel);
-  el.innerHTML = `
-    <span class="property-marker-dot">
-      <img src="/brand/crest.png" alt="" width="30" height="30" />
-      <span class="surf-marker-ping"></span>
-    </span>
-    <span class="surf-marker-label property-marker-label">${name}</span>
-  `;
-  return el;
-}
+export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: string }) {
+  // West (Point Conception) to east (Gaviota), with the ranch where it sits on the coast
+  const stops = useMemo<Stop[]>(() => {
+    const lm = (i: number): Stop => ({
+      name: t.landmarks[i]?.name ?? LANDMARKS[i].name,
+      note: t.landmarks[i]?.note ?? LANDMARKS[i].note,
+      center: LANDMARKS[i].center,
+      kind: "landmark",
+    });
+    const breaks: Stop[] = SURF_BREAKS.map((b, i) => ({
+      name: b.name,
+      note: t.breaks[i]?.note ?? b.note,
+      swell: t.breaks[i]?.swell ?? b.swell,
+      center: b.center,
+      kind: "surf",
+    }));
+    const property: Stop = { name: PROPERTY.name, note: t.propertyNote, center: PROPERTY.center, kind: "property" };
+    return [lm(0), ...breaks, property, lm(1)];
+  }, [t]);
+  const propertyIndex = stops.findIndex((s) => s.kind === "property");
 
-type ActiveInfo = { name: string; note: string; swell?: string } | null;
-
-export default function Terrain3D({ t }: { t: Dict["terrain"] }) {
-  // Read inside the one-time map setup effect, which intentionally runs only once
-  const tRef = useRef(t);
-  const propertyInfo = { name: PROPERTY.name, note: t.propertyNote };
   const containerRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
-  const [ready, setReady] = useState(false);
-  const [flying, setFlying] = useState(true);
-  const [active, setActive] = useState<ActiveInfo>(null);
-  const [skyLabel, setSkyLabel] = useState<string | null>(null);
+  const markersRef = useRef<HTMLElement[]>([]);
+  const stopsRef = useRef(stops);
+  const tourTimerRef = useRef<number | null>(null);
+  const touringRef = useRef(false);
   const reducedMotionRef = useRef(false);
   const dashFrameRef = useRef<number | null>(null);
 
+  const [ready, setReady] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [touring, setTouring] = useState(false);
+  const [labels, setLabels] = useState(false);
+  const [relief, setRelief] = useState(true);
+  const [skyLabel, setSkyLabel] = useState<string | null>(null);
+
+  const clearTourTimer = () => {
+    if (tourTimerRef.current !== null) window.clearTimeout(tourTimerRef.current);
+    tourTimerRef.current = null;
+  };
+
+  const stopTour = useCallback(() => {
+    touringRef.current = false;
+    setTouring(false);
+    clearTourTimer();
+  }, []);
+
+  const goTo = useCallback((index: number, opts: { fromTour?: boolean } = {}) => {
+    const map = mapRef.current;
+    if (!map) return;
+    if (!opts.fromTour) stopTour();
+    const stop = stopsRef.current[index];
+    setActiveIndex(index);
+    const target = {
+      center: stop.center,
+      zoom: stop.kind === "property" ? 14.8 : 14.2,
+      pitch: 70,
+      bearing: stop.kind === "property" ? -25 : -15 + index * 2,
+    };
+    if (reducedMotionRef.current) map.jumpTo(target);
+    else map.flyTo({ ...target, duration: opts.fromTour ? 3200 : 2400, essential: true });
+  }, [stopTour]);
+
+  const startTour = useCallback((from = 0) => {
+    const map = mapRef.current;
+    if (!map) return;
+    touringRef.current = true;
+    setTouring(true);
+    clearTourTimer();
+    // Fly to a stop, pause there, then move on; any user action clears touringRef and ends it
+    const step = (index: number) => {
+      if (!touringRef.current) return;
+      goTo(index, { fromTour: true });
+      const onArrive = () => {
+        map.off("moveend", onArrive);
+        if (!touringRef.current) return;
+        tourTimerRef.current = window.setTimeout(() => {
+          if (index + 1 < stopsRef.current.length) step(index + 1);
+          else stopTour();
+        }, STOP_PAUSE_MS);
+      };
+      map.on("moveend", onArrive);
+    };
+    step(from);
+  }, [goTo, stopTour]);
+
+  // One-time map setup
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
-
-    reducedMotionRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const tt = t;
 
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: STYLE,
-      center: START.center,
-      zoom: START.zoom,
+      center: stopsRef.current[0].center,
+      zoom: 12.2,
       pitch: 68,
       bearing: 15,
       maxPitch: 85,
       attributionControl: { compact: true },
+      // Page scrolling stays page scrolling: the map needs Ctrl/⌘ + scroll or two fingers
+      cooperativeGestures: true,
+      locale: {
+        "CooperativeGesturesHandler.WindowsHelpText": tt.gestureDesktop,
+        "CooperativeGesturesHandler.MacHelpText": tt.gestureMac,
+        "CooperativeGesturesHandler.MobileHelpText": tt.gestureMobile,
+      },
     });
     mapRef.current = map;
-
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
+    map.addControl(new maplibregl.FullscreenControl(), "top-right");
+    map.addControl(new maplibregl.ScaleControl({ unit: lang === "en" ? "imperial" : "metric", maxWidth: 90 }), "bottom-right");
+    map.on("error", (e) => console.error("Terrain3D map error:", e.error?.message ?? e));
 
-    map.on("error", (e) => {
-      console.error("Terrain3D map error:", e.error?.message ?? e);
-    });
+    // Any hands-on interaction ends the guided tour
+    const userInterrupt = (e: { originalEvent?: unknown }) => {
+      if (e.originalEvent && touringRef.current) stopTour();
+    };
+    map.on("dragstart", userInterrupt);
+    map.on("rotatestart", userInterrupt);
+    map.on("pitchstart", userInterrupt);
+    map.on("zoomstart", userInterrupt);
 
     const riseTerrain = (onDone: () => void) => {
       if (reducedMotionRef.current) {
@@ -199,13 +270,10 @@ export default function Terrain3D({ t }: { t: Dict["terrain"] }) {
       let start: number | null = null;
       const step = (ts: number) => {
         if (start === null) start = ts;
-        const t = Math.min(1, (ts - start) / duration);
-        map.setTerrain({ source: "terrain", exaggeration: easeOutCubic(t) * MAX_EXAGGERATION });
-        if (t < 1) {
-          requestAnimationFrame(step);
-        } else {
-          onDone();
-        }
+        const k = Math.min(1, (ts - start) / duration);
+        map.setTerrain({ source: "terrain", exaggeration: easeOutCubic(k) * MAX_EXAGGERATION });
+        if (k < 1) requestAnimationFrame(step);
+        else onDone();
       };
       requestAnimationFrame(step);
     };
@@ -226,9 +294,8 @@ export default function Terrain3D({ t }: { t: Dict["terrain"] }) {
 
     map.on("load", () => {
       setReady(true);
-
       const preset = getSkyPreset(new Date().getHours());
-      setSkyLabel(tRef.current.sky[preset.key]);
+      setSkyLabel(tt.sky[preset.key]);
       map.setSky({
         "sky-color": preset.sky.skyColor,
         "horizon-color": preset.sky.horizonColor,
@@ -242,204 +309,199 @@ export default function Terrain3D({ t }: { t: Dict["terrain"] }) {
 
       map.addSource("coastal-route", {
         type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: SURF_BREAKS.map((b) => b.center),
-          },
-        },
+        data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: SURF_BREAKS.map((b) => b.center) } },
+      });
+      map.addLayer({
+        id: "coastal-route-glow",
+        type: "line",
+        source: "coastal-route",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": "#e9b768", "line-width": 9, "line-opacity": 0.18, "line-blur": 6 },
       });
       map.addLayer({
         id: "coastal-route-line",
         type: "line",
         source: "coastal-route",
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": "#f8f4ea",
-          "line-width": 2.5,
-          "line-opacity": 0.75,
-          "line-dasharray": [0, 4, 3],
-        },
+        paint: { "line-color": "#f8f4ea", "line-width": 2.5, "line-opacity": 0.8, "line-dasharray": [0, 4, 3] },
       });
 
       // ~113 acres, circular approximation — illustrates scale, not a surveyed boundary.
-      map.addSource("property-area", {
-        type: "geojson",
-        data: circlePolygon(PROPERTY.center, 381),
-      });
-      map.addLayer({
-        id: "property-area-fill",
-        type: "fill",
-        source: "property-area",
-        paint: { "fill-color": "#c1943a", "fill-opacity": 0.12 },
-      });
+      map.addSource("property-area", { type: "geojson", data: circlePolygon(PROPERTY.center, 381) });
+      map.addLayer({ id: "property-area-fill", type: "fill", source: "property-area", paint: { "fill-color": "#c1943a", "fill-opacity": 0.16 } });
       map.addLayer({
         id: "property-area-line",
         type: "line",
         source: "property-area",
-        paint: { "line-color": "#c1943a", "line-width": 1.5, "line-opacity": 0.6, "line-dasharray": [2, 2] },
+        paint: { "line-color": "#e9b768", "line-width": 2, "line-opacity": 0.85, "line-dasharray": [2, 2] },
       });
 
-      const tt = tRef.current;
-      SURF_BREAKS.forEach((spot, i) => {
-        const info = tt.breaks[i] ?? { swell: spot.swell, note: spot.note };
-        const el = buildMarkerEl(spot.name, "surf", fmt(tt.flyTo, { name: spot.name }));
-        el.addEventListener("click", () => {
-          setActive({ name: spot.name, note: info.note, swell: info.swell });
-          flyToSpot(map, spot.center);
-        });
-        new maplibregl.Marker({ element: el, anchor: "bottom" })
-          .setLngLat(spot.center)
-          .addTo(map);
+      markersRef.current = stopsRef.current.map((stop, i) => {
+        const el = buildMarkerEl(stop, fmt(tt.flyTo, { name: stop.name }));
+        el.addEventListener("click", () => goTo(i));
+        new maplibregl.Marker({ element: el, anchor: "bottom" }).setLngLat(stop.center).addTo(map);
+        return el;
       });
-
-      LANDMARKS.forEach((landmark, i) => {
-        const info = tt.landmarks[i] ?? { name: landmark.name, note: landmark.note };
-        const el = buildMarkerEl(info.name, "landmark", fmt(tt.flyTo, { name: info.name }));
-        el.addEventListener("click", () => {
-          setActive({ name: info.name, note: info.note });
-          flyToSpot(map, landmark.center);
-        });
-        new maplibregl.Marker({ element: el, anchor: "bottom" })
-          .setLngLat(landmark.center)
-          .addTo(map);
-      });
-
-      const propertyEl = buildPropertyMarkerEl(PROPERTY.name, fmt(tt.flyTo, { name: PROPERTY.name }));
-      propertyEl.addEventListener("click", () => {
-        setActive({ name: PROPERTY.name, note: tt.propertyNote });
-        flyToSpot(map, PROPERTY.center);
-      });
-      new maplibregl.Marker({ element: propertyEl, anchor: "bottom" })
-        .setLngLat(PROPERTY.center)
-        .addTo(map);
 
       animateRouteLine();
-      riseTerrain(() => runFlythrough(map));
+      riseTerrain(() => {
+        if (reducedMotionRef.current) goTo(propertyIndex);
+        else startTour(0);
+      });
     });
 
     return () => {
+      clearTourTimer();
       if (dashFrameRef.current !== null) cancelAnimationFrame(dashFrameRef.current);
       map.remove();
       mapRef.current = null;
     };
+    // One-time setup: later language/copy changes reuse the same map
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function flyToSpot(map: MapLibreMap, center: [number, number]) {
-    setFlying(false);
-    const target = { center, zoom: 14.8, pitch: 72, bearing: -20 };
-    if (reducedMotionRef.current) {
-      map.jumpTo(target);
-    } else {
-      map.flyTo({ ...target, duration: 2600 });
-    }
-  }
+  // Highlight the active marker and keep its chip in view
+  useEffect(() => {
+    markersRef.current.forEach((el, i) => el.classList.toggle("is-active", i === activeIndex));
+    if (activeIndex === null || !stripRef.current) return;
+    const chip = stripRef.current.querySelector<HTMLElement>(`[data-stop="${activeIndex}"]`);
+    if (chip) stripRef.current.scrollTo({ left: chip.offsetLeft - stripRef.current.clientWidth / 2 + chip.clientWidth / 2, behavior: "smooth" });
+  }, [activeIndex]);
 
-  function runFlythrough(map: MapLibreMap) {
-    setActive(null);
-    map.jumpTo({ center: START.center, zoom: START.zoom, pitch: 68, bearing: 15 });
+  const toggleLabels = () => {
+    const next = !labels;
+    setLabels(next);
+    mapRef.current?.setLayoutProperty("labels", "visibility", next ? "visible" : "none");
+  };
 
-    if (reducedMotionRef.current) {
-      map.jumpTo({ center: PROPERTY.center, zoom: 14.6, pitch: 70, bearing: -20 });
-      setActive({ name: PROPERTY.name, note: tRef.current.propertyNote });
-      setFlying(false);
-      return;
-    }
+  const toggleRelief = () => {
+    const next = !relief;
+    setRelief(next);
+    const map = mapRef.current;
+    if (!map) return;
+    stopTour();
+    map.setTerrain({ source: "terrain", exaggeration: next ? MAX_EXAGGERATION : 0 });
+    map.easeTo({ pitch: next ? 65 : 0, duration: 900 });
+  };
 
-    setFlying(true);
-    map.flyTo({
-      center: END.center,
-      zoom: END.zoom,
-      pitch: 60,
-      bearing: -15,
-      duration: 14000,
-      curve: 1.2,
-      essential: true,
-    });
-    const onEnd = () => {
-      map.off("moveend", onEnd);
-      // After the wide establishing flight along the coast, zoom in on the
-      // property itself so the tour ends by introducing Rancho Alegria.
-      map.flyTo({
-        center: PROPERTY.center,
-        zoom: 14.6,
-        pitch: 70,
-        bearing: -25,
-        duration: 2600,
-        essential: true,
-      });
-      const onArrive = () => {
-        map.off("moveend", onArrive);
-        setActive({ name: PROPERTY.name, note: tRef.current.propertyNote });
-        setFlying(false);
-      };
-      map.on("moveend", onArrive);
-    };
-    map.on("moveend", onEnd);
-  }
+  const active = activeIndex !== null ? stops[activeIndex] : null;
+  const distanceLine =
+    active && active.kind !== "property"
+      ? fmt(t.distanceFrom, {
+          miles: milesBetween(active.center, PROPERTY.center).toFixed(1),
+          dir: active.center[0] < PROPERTY.center[0] ? t.west : t.east,
+        })
+      : null;
+
+  const ctrl = "rounded-full bg-ink/80 px-3.5 py-2 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50";
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-cream-line shadow-lg">
-      <div ref={containerRef} className="h-[480px] w-full sm:h-[620px]" />
+    <div>
+      <div className="relative overflow-hidden rounded-2xl border border-cream-line shadow-lg">
+        <div ref={containerRef} className="h-[520px] w-full sm:h-[640px]" />
 
-      {!ready && (
-        <div className="skeleton-shimmer absolute inset-0 flex items-center justify-center bg-sand-deep text-sm text-ink/50">
-          {t.loading}
+        {!ready && (
+          <div className="skeleton-shimmer absolute inset-0 flex items-center justify-center bg-sand-deep text-sm text-ink/50">
+            {t.loading}
+          </div>
+        )}
+
+        {/* Layer toggles */}
+        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+          <button type="button" aria-pressed={relief} onClick={toggleRelief} disabled={!ready} className={`${ctrl} ${relief ? "ring-1 ring-gold/70" : ""}`}>
+            {t.relief}
+          </button>
+          <button type="button" aria-pressed={labels} onClick={toggleLabels} disabled={!ready} className={`${ctrl} ${labels ? "ring-1 ring-gold/70" : ""}`}>
+            {t.labels}
+          </button>
         </div>
-      )}
 
-      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 sm:right-auto">
-        <button
-          onClick={() => mapRef.current && runFlythrough(mapRef.current)}
-          disabled={flying}
-          className="truncate rounded-full bg-ink/80 px-4 py-2.5 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
-        >
-          {flying ? t.flying : t.replay}
-        </button>
-        <button
-          onClick={() => {
-            if (!mapRef.current) return;
-            setActive(propertyInfo);
-            flyToSpot(mapRef.current, PROPERTY.center);
-          }}
-          disabled={flying}
-          className="truncate rounded-full border border-gold/60 bg-ink/80 px-4 py-2.5 text-xs font-semibold text-gold shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50 sm:px-5 sm:text-sm"
-        >
-          {t.viewProperty}
-        </button>
-      </div>
-
-      {active && (
-        <div className="animate-fade-in absolute left-4 right-16 top-4 max-w-sm rounded-xl bg-ink/85 px-4 py-3 text-sand shadow-lg backdrop-blur sm:right-auto">
-          <div className="flex items-start justify-between gap-3">
-            <p className="text-sm font-semibold">{active.name}</p>
-            <div className="flex flex-shrink-0 items-center gap-2">
-              {active.swell && (
-                <p className="whitespace-nowrap rounded-full bg-terracotta/90 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide">
-                  {active.swell}
+        {/* Stop card */}
+        {active && (
+          <div
+            key={activeIndex}
+            className="animate-fade-in absolute inset-x-3 bottom-16 rounded-xl bg-ink/85 p-4 text-sand shadow-xl backdrop-blur sm:inset-x-auto sm:bottom-20 sm:left-4 sm:w-[24rem]"
+            aria-live="polite"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold">
+                  {t.kinds[active.kind]} · {fmt(t.stopOf, { n: String((activeIndex ?? 0) + 1), total: String(stops.length) })}
                 </p>
-              )}
-              <button
-                type="button"
-                aria-label={t.close}
-                onClick={() => setActive(null)}
-                className="text-sand/60 hover:text-sand"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-                </svg>
+                <p className="mt-1 font-serif text-xl font-bold leading-tight">{active.name}</p>
+              </div>
+              <button type="button" aria-label={t.close} onClick={() => setActiveIndex(null)} className="-mr-1 grid h-8 w-8 flex-shrink-0 place-items-center rounded-full text-sand/60 hover:bg-sand/10 hover:text-sand">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" /></svg>
               </button>
             </div>
+            {active.swell && (
+              <p className="mt-2 inline-block rounded-full bg-terracotta/90 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide">{active.swell}</p>
+            )}
+            <p className="mt-2 text-xs leading-relaxed text-sand/85 sm:text-sm">{active.note}</p>
+            {distanceLine && <p className="mt-2 text-xs font-medium text-gold/90">{distanceLine}</p>}
+            <div className="mt-3 flex items-center gap-2">
+              <button type="button" onClick={() => goTo(Math.max(0, (activeIndex ?? 0) - 1))} disabled={activeIndex === 0} aria-label={t.prev} className="grid h-8 w-8 place-items-center rounded-full bg-sand/10 hover:bg-sand/20 disabled:opacity-30">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+              <button type="button" onClick={() => goTo(Math.min(stops.length - 1, (activeIndex ?? 0) + 1))} disabled={activeIndex === stops.length - 1} aria-label={t.next} className="grid h-8 w-8 place-items-center rounded-full bg-sand/10 hover:bg-sand/20 disabled:opacity-30">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+              {touring && <span className="ml-1 text-[0.7rem] text-sand/60">{t.touring}</span>}
+            </div>
           </div>
-          <p className="mt-1 text-xs leading-relaxed text-sand/80">{active.note}</p>
-        </div>
-      )}
+        )}
 
-      <div className="absolute bottom-4 right-4 hidden max-w-[45%] rounded-lg bg-ink/70 px-3 py-1.5 text-xs text-sand/90 backdrop-blur sm:block">
-        {t.hint}
-        {skyLabel && <> &middot; {t.liveSky}: {skyLabel}</>}
+        {/* Tour controls */}
+        <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => (touring ? stopTour() : startTour(activeIndex !== null && activeIndex < stops.length - 1 ? activeIndex : 0))}
+            disabled={!ready}
+            className={`${ctrl} flex items-center gap-1.5 bg-terracotta/95 hover:bg-terracotta-deep`}
+          >
+            {touring ? (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+            ) : (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+            )}
+            {touring ? t.tourPause : t.tourPlay}
+          </button>
+          <button type="button" onClick={() => goTo(propertyIndex)} disabled={!ready} className={`${ctrl} border border-gold/60 text-gold`}>
+            {t.viewProperty}
+          </button>
+        </div>
+      </div>
+
+      {/* Every stop, west to east */}
+      <div className="mt-4">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ink/50">{t.stopsTitle}</p>
+        <div ref={stripRef} className="relative flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
+          {stops.map((s, i) => (
+            <button
+              key={s.name}
+              type="button"
+              data-stop={i}
+              onClick={() => goTo(i)}
+              disabled={!ready}
+              aria-pressed={activeIndex === i}
+              className={`flex flex-shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors disabled:opacity-50 ${
+                activeIndex === i
+                  ? "border-terracotta bg-terracotta text-sand"
+                  : "border-cream-line bg-sand-deep/40 text-ink/80 hover:border-terracotta/60"
+              }`}
+            >
+              <span
+                className={`h-2.5 w-2.5 rounded-full ${s.kind === "property" ? "bg-gold" : s.kind === "surf" ? "bg-terracotta" : "bg-ocean"} ${activeIndex === i ? "ring-2 ring-sand" : ""}`}
+                aria-hidden="true"
+              />
+              {s.name}
+            </button>
+          ))}
+        </div>
+        <p className="mt-1 text-xs text-ink/50">
+          {t.hint}
+          {skyLabel && <> &middot; {t.liveSky}: {skyLabel}</>}
+        </p>
       </div>
     </div>
   );

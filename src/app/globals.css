@@ -457,6 +457,31 @@ body {
   transform: translateY(0) !important;
 }
 
+/* The stop the 3D map is showing: bigger dot, label always on */
+.surf-marker.is-active .surf-marker-label {
+  opacity: 1;
+  transform: translateY(0);
+  background: var(--terracotta);
+}
+
+.surf-marker.is-active .surf-marker-dot {
+  transform: scale(1.6);
+}
+
+.surf-marker-dot {
+  transition: transform 0.25s ease;
+}
+
+.landmark-marker.is-active .surf-marker-label {
+  background: var(--ocean);
+}
+
+/* Sections far below the fold skip layout and paint until they get close to the screen */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
 /* Warm gradient shimmer used on small kicker/eyebrow labels site-wide */
 @keyframes text-shimmer {
   0%,
