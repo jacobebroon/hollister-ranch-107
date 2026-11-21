@@ -6,6 +6,9 @@ export type SurfBreak = {
   // these are estimated from their described order west (Point Conception) to
   // east (Gaviota) and are not exact.
   center: [number, number];
+  /** Swell directions (degrees it comes FROM) and rough minimum size, in feet, the break needs */
+  swellFrom: [number, number];
+  minFt: number;
 };
 
 export const SURF_BREAKS: SurfBreak[] = [
@@ -14,48 +17,64 @@ export const SURF_BREAKS: SurfBreak[] = [
     swell: "Big W swells",
     note: "A long, rocky right point near Point Conception, once reachable by ranch road — now accessible only by boat.",
     center: [-120.4713, 34.4486],
+    swellFrom: [250, 300],
+    minFt: 5,
   },
   {
     name: "Cojo",
     swell: "SW summer, big W winter",
     note: "Widely considered the best wave on the ranch's western stretch — a reef and point that holds both big winter swells and summer south swells wrapping around Point Conception, an exposure most of the ranch's more easterly breaks don't share.",
     center: [-120.4366, 34.4519],
+    swellFrom: [195, 290],
+    minFt: 3,
   },
   {
     name: "Perko's",
     swell: "S summer swells",
     note: "A cobblestone right point named for founding Surf Club members Bob and John Perko; a reliable summer break that needs a south swell to turn on.",
     center: [-120.402, 34.4552],
+    swellFrom: [160, 220],
+    minFt: 2.5,
   },
   {
     name: "Drake's",
     swell: "Big W swells",
     note: "The ranch's longest right point, holding well-overhead west swells up to double overhead with a long, workable wall.",
     center: [-120.3673, 34.4585],
+    swellFrom: [250, 300],
+    minFt: 5,
   },
   {
     name: "Little Drake's",
     swell: "W swells",
     note: "A smaller, more forgiving break named alongside Big Drake's by the Santa Barbara Surf Club.",
     center: [-120.3328, 34.4618],
+    swellFrom: [250, 300],
+    minFt: 3,
   },
   {
     name: "Utah",
     swell: "W/NW swells",
     note: "One of the breaks named by the Santa Barbara Surf Club during its decade exploring the coastline.",
     center: [-120.2981, 34.4651],
+    swellFrom: [255, 320],
+    minFt: 3.5,
   },
   {
     name: "St. Augustine's",
     swell: "S summer swells",
     note: "An average wave with both rights and lefts, best on summer south swells.",
     center: [-120.2635, 34.4684],
+    swellFrom: [160, 220],
+    minFt: 2.5,
   },
   {
     name: "Razor Blades",
     swell: "Big W/NW swells",
     note: "Named for the sharp rocks lining the beach; the break closest to the Gaviota launch, needing a big west or northwest swell. Rancho Alegria (Parcel 107) sits on the bluff directly above it.",
     center: [-120.2288, 34.4717],
+    swellFrom: [260, 320],
+    minFt: 5,
   },
 ];
 

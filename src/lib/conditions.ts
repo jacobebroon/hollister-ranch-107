@@ -1,5 +1,5 @@
 const WEATHER_COORDS = { lat: 34.47, lng: -120.23 };
-const MARINE_COORDS = { lat: 34.47, lng: -120.23 };
+export const MARINE_COORDS = { lat: 34.47, lng: -120.23 };
 const TIDE_STATION = "9411399"; // Gaviota State Park, Pacific Ocean
 
 const REVALIDATE_SECONDS = 1800;

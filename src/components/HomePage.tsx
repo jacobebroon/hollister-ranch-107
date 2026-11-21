@@ -773,7 +773,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 print:hidden">
+      <section id="coast-map" className="scroll-mt-24 mx-auto max-w-6xl px-5 py-10 sm:px-8 print:hidden">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
             {t.map.terrainEyebrow}

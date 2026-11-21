@@ -73,6 +73,7 @@ const en = {
 
   conditions: {
     title: "Right Now at the Ranch",
+    surfLink: "See which breaks suit today’s swell →",
     sub: "Live conditions · updates every 30 min",
     weather: "Weather",
     surf: "Surf",
@@ -409,6 +410,17 @@ const en = {
   },
 
   terrain: {
+    liveSwell: "Live swell",
+    swellMatch: "Swell match right now",
+    matchGood: "Good match",
+    matchFair: "Possible",
+    matchPoor: "Unlikely",
+    swellNote: "A rough guide from live swell data, not a surf forecast.",
+    swellWants: "Likes {dir} swell, about {ft} ft or more",
+    light: "Light",
+    lightLive: "Live",
+    photos: "Photos",
+    film: "Watch the film",
     sky: { night: "Night", dawn: "Dawn", day: "Day", dusk: "Dusk" },
     flyTo: "Fly to {name}",
     viewProperty: "View Rancho Alegria",

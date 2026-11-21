@@ -7,7 +7,10 @@ import type { Dict } from "@/i18n";
 
 export default async function Conditions({ t }: { t: Dict["conditions"] }) {
   const { weather, surf, sun, tides, tideCurve, moon } = await getConditions();
-  const nowHour = new Date().getHours();
+  // The server runs on UTC; the tide chart's "now" marker needs California time
+  const nowHour = Number(
+    new Intl.DateTimeFormat("en-US", { hour: "numeric", hourCycle: "h23", timeZone: "America/Los_Angeles" }).format(new Date())
+  );
 
   return (
     <div className="overflow-hidden rounded-2xl border border-cream-line bg-sand-deep/40 shadow-sm">
@@ -55,6 +58,9 @@ export default async function Conditions({ t }: { t: Dict["conditions"] }) {
                 t={t.compass}
                 className="mt-3"
               />
+              <a href="#coast-map" className="mt-3 inline-block text-xs font-semibold text-ocean underline decoration-terracotta/60 underline-offset-4 hover:text-ocean-deep">
+                {t.surfLink}
+              </a>
             </>
           ) : (
             <p className="mt-1 text-sm text-ink/40">{t.unavailable}</p>

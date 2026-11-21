@@ -59,6 +59,7 @@ export default function PhotoTour({ photos, t }: { photos: Photo[]; t: Dict["tou
   const dialogRef = useRef<HTMLDivElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const touchStartRef = useRef<number | null>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
 
   const next = useCallback(() => setIndex((i) => (i + 1) % slides.length), [slides.length]);
   const prev = useCallback(() => setIndex((i) => (i - 1 + slides.length) % slides.length), [slides.length]);
@@ -113,6 +114,14 @@ export default function PhotoTour({ photos, t }: { photos: Photo[]; t: Dict["tou
     const id = window.setTimeout(next, SLIDE_MS);
     return () => window.clearTimeout(id);
   }, [open, playing, index, next]);
+
+  // Keep the filmstrip centered on the current photo
+  useEffect(() => {
+    if (!open || !stripRef.current) return;
+    const strip = stripRef.current;
+    const thumb = strip.querySelector<HTMLElement>(`[data-thumb="${index}"]`);
+    if (thumb) strip.scrollTo({ left: thumb.offsetLeft - strip.clientWidth / 2 + thumb.clientWidth / 2, behavior: "smooth" });
+  }, [index, open]);
 
   if (!open || slides.length === 0) return null;
 
@@ -260,6 +269,29 @@ export default function PhotoTour({ photos, t }: { photos: Photo[]; t: Dict["tou
 
       {/* Controls */}
       <div className="border-t border-sand/10 bg-black px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
+        {/* Filmstrip of the current chapter */}
+        <div ref={stripRef} className="mb-3 hidden gap-1.5 overflow-x-auto [scrollbar-width:none] sm:flex">
+          {slides.map((p, i) =>
+            p.category === currentChapter ? (
+              <button
+                key={p.slug}
+                type="button"
+                data-thumb={i}
+                onClick={() => {
+                  setPlaying(false);
+                  setIndex(i);
+                }}
+                aria-label={p.caption ?? `${i + 1}`}
+                aria-current={i === index}
+                className={`relative h-12 w-[4.5rem] flex-shrink-0 overflow-hidden rounded transition-opacity ${
+                  i === index ? "opacity-100 ring-2 ring-terracotta" : "opacity-45 hover:opacity-90"
+                }`}
+              >
+                <Image src={photoUrl(p.slug, "thumb")} alt="" fill sizes="72px" quality={50} className="object-cover" />
+              </button>
+            ) : null
+          )}
+        </div>
         <div className="mb-3 h-0.5 w-full overflow-hidden rounded bg-sand/15">
           <div
             key={`${current.slug}-${playing}`}

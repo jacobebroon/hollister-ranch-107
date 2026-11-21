@@ -74,6 +74,7 @@ const es: Dict = {
 
   conditions: {
     title: "Ahora mismo en el rancho",
+    surfLink: "Vea qué olas encajan con la marejada de hoy →",
     sub: "Condiciones en vivo · se actualizan cada 30 min",
     weather: "Clima",
     surf: "Oleaje",
@@ -441,6 +442,17 @@ const es: Dict = {
   },
 
   terrain: {
+    liveSwell: "Marejada en vivo",
+    swellMatch: "Coincidencia de marejada ahora",
+    matchGood: "Buena",
+    matchFair: "Posible",
+    matchPoor: "Poco probable",
+    swellNote: "Una guía aproximada con datos de marejada en vivo, no un pronóstico de surf.",
+    swellWants: "Prefiere marejada del {dir}, de unos {ft} pies o más",
+    light: "Luz",
+    lightLive: "En vivo",
+    photos: "Fotos",
+    film: "Ver el video",
     sky: { night: "Noche", dawn: "Amanecer", day: "Día", dusk: "Atardecer" },
     flyTo: "Volar a {name}",
     viewProperty: "Ver Rancho Alegria",
