@@ -358,16 +358,56 @@ const en = {
   },
 
   seasons: {
-    eyebrow: "Through the Year",
-    title: "The ranch through the seasons",
-    intro: "The ranch changes with every season — here’s what each one brings.",
-    now: "Happening now",
+    eyebrow: "All Year Round",
+    title: "Always in season",
+    intro: "There’s no off-season on the bluff. Every time of year brings something the family looks forward to — here’s what each one brings to Rancho Alegria.",
+    now: "This season",
     items: [
-      { months: "Dec – Feb", title: "Winter swell", body: "Big west and northwest swells wrap onto Drake's, Little Drake's, Utah, and Razor Blades — the ranch's most consistent, powerful stretch of the year." },
-      { months: "May – Sep", title: "Summer south swell", body: "Cojo, Perko's, and St. Augustine's come alive on south swells wrapping around Point Conception, an exposure most of the ranch doesn't share." },
-      { months: "Dec – May", title: "Gray whale migration", body: "Southbound whales pass the Channel Islands in December and January; the northbound migration runs closer to shore from February through May, with mother-and-calf pairs hugging the coast into May." },
-      { months: "Mar – May", title: "Spring wildflowers", body: "Ice plant, agave, and native wildflowers carpet the bluffs and garden paths each spring, the season captured in much of the property's photography." },
-    ],
+      {
+        months: "Dec – Feb",
+        title: "Winter",
+        photoAlt: "A storm sky breaking over the point in winter",
+        body: "The big west swells arrive and Razor Blades comes alive below the bluff. Winter rain turns the hills green again, storm skies break into some of the year’s best sunsets, and gray whales head south past the Channel Islands.",
+        highlights: [
+          "Big west swells",
+          "Green hills",
+          "Whales heading south"
+        ]
+      },
+      {
+        months: "Mar – May",
+        title: "Spring",
+        photoAlt: "Spring wildflowers on the hillside beside the house",
+        body: "Wildflowers, ice plant, and agave cover the bluffs and Jeanette’s garden is at its fullest. Mother gray whales swim north close to shore with their calves.",
+        highlights: [
+          "Wildflowers",
+          "Garden in bloom",
+          "Whales and calves"
+        ]
+      },
+      {
+        months: "Jun – Aug",
+        title: "Summer",
+        photoAlt: "Family in sun hats on a summer beach walk",
+        body: "Morning fog burns off into long, bright afternoons. South swells wrap around Point Conception to Cojo and Perko’s, and low tides open the reefs for exploring — the season of beach walks and family gatherings.",
+        highlights: [
+          "Beach days",
+          "South swells",
+          "Long evenings"
+        ]
+      },
+      {
+        months: "Sep – Nov",
+        title: "Fall",
+        photoAlt: "Walking up the stone path at sunset in the fall",
+        body: "The clearest days and warmest water of the year. The hills turn gold, the air goes still, and the sun sets a little farther south over the Channel each week.",
+        highlights: [
+          "Clearest days",
+          "Warmest water",
+          "Golden sunsets"
+        ]
+      }
+    ]
   },
 
   map: {

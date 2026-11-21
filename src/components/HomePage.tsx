@@ -36,7 +36,6 @@ import {
   IconCompass,
   IconMail,
   IconPhone,
-  IconWhale,
   IconFlower,
   IconTrail,
   IconGuestHome,
@@ -76,15 +75,17 @@ const HIGHLIGHTS = [
 
 const WILDLIFE_ICONS = [IconBird, IconPaw, IconFlower, IconShell];
 
+// One card per season, each with one of the family's photos
 const SEASON_META = [
-  { icon: IconWave, startMonth: 12, endMonth: 2 },
-  { icon: IconWave, startMonth: 5, endMonth: 9 },
-  { icon: IconWhale, startMonth: 12, endMonth: 5 },
-  { icon: IconFlower, startMonth: 3, endMonth: 5 },
+  { slug: "hc-1494", startMonth: 12, endMonth: 2 },
+  { slug: "ranch-020", startMonth: 3, endMonth: 5 },
+  { slug: "hc-1917", startMonth: 6, endMonth: 8 },
+  { slug: "hc-5251", startMonth: 9, endMonth: 11 },
 ];
 
 function isCurrentSeason(startMonth: number, endMonth: number) {
-  const now = new Date().getMonth() + 1;
+  // California's month, not the server's (which runs on UTC)
+  const now = Number(new Intl.DateTimeFormat("en-US", { month: "numeric", timeZone: "America/Los_Angeles" }).format(new Date()));
   return startMonth <= endMonth ? now >= startMonth && now <= endMonth : now >= startMonth || now <= endMonth;
 }
 
@@ -720,46 +721,55 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {/* Best time to visit */}
-      <section className="cv-auto mx-auto max-w-6xl px-5 py-20 sm:px-8">
+      {/* The ranch in every season */}
+      <section className="cv-auto mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
-            {t.seasons.eyebrow}
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
-            {t.seasons.title}
-          </h2>
-          <p className="mt-4 leading-relaxed text-ink/70">{t.seasons.intro}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">{t.seasons.eyebrow}</p>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-5xl">{t.seasons.title}</h2>
+          <p className="mt-5 text-lg leading-relaxed text-ink/70">{t.seasons.intro}</p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {t.seasons.items.map((s, i) => {
             const meta = SEASON_META[i];
-            const Icon = meta.icon;
             const isNow = isCurrentSeason(meta.startMonth, meta.endMonth);
             return (
-              <Reveal key={s.title} delay={i * 80}>
-                <SpotlightCard
-                  className={`relative h-full rounded-2xl border p-6 transition-shadow hover:shadow-md ${
-                    isNow ? "border-terracotta bg-terracotta/5" : "border-cream-line bg-sand-deep/40"
+              <Reveal key={s.title} delay={i * 90} className="h-full">
+                <article
+                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border bg-sand-deep/40 shadow-sm transition-shadow hover:shadow-lg ${
+                    isNow ? "border-terracotta ring-2 ring-terracotta/30" : "border-cream-line"
                   }`}
                 >
-                  {isNow && (
-                    <span className="absolute -top-2.5 right-5 z-10 rounded-full bg-terracotta px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-sand shadow-sm">
-                      {t.seasons.now}
-                    </span>
-                  )}
-                  <div className="relative z-10">
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-terracotta/10 text-terracotta icon-badge">
-                      <Icon />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Photo
+                      slug={meta.slug}
+                      variant="thumb"
+                      alt={s.photoAlt}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" aria-hidden="true" />
+                    <div className="absolute inset-x-0 bottom-0 p-4 text-sand">
+                      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-sand/80">{s.months}</p>
+                      <h3 className="font-serif text-2xl font-bold">{s.title}</h3>
                     </div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">
-                      {s.months}
-                    </p>
-                    <h3 className="mt-1 font-serif text-lg font-bold text-ink">{s.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
+                    {isNow && (
+                      <span className="absolute right-3 top-3 rounded-full bg-terracotta px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-sand shadow">
+                        {t.seasons.now}
+                      </span>
+                    )}
                   </div>
-                </SpotlightCard>
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="text-sm leading-relaxed text-ink/75">{s.body}</p>
+                    <ul className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                      {s.highlights.map((h) => (
+                        <li key={h} className="rounded-full border border-terracotta/25 bg-terracotta/5 px-2.5 py-1 text-[0.7rem] font-medium text-ink/75">
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
               </Reveal>
             );
           })}

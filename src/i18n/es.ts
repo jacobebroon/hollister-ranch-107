@@ -390,16 +390,56 @@ const es: Dict = {
   },
 
   seasons: {
-    eyebrow: "A lo largo del año",
-    title: "El rancho en cada estación",
-    intro: "El rancho cambia con cada estación — esto es lo que trae cada una.",
-    now: "Ahora mismo",
+    eyebrow: "Todo el año",
+    title: "Siempre es buena temporada",
+    intro: "En el acantilado no hay temporada baja. Cada época del año trae algo que la familia espera con ilusión — esto es lo que cada una trae a Rancho Alegria.",
+    now: "Esta temporada",
     items: [
-      { months: "Dic – Feb", title: "Mar de fondo de invierno", body: "Grandes marejadas del oeste y noroeste llegan a Drake's, Little Drake's, Utah y Razor Blades — la temporada más constante y potente del año en el rancho." },
-      { months: "May – Sep", title: "Mar de fondo del sur en verano", body: "Cojo, Perko's y St. Augustine's cobran vida con las marejadas del sur que rodean Point Conception, una exposición que el resto del rancho no comparte." },
-      { months: "Dic – May", title: "Migración de la ballena gris", body: "Las ballenas que van hacia el sur pasan por las islas del Canal en diciembre y enero; la migración hacia el norte pasa más cerca de la costa de febrero a mayo, con madres y crías bordeando la orilla hasta mayo." },
-      { months: "Mar – May", title: "Flores silvestres de primavera", body: "Cada primavera, la uña de gato, los agaves y las flores silvestres nativas cubren los acantilados y los senderos del jardín — la temporada que aparece en gran parte de las fotografías de la propiedad." },
-    ],
+      {
+        months: "Dic – Feb",
+        title: "Invierno",
+        photoAlt: "Un cielo de tormenta abriéndose sobre la punta en invierno",
+        body: "Llegan las grandes marejadas del oeste y Razor Blades cobra vida bajo el acantilado. La lluvia del invierno vuelve a pintar de verde las colinas, los cielos de tormenta se abren en algunos de los mejores atardeceres del año y las ballenas grises pasan hacia el sur frente a las islas del Canal.",
+        highlights: [
+          "Marejadas del oeste",
+          "Colinas verdes",
+          "Ballenas hacia el sur"
+        ]
+      },
+      {
+        months: "Mar – May",
+        title: "Primavera",
+        photoAlt: "Flores silvestres de primavera en la ladera junto a la casa",
+        body: "Las flores silvestres, la uña de gato y los agaves cubren los acantilados, y el jardín de Jeanette está en su mejor momento. Las ballenas grises madres nadan hacia el norte cerca de la costa con sus crías.",
+        highlights: [
+          "Flores silvestres",
+          "Jardín en flor",
+          "Ballenas y crías"
+        ]
+      },
+      {
+        months: "Jun – Ago",
+        title: "Verano",
+        photoAlt: "La familia con sombreros en un paseo de verano por la playa",
+        body: "La niebla de la mañana se disipa en tardes largas y luminosas. Las marejadas del sur rodean Point Conception hasta Cojo y Perko's, y la marea baja deja los arrecifes listos para explorar — la temporada de paseos por la playa y reuniones familiares.",
+        highlights: [
+          "Días de playa",
+          "Marejadas del sur",
+          "Tardes largas"
+        ]
+      },
+      {
+        months: "Sep – Nov",
+        title: "Otoño",
+        photoAlt: "Subiendo el sendero de piedra al atardecer en otoño",
+        body: "Los días más despejados y el agua más cálida del año. Las colinas se vuelven doradas, el aire se queda quieto y el sol se pone cada semana un poco más al sur sobre el canal.",
+        highlights: [
+          "Días despejados",
+          "Agua más cálida",
+          "Atardeceres dorados"
+        ]
+      }
+    ]
   },
 
   map: {
