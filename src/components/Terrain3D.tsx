@@ -10,7 +10,8 @@ import { photoUrl } from "@/lib/media";
 import { openPhotoTour } from "@/components/PhotoTour";
 import { MARINE_COORDS } from "@/lib/conditions";
 
-const MAX_EXAGGERATION = 1.6;
+const MAX_EXAGGERATION = 1.15;
+const PITCH = 60;
 const STOP_PAUSE_MS = 3200;
 const LABELS_TILES =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}";
@@ -23,7 +24,7 @@ const STYLE: StyleSpecification = {
       type: "raster",
       tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
       tileSize: 256,
-      maxzoom: 18,
+      maxzoom: 19,
       attribution: "Imagery &copy; Esri, Maxar, Earthstar Geographics",
     },
     terrain: {
@@ -34,23 +35,10 @@ const STYLE: StyleSpecification = {
       maxzoom: 14,
       attribution: "Terrain data: AWS Terrain Tiles / Mapzen",
     },
-    // MapLibre wants a separate DEM source for hillshading
-    hillshade: { type: "raster-dem", tiles: [DEM_TILES], tileSize: 256, encoding: "terrarium", maxzoom: 14 },
     labels: { type: "raster", tiles: [LABELS_TILES], tileSize: 256, maxzoom: 16 },
   },
   layers: [
     { id: "satellite", type: "raster", source: "satellite" },
-    {
-      id: "hillshade",
-      type: "hillshade",
-      source: "hillshade",
-      paint: {
-        "hillshade-exaggeration": 0.35,
-        "hillshade-shadow-color": "#1d2a33",
-        "hillshade-highlight-color": "#fff6e6",
-        "hillshade-illumination-direction": 300,
-      },
-    },
     { id: "labels", type: "raster", source: "labels", layout: { visibility: "none" }, paint: { "raster-opacity": 0.9 } },
   ],
   terrain: { source: "terrain", exaggeration: 0 },
@@ -124,12 +112,12 @@ function getSkyPreset(hour: number): SkyPreset {
     return { key: "night", sky: { skyColor: "#0d1a2b", horizonColor: "#1c2c3f", fogColor: "#16232f" }, raster: { brightnessMin: 0, brightnessMax: 0.55, saturation: -0.3, contrast: 0.05 } };
   }
   if (hour < 8) {
-    return { key: "dawn", sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" }, raster: { brightnessMin: 0, brightnessMax: 0.85, saturation: -0.05, contrast: 0.05 } };
+    return { key: "dawn", sky: { skyColor: "#7ea8c4", horizonColor: "#f2b98a", fogColor: "#f4c9a0" }, raster: { brightnessMin: 0.03, brightnessMax: 0.9, saturation: 0.05, contrast: 0.08 } };
   }
   if (hour < 17) {
-    return { key: "day", sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" }, raster: { brightnessMin: 0, brightnessMax: 1, saturation: 0.05, contrast: 0.05 } };
+    return { key: "day", sky: { skyColor: "#bcd9ea", horizonColor: "#f8f4ea", fogColor: "#f8f4ea" }, raster: { brightnessMin: 0.03, brightnessMax: 1, saturation: 0.12, contrast: 0.1 } };
   }
-  return { key: "dusk", sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" }, raster: { brightnessMin: 0, brightnessMax: 0.8, saturation: 0.05, contrast: 0.05 } };
+  return { key: "dusk", sky: { skyColor: "#4a5f83", horizonColor: "#e8845f", fogColor: "#e6a077" }, raster: { brightnessMin: 0.03, brightnessMax: 0.85, saturation: 0.1, contrast: 0.08 } };
 }
 
 function applyPreset(map: MapLibreMap, preset: SkyPreset) {
@@ -137,7 +125,10 @@ function applyPreset(map: MapLibreMap, preset: SkyPreset) {
     "sky-color": preset.sky.skyColor,
     "horizon-color": preset.sky.horizonColor,
     "fog-color": preset.sky.fogColor,
-    "fog-ground-blend": 0.5,
+    "fog-ground-blend": 0.82,
+    "horizon-fog-blend": 0.6,
+    "sky-horizon-blend": 0.6,
+    "atmosphere-blend": 0.6,
   });
   map.setPaintProperty("satellite", "raster-brightness-min", preset.raster.brightnessMin);
   map.setPaintProperty("satellite", "raster-brightness-max", preset.raster.brightnessMax);
@@ -301,7 +292,7 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
     const target = {
       center: stop.center,
       zoom: stop.kind === "property" ? 14.8 : 14.2,
-      pitch: 70,
+      pitch: PITCH + 4,
       bearing: stop.kind === "property" ? -25 : -15 + index * 2,
     };
     if (reducedMotionRef.current) map.jumpTo(target);
@@ -342,9 +333,14 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
       style: STYLE,
       center: stopsRef.current[0].center,
       zoom: 12.2,
-      pitch: 68,
+      pitch: PITCH,
       bearing: 15,
-      maxPitch: 85,
+      maxPitch: 72,
+      maxZoom: 17.5,
+      // Smoother edges, gentle tile fade, and a bigger tile cache for flying back and forth
+      canvasContextAttributes: { antialias: true },
+      fadeDuration: 250,
+      maxTileCacheZoomLevels: 6,
       attributionControl: { compact: true },
       // Page scrolling stays page scrolling: the map needs Ctrl/⌘ + scroll or two fingers
       cooperativeGestures: true,
@@ -558,7 +554,7 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
     if (!map) return;
     stopTour();
     map.setTerrain({ source: "terrain", exaggeration: next ? MAX_EXAGGERATION : 0 });
-    map.easeTo({ pitch: next ? 65 : 0, duration: 900 });
+    map.easeTo({ pitch: next ? PITCH : 0, duration: 900 });
   };
 
   const active = activeIndex !== null ? stops[activeIndex] : null;

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { preconnect } from "react-dom";
 import "./globals.css";
 
 const display = Playfair_Display({
@@ -78,6 +79,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Map tiles (satellite imagery + elevation) come from these hosts
+  preconnect("https://server.arcgisonline.com", { crossOrigin: "anonymous" });
+  preconnect("https://s3.amazonaws.com", { crossOrigin: "anonymous" });
   return (
     <html
       lang="en"

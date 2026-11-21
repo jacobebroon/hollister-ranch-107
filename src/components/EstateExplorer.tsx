@@ -67,7 +67,9 @@ export default function EstateExplorer({ t, photos }: { t: Dict["estate"]; photo
               src={photoUrl(AERIAL_SLUG)}
               alt={t.photoAlt}
               fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              // Loaded larger than it shows, so it stays sharp when the guide zooms in
+              sizes="(max-width: 1024px) 130vw, 80vw"
+              quality={90}
               className="photo-enhance object-cover"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent" />

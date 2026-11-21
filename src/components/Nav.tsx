@@ -45,19 +45,29 @@ export default function Nav({
     const settle = (id: string) => {
       const el = document.getElementById(id);
       if (!el) return;
+      // Late-rendering sections above can still shift the target, so re-check until it
+      // holds still; any wheel, touch, or key from the visitor ends the correction
+      let stable = 0;
+      let cancelled = false;
+      const cancel = () => (cancelled = true);
+      window.addEventListener("wheel", cancel, { once: true, passive: true });
+      window.addEventListener("touchstart", cancel, { once: true, passive: true });
+      window.addEventListener("keydown", cancel, { once: true });
       const align = (tries: number) => {
+        if (cancelled) return;
         const offset = el.getBoundingClientRect().top - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
         if (Math.abs(offset) > 4) {
+          stable = 0;
           window.scrollBy({ top: offset, behavior: "instant" as ScrollBehavior });
-          if (tries > 0) window.setTimeout(() => align(tries - 1), 250);
-        }
+        } else stable += 1;
+        if (tries > 0 && stable < 3) window.setTimeout(() => align(tries - 1), 220);
       };
       let done = false;
       const finish = () => {
         if (done) return;
         done = true;
         window.removeEventListener("scrollend", finish);
-        align(2);
+        align(14);
       };
       window.addEventListener("scrollend", finish, { once: true });
       window.setTimeout(finish, 2500); // browsers without scrollend

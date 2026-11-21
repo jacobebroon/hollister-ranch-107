@@ -784,7 +784,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <p className="mt-4 max-w-2xl text-ink/70">{t.map.terrainBody}</p>
         </Reveal>
         <Reveal delay={120} className="mt-8">
-          <LazyMount fallback={<TerrainFallback label={t.map.loadingTerrain} />}>
+          <LazyMount rootMargin="1600px 0px" fallback={<TerrainFallback label={t.map.loadingTerrain} />}>
             <Terrain3D t={t.terrain} lang={lang} />
           </LazyMount>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink/60">
