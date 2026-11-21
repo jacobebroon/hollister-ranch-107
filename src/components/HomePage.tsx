@@ -327,7 +327,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-ink/70">{t.video.intro}</p>
         </Reveal>
         <Reveal delay={100} className="print:hidden">
-          <VideoPlayer posterSlug="ranch-004" t={t.video} />
+          <VideoPlayer posterSlug="hc-front-a" t={t.video} />
           <p className="mt-3 text-center text-sm text-ink/50">
             {t.video.caption}
           </p>
@@ -576,8 +576,19 @@ export default function HomePage({ lang }: { lang: Lang }) {
           </Reveal>
         </div>
 
-        {/* Timeline */}
-        <div className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
+        {/* Timeline, with ranch photos that stay beside it on wide screens */}
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-20 sm:px-8 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
+          <div className="hidden lg:block">
+            <div className="sticky top-28 space-y-4">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+                <Photo slug="img-20150119-123532632" alt={t.history.fogAlt} variant="thumb" sizes="420px" className="object-cover" />
+              </div>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
+                <Photo slug="1000002822" alt={t.history.cattleAlt} variant="thumb" sizes="420px" className="object-cover" />
+              </div>
+            </div>
+          </div>
+          <div>
           <TimelineRail>
             {t.history.timeline.map((item, i) => (
               <li key={item.title} className="mb-12 last:mb-0">
@@ -594,6 +605,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
               </li>
             ))}
           </TimelineRail>
+          </div>
         </div>
 
         {/* Surf culture */}

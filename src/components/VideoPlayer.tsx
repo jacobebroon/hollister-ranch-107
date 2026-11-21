@@ -41,9 +41,12 @@ export default function VideoPlayer({ posterSlug, t }: { posterSlug: string; t: 
           alt={t.coverAlt}
           fill
           sizes="(max-width: 1024px) 100vw, 1024px"
-          quality={80}
-          className="photo-enhance object-cover"
+          quality={85}
+          className="photo-enhance animate-ken-burns object-cover"
         />
+      )}
+      {!started && (
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-ink/20" aria-hidden="true" />
       )}
 
       {!playing && (!started || !requested) && (
@@ -52,9 +55,10 @@ export default function VideoPlayer({ posterSlug, t }: { posterSlug: string; t: 
           aria-label={requested ? t.loading : t.play}
           onClick={play}
           disabled={requested}
-          className="group absolute inset-0 flex items-center justify-center bg-ink/20 transition-colors hover:bg-ink/10"
+          className="group absolute inset-0 flex items-center justify-center transition-colors hover:bg-ink/10"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-sand/95 text-terracotta shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-20 sm:w-20">
+          {!requested && <span className="absolute h-16 w-16 animate-ping rounded-full bg-sand/30 sm:h-20 sm:w-20" aria-hidden="true" />}
+          <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-sand/95 text-terracotta shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-20 sm:w-20">
             {requested ? (
               <span className="h-7 w-7 animate-spin rounded-full border-2 border-terracotta border-t-transparent" />
             ) : (
@@ -64,6 +68,16 @@ export default function VideoPlayer({ posterSlug, t }: { posterSlug: string; t: 
             )}
           </span>
         </button>
+      )}
+
+      {!started && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-sand sm:p-7">
+          <div>
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-sand/70">{t.eyebrow}</p>
+            <p className="mt-1 font-serif text-xl font-bold sm:text-3xl">Rancho Alegria</p>
+          </div>
+          <span className="rounded-full bg-ink/60 px-3 py-1 text-xs font-semibold tabular-nums backdrop-blur">4:26</span>
+        </div>
       )}
     </div>
   );

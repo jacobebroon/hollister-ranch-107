@@ -12,6 +12,17 @@ const INITIAL_COUNT = 16;
 
 const FILTER_KEYS: Array<Category | "all"> = ["all", "family", "residence", "grounds", "coastline", "sky"];
 
+// "All" view: rotate through the categories (captioned photos first in each) so the grid
+// opens with variety instead of runs of near-identical shots
+function interleave(photos: Photo[]): Photo[] {
+  const groups = new Map<string, Photo[]>();
+  for (const p of photos) groups.set(p.category, [...(groups.get(p.category) ?? []), p]);
+  const lists = [...groups.values()].map((l) => [...l].sort((a, b) => Number(Boolean(b.caption)) - Number(Boolean(a.caption))));
+  const out: Photo[] = [];
+  for (let i = 0; out.length < photos.length; i++) for (const l of lists) if (l[i]) out.push(l[i]);
+  return out;
+}
+
 export default function Gallery({
   photos,
   t,
@@ -32,7 +43,7 @@ export default function Gallery({
   const filtered = useMemo(
     () =>
       filter === "all"
-        ? [...photos].sort((a, b) => Number(Boolean(b.caption)) - Number(Boolean(a.caption)))
+        ? interleave(photos)
         : photos.filter((p) => p.category === filter),
     [photos, filter]
   );
@@ -129,7 +140,7 @@ export default function Gallery({
               onClick={() => open(i)}
               aria-label={`${t.openPhoto}${photo.caption ? `: ${photo.caption}` : ""}`}
               className={`group relative overflow-hidden rounded-xl bg-sand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta aspect-[4/3] ${
-                featured ? "sm:col-span-2 sm:row-span-2 sm:aspect-square" : ""
+                featured ? "sm:col-span-2 sm:row-span-2 sm:aspect-auto" : ""
               }`}
             >
               <Image
