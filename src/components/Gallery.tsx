@@ -26,6 +26,7 @@ export default function Gallery({
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const touchXRef = useRef<number | null>(null);
 
   const [showAll, setShowAll] = useState(false);
   const filtered = useMemo(
@@ -176,7 +177,20 @@ export default function Gallery({
           tabIndex={-1}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink/95 px-4 py-8 outline-none"
           onClick={close}
+          onTouchStart={(e) => (touchXRef.current = e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            if (touchXRef.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchXRef.current;
+            touchXRef.current = null;
+            if (Math.abs(dx) > 50) {
+              if (dx < 0) next();
+              else prev();
+            }
+          }}
         >
+          <p className="absolute left-5 top-6 text-sm tabular-nums text-sand/60">
+            {(index ?? 0) + 1} / {filtered.length}
+          </p>
           <button
             aria-label={t.close}
             onClick={close}

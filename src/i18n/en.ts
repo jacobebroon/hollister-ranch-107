@@ -410,6 +410,10 @@ const en = {
   },
 
   terrain: {
+    sunLine: "Sunset line",
+    sunsetBearing: "The sun sets toward {deg}° ({dir}) from the house today",
+    share: "Share this stop",
+    copied: "Link copied",
     liveSwell: "Live swell",
     swellMatch: "Swell match right now",
     matchGood: "Good match",

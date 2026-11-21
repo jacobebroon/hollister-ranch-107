@@ -33,6 +33,12 @@ export default function NotFound() {
         >
           Return Home
         </Link>
+        <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-sand/80">
+          <Link href="/#story" className="underline-offset-4 hover:text-sand hover:underline">Our Story</Link>
+          <Link href="/#memories" className="underline-offset-4 hover:text-sand hover:underline">Family Photos</Link>
+          <Link href="/#gallery" className="underline-offset-4 hover:text-sand hover:underline">Gallery</Link>
+          <Link href="/es" hrefLang="es" lang="es" className="underline-offset-4 hover:text-sand hover:underline">Volver al inicio en español</Link>
+        </div>
       </div>
     </div>
     </main>

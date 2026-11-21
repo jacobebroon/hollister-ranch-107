@@ -145,10 +145,36 @@ function applyPreset(map: MapLibreMap, preset: SkyPreset) {
   map.setPaintProperty("satellite", "raster-contrast", preset.raster.contrast);
 }
 
-const COMPASS = { en: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], es: ["N", "NE", "E", "SE", "S", "SO", "O", "NO"] };
+/** Bearing (degrees from north) of today's sunset, from solar declination; good to about a degree */
+function sunsetBearing(lat: number, date = new Date()) {
+  const start = Date.UTC(date.getUTCFullYear(), 0, 0);
+  const day = Math.floor((date.getTime() - start) / 86400000);
+  const decl = (23.44 * Math.PI / 180) * Math.sin((2 * Math.PI / 365) * (day - 81));
+  const cosA = Math.sin(decl) / Math.cos((lat * Math.PI) / 180);
+  return 360 - (Math.acos(Math.max(-1, Math.min(1, cosA))) * 180) / Math.PI;
+}
+
+/** Point a given distance (meters) along a bearing from a start point */
+function destination(from: [number, number], bearingDeg: number, meters: number): [number, number] {
+  const R = 6371000;
+  const b = (bearingDeg * Math.PI) / 180;
+  const lat1 = (from[1] * Math.PI) / 180;
+  const lng1 = (from[0] * Math.PI) / 180;
+  const d = meters / R;
+  const lat2 = Math.asin(Math.sin(lat1) * Math.cos(d) + Math.cos(lat1) * Math.sin(d) * Math.cos(b));
+  const lng2 = lng1 + Math.atan2(Math.sin(b) * Math.sin(d) * Math.cos(lat1), Math.cos(d) - Math.sin(lat1) * Math.sin(lat2));
+  return [(lng2 * 180) / Math.PI, (lat2 * 180) / Math.PI];
+}
+
+const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const COMPASS = {
+  en: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"],
+  es: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"],
+};
 function compass(deg: number, lang: string) {
   const names = lang === "es" ? COMPASS.es : COMPASS.en;
-  return names[Math.round((((deg % 360) + 360) % 360) / 45) % 8];
+  return names[Math.round((((deg % 360) + 360) % 360) / 22.5) % 16];
 }
 
 type Swell = { ft: number; period: number; deg: number };
@@ -233,6 +259,9 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
   const [skyLabel, setSkyLabel] = useState<string | null>(null);
   const [light, setLight] = useState<LightKey | "live">("live");
   const [swell, setSwell] = useState<Swell | null>(null);
+  const [sunLine, setSunLine] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const sunBearing = useMemo(() => sunsetBearing(PROPERTY.center[1]), []);
 
   // Live swell for the surf cards (Open-Meteo marine data, same source as the conditions panel)
   useEffect(() => {
@@ -399,6 +428,35 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
 
       // ~113 acres, circular approximation — illustrates scale, not a surveyed boundary.
       map.addSource("property-area", { type: "geojson", data: circlePolygon(PROPERTY.center, 381) });
+      // Today's sunset direction from the house, out across the Channel
+      const bearing = sunsetBearing(PROPERTY.center[1]);
+      map.addSource("sunset-line", {
+        type: "geojson",
+        lineMetrics: true,
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: { type: "LineString", coordinates: [PROPERTY.center, destination(PROPERTY.center, bearing, 2500), destination(PROPERTY.center, bearing, 9000)] },
+        },
+      });
+      map.addLayer({
+        id: "sunset-line-glow",
+        type: "line",
+        source: "sunset-line",
+        layout: { "line-cap": "round" },
+        paint: { "line-color": "#f2a65a", "line-width": 12, "line-opacity": 0.25, "line-blur": 8 },
+      });
+      map.addLayer({
+        id: "sunset-line",
+        type: "line",
+        source: "sunset-line",
+        layout: { "line-cap": "round" },
+        paint: {
+          "line-width": 3.5,
+          "line-gradient": ["interpolate", ["linear"], ["line-progress"], 0, "#ffd9a0", 0.6, "#f2a65a", 1, "rgba(232,132,95,0)"],
+        },
+      });
+
       map.addLayer({ id: "property-area-fill", type: "fill", source: "property-area", paint: { "fill-color": "#c1943a", "fill-opacity": 0.16 } });
       map.addLayer({
         id: "property-area-line",
@@ -415,8 +473,12 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
       });
 
       animateRouteLine();
+      // A shared link (?stop=razor-blades) opens straight on that stop
+      const shared = new URLSearchParams(window.location.search).get("stop");
+      const sharedIndex = shared ? stopsRef.current.findIndex((st) => slugify(st.name) === shared) : -1;
       riseTerrain(() => {
-        if (reducedMotionRef.current) goTo(propertyIndex);
+        if (sharedIndex >= 0) goTo(sharedIndex);
+        else if (reducedMotionRef.current) goTo(propertyIndex);
         else startTour(0);
       });
     });
@@ -444,6 +506,43 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
     const map = mapRef.current;
     if (!map) return;
     applyPreset(map, presetFor(key === "live" ? hourToLight(new Date().getHours()) : key));
+  };
+
+  const toggleSunLine = () => {
+    const next = !sunLine;
+    setSunLine(next);
+    const map = mapRef.current;
+    if (!map) return;
+    for (const id of ["sunset-line", "sunset-line-glow"]) map.setLayoutProperty(id, "visibility", next ? "visible" : "none");
+  };
+
+  const shareStop = async (stop: Stop) => {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.searchParams.set("stop", slugify(stop.name));
+    url.hash = "coast-map";
+    const link = url.toString();
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `${stop.name} · Rancho Alegria`, url: link });
+        return;
+      }
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* share sheet dismissed */
+    }
+  };
+
+  // Arrow keys step through the stops while the map area has focus
+  const onMapKey = (e: React.KeyboardEvent) => {
+    if (e.target instanceof HTMLElement && e.target.closest(".maplibregl-canvas-container")) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      const cur = activeIndex ?? -1;
+      goTo(Math.max(0, Math.min(stops.length - 1, cur + (e.key === "ArrowRight" ? 1 : -1))));
+    }
   };
 
   const toggleLabels = () => {
@@ -474,7 +573,8 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
   const ctrl = "rounded-full bg-ink/80 px-3.5 py-2 text-xs font-semibold text-sand shadow-lg backdrop-blur transition-colors hover:bg-ink disabled:opacity-50";
 
   return (
-    <div>
+    <div onKeyDown={onMapKey}>
+      {copied && <p className="sr-only" role="status">{t.copied}</p>}
       <div className="relative overflow-hidden rounded-2xl border border-cream-line shadow-lg">
         <div ref={containerRef} className="h-[520px] w-full sm:h-[640px]" />
 
@@ -491,6 +591,9 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
           </button>
           <button type="button" aria-pressed={labels} onClick={toggleLabels} disabled={!ready} className={`${ctrl} ${labels ? "ring-1 ring-gold/70" : ""}`}>
             {t.labels}
+          </button>
+          <button type="button" aria-pressed={sunLine} onClick={toggleSunLine} disabled={!ready} className={`${ctrl} ${sunLine ? "ring-1 ring-gold/70" : ""}`}>
+            {t.sunLine}
           </button>
           <div className="flex rounded-full bg-ink/80 p-0.5 shadow-lg backdrop-blur" role="group" aria-label={t.light}>
             {(["live", ...LIGHT_KEYS] as const).map((k) => (
@@ -530,6 +633,18 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
                 </p>
                 <p className="mt-1 font-serif text-xl font-bold leading-tight">{active.name}</p>
               </div>
+              <button
+                type="button"
+                aria-label={t.share}
+                onClick={() => shareStop(active)}
+                className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full text-sand/60 hover:bg-sand/10 hover:text-sand"
+              >
+                {copied ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12l5 5 9-10" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3v12M7 8l5-5 5 5M5 14v5h14v-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                )}
+              </button>
               <button type="button" aria-label={t.close} onClick={() => setActiveIndex(null)} className="-mr-1 grid h-8 w-8 flex-shrink-0 place-items-center rounded-full text-sand/60 hover:bg-sand/10 hover:text-sand">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" /></svg>
               </button>
@@ -559,6 +674,12 @@ export default function Terrain3D({ t, lang }: { t: Dict["terrain"]; lang: strin
                 })()}
                 <p className="mt-1 text-[0.6rem] text-sand/45">{t.swellNote}</p>
               </div>
+            )}
+            {active.kind === "property" && (
+              <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-gold/90">
+                <span className="inline-block h-1.5 w-4 rounded-full bg-gradient-to-r from-[#ffd9a0] to-[#e8845f]" aria-hidden="true" />
+                {fmt(t.sunsetBearing, { deg: String(Math.round(sunBearing)), dir: compass(sunBearing, lang) })}
+              </p>
             )}
             {active.kind === "property" && (
               <div className="mt-3 flex items-center gap-3">

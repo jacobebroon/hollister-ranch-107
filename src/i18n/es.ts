@@ -442,6 +442,10 @@ const es: Dict = {
   },
 
   terrain: {
+    sunLine: "Línea del atardecer",
+    sunsetBearing: "Hoy el sol se pone hacia {deg}° ({dir}) desde la casa",
+    share: "Compartir esta parada",
+    copied: "Enlace copiado",
     liveSwell: "Marejada en vivo",
     swellMatch: "Coincidencia de marejada ahora",
     matchGood: "Buena",
