@@ -82,23 +82,31 @@ export default function Nav({
     return () => document.removeEventListener("click", onClick);
   }, []);
 
+  // Highlight the last section the visitor has scrolled past (sections between nav items, like
+  // the map under "The Ranch", keep their parent highlighted)
   useEffect(() => {
-    const sections = ANCHORS.map((href) => document.getElementById(href.slice(1))).filter(
-      (el): el is HTMLElement => !!el
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(`#${visible[0].target.id}`);
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    let frame = 0;
+    const update = () => {
+      const line = window.innerHeight * 0.4;
+      let current = ANCHORS[0];
+      for (const href of ANCHORS) {
+        const el = document.getElementById(href.slice(1));
+        if (el && el.getBoundingClientRect().top <= line) current = href;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
