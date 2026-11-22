@@ -3,6 +3,7 @@ import { IconWave, IconMoon, IconCompass, IconEye } from "@/components/icons";
 import TideCurve from "@/components/TideCurve";
 import WeatherIcon from "@/components/WeatherIcon";
 import WindCompass from "@/components/WindCompass";
+import { SunArc, MoonPhase } from "@/components/SunMoon";
 import type { Dict } from "@/i18n";
 
 export default async function Conditions({ t }: { t: Dict["conditions"] }) {
@@ -94,13 +95,25 @@ export default async function Conditions({ t }: { t: Dict["conditions"] }) {
           </div>
           <p className="text-xs font-semibold uppercase tracking-widest text-ink/50">{t.sunMoon}</p>
           {sun ? (
-            <p className="mt-1 text-sm text-ink/65">
-              {t.sunrise} {sun.sunrise} &middot; {t.sunset} {sun.sunset}
-            </p>
+            <>
+              <p className="mt-1 text-sm text-ink/65">
+                {t.sunrise} {sun.sunrise} &middot; {t.sunset} {sun.sunset}
+              </p>
+              <SunArc sunrise={sun.sunrise} sunset={sun.sunset} label={`${t.sunrise} ${sun.sunrise}, ${t.sunset} ${sun.sunset}`} />
+            </>
           ) : null}
-          <p className="text-sm text-ink/65">
-            {t.moonPhases[moon.phaseName] ?? moon.phaseName} &middot; {moon.illuminationPct}% {t.lit}
-          </p>
+          <div className="mt-3 flex items-center gap-3">
+            <MoonPhase
+              phaseName={moon.phaseName}
+              illuminationPct={moon.illuminationPct}
+              label={`${t.moonPhases[moon.phaseName] ?? moon.phaseName}, ${moon.illuminationPct}% ${t.lit}`}
+            />
+            <p className="text-sm text-ink/65">
+              {t.moonPhases[moon.phaseName] ?? moon.phaseName}
+              <br />
+              {moon.illuminationPct}% {t.lit}
+            </p>
+          </div>
         </div>
       </div>
 

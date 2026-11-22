@@ -540,6 +540,7 @@ const es: Dict = {
 
   contact: {
     eyebrow: "Contacto",
+    photoAlt: "Reunidos en el acantilado para ver el atardecer",
     title: "Póngase en contacto",
     sunsetAlt: "Atardecer sobre el Pacífico desde Rancho Alegria",
     reachTitle: "Comuníquese directamente",
@@ -556,6 +557,7 @@ const es: Dict = {
 
   faq: {
     eyebrow: "Preguntas frecuentes",
+    photoAlt: "La galería cubierta, mirando más allá de las palmeras hacia el mar",
     title: "Algunas preguntas comunes",
     items: [
       { q: "¿Qué es Hollister Ranch 107?", a: "Hollister Ranch 107 es Rancho Alegria, la Parcela 107 de Hollister Ranch: 113 acres privados sobre el acantilado en la costa de Gaviota, California, con casa principal, casa de huéspedes, cancha de tenis con vista al mar y jacuzzi, justo encima de la rompiente Razor Blades." },

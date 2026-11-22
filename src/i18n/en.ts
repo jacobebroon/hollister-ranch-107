@@ -510,6 +510,7 @@ const en = {
 
   contact: {
     eyebrow: "Contact",
+    photoAlt: "Gathered on the bluff to watch the sunset",
     title: "Get in Touch",
     sunsetAlt: "Sunset over the Pacific from Rancho Alegria",
     reachTitle: "Reach out directly",
@@ -526,6 +527,7 @@ const en = {
 
   faq: {
     eyebrow: "Frequently Asked",
+    photoAlt: "The covered veranda, looking out past the palms to the sea",
     title: "A few common questions",
     items: [
       { q: "What is Hollister Ranch 107?", a: "Hollister Ranch 107 is Rancho Alegria, Parcel 107 of Hollister Ranch: 113 private bluff-top acres on California's Gaviota Coast with a main house, guest house, ocean-view tennis court, and hot tub, directly above the Razor Blades surf break." },

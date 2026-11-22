@@ -69,7 +69,7 @@ const HIGHLIGHTS = [
   "1000002157",
   "img-20150118-173149189",
   "ranch-020",
-  "1000002822",
+  "hc-dining",
   "1000003478",
 ];
 
@@ -961,6 +961,12 @@ export default function HomePage({ lang }: { lang: Lang }) {
           </Reveal>
 
           <Reveal delay={120}>
+            <figure className="mb-8">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg">
+                <Photo slug="hc-sunset-gathering" variant="thumb" alt={t.contact.photoAlt} sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+              </div>
+              <figcaption className="mt-2 text-sm italic text-ink/55">{t.contact.photoAlt}</figcaption>
+            </figure>
             <h3 className="font-serif text-2xl font-bold text-ink sm:text-3xl">{t.contact.aboutTitle}</h3>
             <ul className="mt-4 space-y-4">
               {t.contact.expect.map((item) => (
@@ -974,16 +980,19 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </div>
 
         <div className="border-t border-cream-line bg-sand-deep/40">
-          <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
-            <Reveal>
+          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
+            <Reveal className="lg:sticky lg:top-28 lg:self-start">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gradient-gold">
                 {t.faq.eyebrow}
               </p>
               <h3 className="mt-3 font-serif text-3xl font-bold text-ink sm:text-4xl">
                 {t.faq.title}
               </h3>
+              <div className="relative mt-8 hidden aspect-[4/5] overflow-hidden rounded-2xl shadow-lg lg:block">
+                <Photo slug="hc-front-b" variant="thumb" alt={t.faq.photoAlt} sizes="380px" className="object-cover" />
+              </div>
             </Reveal>
-            <div className="mt-10 space-y-6">
+            <div className="space-y-6">
               {t.faq.items.map((item, i) => (
                 <Reveal key={item.q} delay={i * 70}>
                   <FaqItem q={item.q} a={item.a} />
